@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>ArtHub · Light and Shadow for Artists</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: background-color 0.2s ease, color 0.2s, border-color 0.2s;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Inter', system-ui, -apple-system, 'Roboto', sans-serif;
+            line-height: 1.55;
+            position: relative;
+        }
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -2;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Cpath fill='%23b87c4f' fill-opacity='0.12' d='M60,15 L63,25 L73,25 L65,32 L68,42 L60,36 L52,42 L55,32 L47,25 L57,25 Z'/%3E%3Ccircle cx='30' cy='85' r='5' fill='%23e58a9e' fill-opacity='0.15'/%3E%3Ccircle cx='95' cy='40' r='6' fill='%236c9e4f' fill-opacity='0.12'/%3E%3Cpath fill='%235b8cbf' fill-opacity='0.1' d='M100,90 L103,96 L110,96 L105,101 L107,108 L100,103 L93,108 L95,101 L90,96 L97,96 Z'/%3E%3C/svg%3E");
+            background-repeat: repeat;
+            background-size: 80px 80px;
+        }
+        body.dark::before {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Cpath fill='%23d49c6c' fill-opacity='0.08' d='M60,15 L63,25 L73,25 L65,32 L68,42 L60,36 L52,42 L55,32 L47,25 L57,25 Z'/%3E%3Ccircle cx='30' cy='85' r='5' fill='%23f0a1b3' fill-opacity='0.1'/%3E%3Ccircle cx='95' cy='40' r='6' fill='%2380b35c' fill-opacity='0.08'/%3E%3Cpath fill='%236c9fd6' fill-opacity='0.08' d='M100,90 L103,96 L110,96 L105,101 L107,108 L100,103 L93,108 L95,101 L90,96 L97,96 Z'/%3E%3C/svg%3E");
+        }
+
+        :root {
+            --bg-body: #fef7e9;
+            --bg-card: #ffffff;
+            --text-primary: #2c2418;
+            --text-secondary: #5a4a34;
+            --border-light: #f0e2cf;
+            --accent-brown: #b87c4f;
+            --accent-green: #6c9e4f;
+            --accent-blue: #5b8cbf;
+            --accent-pink: #e58a9e;
+            --accent-brown-soft: #d9b48b;
+            --accent-green-soft: #b3d0a2;
+            --accent-blue-soft: #aac4e6;
+            --accent-pink-soft: #f4c4d0;
+            --shadow: 0 8px 20px rgba(0,0,0,0.05);
+        }
+        body.dark {
+            --bg-body: #1a1714;
+            --bg-card: #2a2622;
+            --text-primary: #f2ede4;
+            --text-secondary: #cdc2b2;
+            --border-light: #3f382f;
+            --accent-brown: #d49c6c;
+            --accent-green: #80b35c;
+            --accent-blue: #6c9fd6;
+            --accent-pink: #f0a1b3;
+            --accent-brown-soft: #9c6e48;
+            --accent-green-soft: #4f7039;
+            --accent-blue-soft: #4a6e96;
+            --accent-pink-soft: #b35f73;
+            --shadow: 0 8px 20px rgba(0,0,0,0.4);
+        }
+        body {
+            background: var(--bg-body);
+            color: var(--text-primary);
+        }
+
+        .lesson-container {
+            max-width: 1000px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: var(--bg-card);
+            border-radius: 2rem;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-light);
+            position: relative;
+            z-index: 1;
+        }
+
+        h1, h2, h3, h4 {
+            color: var(--accent-brown);
+            margin-top: 1.8rem;
+            margin-bottom: 0.8rem;
+            font-weight: 600;
+        }
+        h1 {
+            font-size: 2.4rem;
+            border-left: 6px solid var(--accent-pink);
+            padding-left: 1rem;
+            margin-top: 0.5rem;
+        }
+        h2 {
+            font-size: 1.8rem;
+            border-bottom: 2px solid var(--accent-green-soft);
+            display: inline-block;
+            padding-bottom: 0.3rem;
+        }
+        h3 {
+            font-size: 1.4rem;
+            color: var(--accent-blue);
+            margin-top: 1.2rem;
+        }
+        h4 {
+            font-size: 1.2rem;
+            color: var(--accent-pink);
+        }
+        p, li {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+        ul, ol {
+            margin: 0.8rem 0 1.2rem 2rem;
+        }
+        li {
+            margin: 0.4rem 0;
+        }
+        em, strong {
+            color: var(--accent-brown);
+        }
+        hr {
+            border: none;
+            height: 2px;
+            background: var(--border-light);
+            margin: 2rem 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            background: var(--bg-body);
+            border-radius: 1rem;
+            overflow: hidden;
+        }
+        th, td {
+            border: 1px solid var(--border-light);
+            padding: 10px 12px;
+            text-align: left;
+            vertical-align: top;
+            color: var(--text-secondary);
+        }
+        th {
+            background: var(--accent-blue-soft);
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 1.5rem;
+            background: var(--accent-blue-soft);
+            padding: 0.5rem 1.2rem;
+            border-radius: 40px;
+            text-decoration: none;
+            color: var(--text-primary);
+            font-weight: 500;
+            transition: 0.2s;
+        }
+        .back-link:hover {
+            background: var(--accent-pink-soft);
+            transform: translateX(-4px);
+        }
+        .theme-btn-lesson {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-light);
+            border-radius: 60px;
+            padding: 10px 18px;
+            cursor: pointer;
+            font-weight: 500;
+            color: var(--text-primary);
+            box-shadow: var(--shadow);
+            z-index: 100;
+            backdrop-filter: blur(4px);
+        }
+        .theme-btn-lesson:hover {
+            background: var(--accent-pink-soft);
+            transform: scale(0.96);
+        }
+        footer {
+            text-align: center;
+            padding: 1.5rem;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            border-top: 1px solid var(--border-light);
+            margin-top: 2rem;
+        }
+        @media (max-width: 680px) {
+            .lesson-container {
+                margin: 1rem;
+                padding: 1.2rem;
+            }
+            h1 { font-size: 1.8rem; }
+            h2 { font-size: 1.4rem; }
+            table, thead, tbody, th, td, tr { display: block; }
+            th, td { display: block; width: 100%; }
+        }
+    </style>
+</head>
+<body>
+<div class="lesson-container">
+    <a href="index.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to ArtHub Studio</a>
+    
+    <h2>LESSON 9: LIGHT AND SHADOW</h2>
+    <h3>Chiaroscuro, Form Shadows, Cast Shadows, and Understanding Light Logic</h3>
+    <p>&nbsp;</p>
+    
+    <h3>Introduction: The Sculptor's Tool</h3>
+    <p>Light is the artist's chisel. It carves form out of the flat canvas. Without light, there is no visible world. Without shadow, there is no depth.</p>
+    <p>Understanding <strong>light logic</strong>—the predictable way light behaves when it hits an object—is the single most important skill for creating artwork that feels <strong>solid</strong>, <strong>real</strong>, and <strong>present</strong>. You can draw the most anatomically perfect figure, but if you place the shadow on the wrong side of the nose, the face will look like a melted candle.</p>
+    <p>This lesson will teach you to think like a <strong>lighting director</strong>. You will learn the anatomy of a shadow, the difference between form and cast, the secrets of reflected light, and the dramatic power of chiaroscuro.</p>
+    <p>&nbsp;</p>
+    
+    <h3>SECTION 1: THE ANATOMY OF LIGHT AND SHADOW (The Five Zones)</h3>
+    <p>When a single, direct light source hits a solid object, it creates <strong>five distinct zones of value</strong>. Memorizing these five zones is the foundation of realistic rendering.</p>
+    <h4>1.1 The Five Value Zones on a Sphere (The Universal Model)</h4>
+    <table>
+        <thead>
+            <tr><th>Zone</th><th>Name</th><th>Definition</th><th>Where It Lives</th><th>Common Mistake</th></tr>
+        </thead>
+        <tbody>
+            <tr><td><strong>1</strong></td><td><strong>Highlight / Center Light</strong></td><td>The area facing most directly toward the light source.</td><td>On the plane perpendicular to light rays.</td><td>Making it too large. Highlights on matte surfaces are small.</td></tr>
+            <tr><td><strong>2</strong></td><td><strong>Halftone / Midtone</strong></td><td>The area where the form is beginning to turn away from the light.</td><td>The transition zone between light and shadow.</td><td>Confusing it with shadow. Halftone belongs to the Light Family – lighter than reflected light.</td></tr>
+            <tr><td><strong>3</strong></td><td><strong>Core Shadow</strong></td><td>The darkest part of the form shadow. Receives neither direct nor reflected light.</td><td>Just past the terminator line.</td><td>Making it too soft. The core shadow has a distinct, soft edge – the "belt" of darkness.</td></tr>
+            <tr><td><strong>4</strong></td><td><strong>Reflected Light</strong></td><td>Light bounced off the environment illuminating the shadow side.</td><td>Inside shadow area, near bottom or opposite the light.</td><td>Making it too bright. Reflected light is always darker than the halftone.</td></tr>
+            <tr><td><strong>5</strong></td><td><strong>Cast Shadow</strong></td><td>The shadow the object throws onto another surface.</td><td>On the ground plane or background wall.</td><td>Making it the same value as the core shadow. Cast shadow has its own structure.</td></tr>
+        </tbody>
+    </table>
+    <h4>1.2 The Terminator (The Most Important Line You Don't Draw)</h4>
+    <p>The <strong>Terminator</strong> is the boundary between the <strong>Light Family</strong> (Zones 1 &amp; 2) and the <strong>Shadow Family</strong> (Zones 3, 4, &amp; 5). It is not a hard line but a soft transition. The Core Shadow lives right next to the Terminator on the shadow side. <strong>Do not outline the terminator.</strong> Let the contrast between halftone and core shadow create the edge. A dark, hard outline on the terminator is the hallmark of a beginner.</p>
+    <h4>1.3 The Light Family vs. The Shadow Family (The Golden Rule)</h4>
+    <p><strong>The single most important rule in light logic:</strong> <em>"The lightest dark (Reflected Light) is always darker than the darkest light (Halftone)."</em> Squint at your subject. Separate everything into Light and Shadow families. Never let a shadow value cross into the light family's range. This separation creates the graphic read and punch of the image.</p>
+    <p>&nbsp;</p>
+    
+    <h3>SECTION 2: CAST SHADOWS – The Anchor of Reality</h3>
+    <p>Cast shadows are often an afterthought but are essential. A figure without a cast shadow floats in space.</p>
+    <h4>2.1 The Anatomy of a Cast Shadow</h4>
+    <ol>
+        <li><strong>The Umbra:</strong> Deepest, darkest part closest to the object – no light can reach.</li>
+        <li><strong>The Penumbra:</strong> Soft, lighter edge of the cast shadow – occurs because the light source has width.</li>
+        <li><strong>The Contact Point (Ambient Occlusion):</strong> Very thin, very dark line where the object touches the ground – the "anchor".</li>
+    </ol>
+    <p><strong>The Rule of Shadow Softness:</strong> Small/close light source → hard cast shadow edges (sunny day). Large/distant light source → soft cast shadow edges (overcast sky).</p>
+    <h4>2.2 Constructing a Cast Shadow (The Ray Trace Method)</h4>
+    <p>Define light source position. Find the Shadow Vanishing Point (SVP) on the ground plane directly below the light source. Draw light rays from source through top corners of object. Draw shadow rays from SVP through bottom corners. Intersect them to find the cast shadow edge. Practical simplification: stretch and skew the object's shape away from the light.</p>
+    <h4>2.3 The Shadow Connection (The "Glue" of the Scene)</h4>
+    <p>Cast shadows connect separate elements: a tree casts shadow on ground AND on a house; an arm casts shadow on its own chest. The core shadow is just a cast shadow on the object itself (nose casts shadow on upper lip).</p>
+    <p>&nbsp;</p>
+    
+    <h3>SECTION 3: CHIAROSCURO – The Drama of Light and Dark</h3>
+    <p><strong>Chiaroscuro</strong> (Italian: chiaro "light," scuro "dark") uses strong dramatic contrasts between light and shadow to create volume and mood.</p>
+    <h4>3.1 The Tenebrist Approach (Caravaggio / Rembrandt)</h4>
+    <p>Plunge most of the composition into deep shadow; illuminate only the essential focal point. The figure seems to emerge from darkness – theatrical, intense. How to paint: start with a mid-tone or dark ground, paint the shadow family first, then paint the light family with sculptural strokes, protecting the lights.</p>
+    <h4>3.2 The Rembrandt Lighting Triangle (The Portrait Standard)</h4>
+    <p>Light source at 45° to the side and 45° up from the subject. A small distinct triangle of light appears on the shadowed cheek below the eye. It sculpts cheekbone and jawline perfectly.</p>
+    <p>&nbsp;</p>
+    
+    <h3>SECTION 4: LIGHT LOGIC FOR COMPLEX FORMS</h3>
+    <h4>4.1 The Human Figure (The Egg and Cylinder Model)</h4>
+    <p>Head: treat as egg – core shadow diagonally across cheek and down neck. Torso: ribcage as egg – core shadow wraps around side of ribs. Limbs: cylinders – core shadow runs parallel to bone, offset from edge. Armpits and pit of neck: ambient occlusion – darkest darks regardless of lighting (unless lit from below).</p>
+    <h4>4.2 Drapery and Folds (The Waterfall Logic)</h4>
+    <p>Each fold has highlight, halftone, core shadow, reflected light. The cast shadow of the fold defines depth. The "Lighting Sandwich": top plane of fold (light), downward plane (core shadow), deep crevice (ambient occlusion).</p>
+    <h4>4.3 Landscapes (The Aerial Mix)</h4>
+    <p>Sunlight (hard light): trees cast sharp shadows, rocks have distinct core shadows. Overcast (soft light): no cast shadows – light is omnidirectional; form defined by local value and ambient occlusion.</p>
+    <p>&nbsp;</p>
+    
+    <h3>SECTION 5: MULTIPLE LIGHT SOURCES AND COLORED LIGHT</h3>
+    <h4>5.1 Key Light, Fill Light, Rim Light (The Three-Point System)</h4>
+    <p>Key Light: main dominant source (45° up and to one side). Fill Light: softer, weaker light on opposite side – lightens shadows. Rim Light: placed behind subject, creates bright glowing outline separating subject from background.</p>
+    <h4>5.2 Subsurface Scattering (The Glow of Flesh)</h4>
+    <p>Skin, wax, marble are translucent. On the shadow side of a thin form (ear, finger) right next to the terminator, there is a glow of saturated warm colour. Paint a saturated warm colour (red/orange) in the core shadow zone of thin forms – instantly makes flesh look like flesh, not plastic.</p>
+    <h4>5.3 Colored Light and Shadow Complementaries</h4>
+    <p>Warm Light = Cool Shadows (sunlight warm yellow → shadow on white snow looks blue). Cool Light = Warm Shadows (moonlight cool blue → shadow on face looks warm grey/orange). Two colored lights: the core shadow from one light is illuminated by the other – form defined by battle between colours.</p>
+    <p>&nbsp;</p>
+    
+    <h3>SECTION 6: DIGITAL VS. TRADITIONAL APPROACHES TO LIGHT</h3>
+    <h4>6.1 Traditional Media</h4>
+    <p><strong>Watercolor:</strong> Light is white of paper – preserve lights (leave unpainted), build shadows with glazes. Work light to dark.<br>
+    <strong>Oil/Acrylic:</strong> Work dark to light – start with dark umber underpainting, add thick opaque highlights (impasto).<br>
+    <strong>Graphite:</strong> Light created by lifting graphite with kneaded eraser; shadow by layering. Terminator defined by smooth blend.</p>
+    <h4>6.2 Digital Media (Photoshop, Procreate)</h4>
+    <p><strong>Layer Modes:</strong> Multiply for shadows, Overlay/Soft Light for atmosphere, Color Dodge/Add for highlights and rim light, Linear Burn for ambient occlusion.<br>
+    <strong>Gradient Map Trick:</strong> Create Gradient Map with shadow colour (cool dark blue) and light colour (warm yellow), set to Overlay/Soft Light – instantly unifies lighting.</p>
+    <p>&nbsp;</p>
+    
+    <h3>SECTION 7: COMMON LIGHTING MISTAKES &amp; HOW TO FIX THEM</h3>
+    <table>
+        <thead><tr><th>Mistake</th><th>Why It Happens</th><th>The Fix</th></tr></thead>
+        <tbody>
+            <tr><td><strong>"Pillow Shading"</strong></td><td>Shading only edges, leaving center light.</td><td>Determine light source direction. One side Light Family, other Shadow Family. Terminator cuts across form.</td></tr>
+            <tr><td><strong>"Floating" Highlight</strong></td><td>White blob that doesn't follow surface contour.</td><td>Highlights curve around the form – on sphere, highlight is a curved crescent.</td></tr>
+            <tr><td><strong>"Glowing" Reflected Light</strong></td><td>Reflected light as bright as halftone; shadow side blown out.</td><td>Darken it – must be visibly darker than halftone. Use Multiply layer or darker value picker.</td></tr>
+            <tr><td><strong>"Cut-Out" Cast Shadow</strong></td><td>Perfectly sharp hard edge like cut with scissors.</td><td>Soften penumbra edge. Further shadow from object, softer the edge.</td></tr>
+            <tr><td><strong>"Local Value Confusion"</strong></td><td>Shading black object and white object with same shadow value.</td><td>Shadows on white object are light grey; on black object near-black. Value range shifts based on inherent colour.</td></tr>
+            <tr><td><strong>"Multiple Light Source Chaos"</strong></td><td>Fill light completely erases core shadow of key light.</td><td>Fill light is weaker. Shadow side should still read as shadow. Preserve core shadow from key light.</td></tr>
+        </tbody>
+    </table>
+    <p>&nbsp;</p>
+    
+    <h3>SECTION 8: ASSIGNMENT / PRACTICE DRILL</h3>
+    <p><strong>Drill 1: The 5-Value Sphere (The Foundational Drill)</strong></p>
+    <ul>
+        <li>Draw a circle. Define a single light source (Top-Left).</li>
+        <li>Paint/Shade the five distinct zones: Highlight (White), Halftone (Mid-Light Grey), Core Shadow (Darkest Grey curved band), Reflected Light (Dark Grey but lighter than Core Shadow), Cast Shadow (Dark Grey, soft edge on far side).</li>
+        <li><strong>No Blending.</strong> Use hard-edged planes of value.</li>
+        <li><em>Goal: Understand separation of the five zones before smoothing them.</em></li>
+    </ul>
+    <p><strong>Drill 2: The Egg Head (Applying to Form)</strong></p>
+    <ul>
+        <li>Draw an egg shape (pointy end down). Light it from Top-Left.</li>
+        <li>Paint the Core Shadow wrapping diagonally across the egg.</li>
+        <li>Add the Cast Shadow on the ground plane.</li>
+        <li><em>Goal: See how sphere logic applies to asymmetrical organic form (the human head).</em></li>
+    </ul>
+    <p><strong>Drill 3: The Cast Shadow Construction (Geometric)</strong></p>
+    <ul>
+        <li>Draw a cube in 2-point perspective. Define a Light Source (a dot on the page).</li>
+        <li>Define the Shadow Vanishing Point (directly below light source, on horizon).</li>
+        <li>Use a ruler to project the cast shadow of the cube onto the ground plane.</li>
+        <li><em>Goal: Understand geometric relationship between light source, object, and cast shadow.</em></li>
+    </ul>
+    <p><strong>Drill 4: The Rembrandt Study (Master Copy)</strong></p>
+    <ul>
+        <li>Find a high-resolution image of a Rembrandt self-portrait.</li>
+        <li>Convert to Grayscale. Using only three values (White, Mid-Grey, Black), create a posterized study.</li>
+        <li>Identify the Light Triangle on the cheek.</li>
+        <li><em>Goal: Internalize Chiaroscuro value grouping.</em></li>
+    </ul>
+    <p><strong>Drill 5: The Colored Light Pair (Advanced)</strong></p>
+    <ul>
+        <li>Paint a simple white sphere. Version A: lit by Warm Yellow Light from Left – paint Shadow Family with Cool Blue/Purple tint.</li>
+        <li>Version B: lit by Cool Blue Light from Left – paint Shadow Family with Warm Orange/Brown tint.</li>
+        <li><em>Goal: Apply "Warm Light = Cool Shadows" principle.</em></li>
+    </ul>
+    <p><strong>Drill 6: The Subsurface Scattering Test</strong></p>
+    <ul>
+        <li>Draw a human ear (or simple thin crescent). Place a strong Backlight (Rim Light) behind it.</li>
+        <li>Paint the glowing red/orange edge along the Terminator on the shadow side.</li>
+        <li><em>Goal: Add the final 5% of realism that separates "clay" from "flesh".</em></li>
+    </ul>
+    <hr>
+    <p style="text-align: center; font-size: 0.9rem;"><i class="fas fa-lightbulb"></i> Light is the sculptor of form. Master its logic, and your art will breathe.</p>
+</div>
+<footer>
+    <p>© 2026 ArtHub — Light and Shadow for Artists <i class="fas fa-heart" style="color: var(--accent-pink);"></i></p>
+</footer>
+<button class="theme-btn-lesson" id="themeToggleLesson"><i class="fas fa-moon" id="themeIconLesson"></i> Dark/Light</button>
+
+<script>
+    function initTheme() {
+        if (localStorage.getItem('darkMode') === 'true') {
+            document.body.classList.add('dark');
+        } else {
+            document.body.classList.remove('dark');
+        }
+        updateIcon();
+    }
+    function toggleTheme() {
+        document.body.classList.toggle('dark');
+        localStorage.setItem('darkMode', document.body.classList.contains('dark'));
+        updateIcon();
+    }
+    function updateIcon() {
+        const icon = document.getElementById('themeIconLesson');
+        if (document.body.classList.contains('dark')) {
+            icon.classList.remove('fa-moon');
+            icon.classList.add('fa-sun');
+        } else {
+            icon.classList.remove('fa-sun');
+            icon.classList.add('fa-moon');
+        }
+    }
+    document.getElementById('themeToggleLesson').addEventListener('click', toggleTheme);
+    initTheme();
+</script>
+</body>
+</html>

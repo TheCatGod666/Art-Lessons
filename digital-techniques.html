@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>ArtHub · Digital Techniques for Artists</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: background-color 0.2s ease, color 0.2s, border-color 0.2s;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Inter', system-ui, -apple-system, 'Roboto', sans-serif;
+            line-height: 1.55;
+            position: relative;
+        }
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -2;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Cpath fill='%23b87c4f' fill-opacity='0.12' d='M60,15 L63,25 L73,25 L65,32 L68,42 L60,36 L52,42 L55,32 L47,25 L57,25 Z'/%3E%3Ccircle cx='30' cy='85' r='5' fill='%23e58a9e' fill-opacity='0.15'/%3E%3Ccircle cx='95' cy='40' r='6' fill='%236c9e4f' fill-opacity='0.12'/%3E%3Cpath fill='%235b8cbf' fill-opacity='0.1' d='M100,90 L103,96 L110,96 L105,101 L107,108 L100,103 L93,108 L95,101 L90,96 L97,96 Z'/%3E%3C/svg%3E");
+            background-repeat: repeat;
+            background-size: 80px 80px;
+        }
+        body.dark::before {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Cpath fill='%23d49c6c' fill-opacity='0.08' d='M60,15 L63,25 L73,25 L65,32 L68,42 L60,36 L52,42 L55,32 L47,25 L57,25 Z'/%3E%3Ccircle cx='30' cy='85' r='5' fill='%23f0a1b3' fill-opacity='0.1'/%3E%3Ccircle cx='95' cy='40' r='6' fill='%2380b35c' fill-opacity='0.08'/%3E%3Cpath fill='%236c9fd6' fill-opacity='0.08' d='M100,90 L103,96 L110,96 L105,101 L107,108 L100,103 L93,108 L95,101 L90,96 L97,96 Z'/%3E%3C/svg%3E");
+        }
+
+        :root {
+            --bg-body: #fef7e9;
+            --bg-card: #ffffff;
+            --text-primary: #2c2418;
+            --text-secondary: #5a4a34;
+            --border-light: #f0e2cf;
+            --accent-brown: #b87c4f;
+            --accent-green: #6c9e4f;
+            --accent-blue: #5b8cbf;
+            --accent-pink: #e58a9e;
+            --accent-brown-soft: #d9b48b;
+            --accent-green-soft: #b3d0a2;
+            --accent-blue-soft: #aac4e6;
+            --accent-pink-soft: #f4c4d0;
+            --shadow: 0 8px 20px rgba(0,0,0,0.05);
+        }
+        body.dark {
+            --bg-body: #1a1714;
+            --bg-card: #2a2622;
+            --text-primary: #f2ede4;
+            --text-secondary: #cdc2b2;
+            --border-light: #3f382f;
+            --accent-brown: #d49c6c;
+            --accent-green: #80b35c;
+            --accent-blue: #6c9fd6;
+            --accent-pink: #f0a1b3;
+            --accent-brown-soft: #9c6e48;
+            --accent-green-soft: #4f7039;
+            --accent-blue-soft: #4a6e96;
+            --accent-pink-soft: #b35f73;
+            --shadow: 0 8px 20px rgba(0,0,0,0.4);
+        }
+        body {
+            background: var(--bg-body);
+            color: var(--text-primary);
+        }
+
+        .lesson-container {
+            max-width: 1000px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: var(--bg-card);
+            border-radius: 2rem;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-light);
+            position: relative;
+            z-index: 1;
+        }
+
+        h1, h2, h3, h4 {
+            color: var(--accent-brown);
+            margin-top: 1.8rem;
+            margin-bottom: 0.8rem;
+            font-weight: 600;
+        }
+        h1 {
+            font-size: 2.4rem;
+            border-left: 6px solid var(--accent-pink);
+            padding-left: 1rem;
+            margin-top: 0.5rem;
+        }
+        h2 {
+            font-size: 1.8rem;
+            border-bottom: 2px solid var(--accent-green-soft);
+            display: inline-block;
+            padding-bottom: 0.3rem;
+        }
+        h3 {
+            font-size: 1.4rem;
+            color: var(--accent-blue);
+            margin-top: 1.2rem;
+        }
+        h4 {
+            font-size: 1.2rem;
+            color: var(--accent-pink);
+        }
+        p, li {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+        ul, ol {
+            margin: 0.8rem 0 1.2rem 2rem;
+        }
+        li {
+            margin: 0.4rem 0;
+        }
+        em, strong {
+            color: var(--accent-brown);
+        }
+        hr {
+            border: none;
+            height: 2px;
+            background: var(--border-light);
+            margin: 2rem 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            background: var(--bg-body);
+            border-radius: 1rem;
+            overflow: hidden;
+        }
+        th, td {
+            border: 1px solid var(--border-light);
+            padding: 10px 12px;
+            text-align: left;
+            vertical-align: top;
+            color: var(--text-secondary);
+        }
+        th {
+            background: var(--accent-blue-soft);
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 1.5rem;
+            background: var(--accent-blue-soft);
+            padding: 0.5rem 1.2rem;
+            border-radius: 40px;
+            text-decoration: none;
+            color: var(--text-primary);
+            font-weight: 500;
+            transition: 0.2s;
+        }
+        .back-link:hover {
+            background: var(--accent-pink-soft);
+            transform: translateX(-4px);
+        }
+        .theme-btn-lesson {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-light);
+            border-radius: 60px;
+            padding: 10px 18px;
+            cursor: pointer;
+            font-weight: 500;
+            color: var(--text-primary);
+            box-shadow: var(--shadow);
+            z-index: 100;
+            backdrop-filter: blur(4px);
+        }
+        .theme-btn-lesson:hover {
+            background: var(--accent-pink-soft);
+            transform: scale(0.96);
+        }
+        footer {
+            text-align: center;
+            padding: 1.5rem;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            border-top: 1px solid var(--border-light);
+            margin-top: 2rem;
+        }
+        @media (max-width: 680px) {
+            .lesson-container {
+                margin: 1rem;
+                padding: 1.2rem;
+            }
+            h1 { font-size: 1.8rem; }
+            h2 { font-size: 1.4rem; }
+            table, thead, tbody, th, td, tr { display: block; }
+            th, td { display: block; width: 100%; }
+        }
+    </style>
+</head>
+<body>
+<div class="lesson-container">
+    <a href="index.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to ArtHub Studio</a>
+    
+    <h2>LESSON 11: DIGITAL TECHNIQUES</h2>
+    <h3>Layers and Blending Modes, Raster vs. Vector Graphics, and Basic 3D Modeling Concepts</h3>
+    <p>&nbsp;</p>
+    
+    <h3>Introduction: The Digital Atelier</h3>
+    <p>Digital art is not a single medium. It is an <strong>infinite atelier</strong> containing every traditional tool ever invented—and many that are physically impossible. A digital canvas can be a sheet of watercolor paper one moment, a slab of wet oil paint the next, and a precise vector blueprint the moment after that.</p>
+    <p>The power of digital art lies in <strong>non-destructive workflows</strong>, <strong>infinite undo</strong>, and <strong>mathematical precision</strong>. However, this power comes with complexity. Without a structured understanding of layers, blending modes, and file formats, the digital artist can become lost in a sea of menus and settings.</p>
+    <p>This lesson will equip you with the <strong>core technical literacy</strong> required to navigate any digital art software with confidence and intention.</p>
+    <p>&nbsp;</p>
+    
+    <h3>SECTION 1: LAYERS – The Non-Destructive Stack</h3>
+    <p>Layers are the single most important concept in digital art. They are transparent sheets of virtual acetate stacked on top of each other. Each layer can contain different elements, be edited independently, and be shown or hidden at will.</p>
+    <h4>1.1 The Anatomy of the Layers Panel</h4>
+    <p>Every digital art program (Photoshop, Procreate, Clip Studio Paint, Krita, GIMP) has a Layers Panel. Understanding its components is essential.</p>
+    <table>
+        <thead><tr><th>Component</th><th>Icon (Typical)</th><th>Function</th></tr></thead>
+        <tbody>
+            <tr><td><strong>Visibility (Eye)</strong></td><td>👁️</td><td>Toggles the layer on or off. Essential for checking progress and isolating elements.</td></tr>
+            <tr><td><strong>Layer Thumbnail</strong></td><td>Small preview</td><td>Shows the content of the layer.</td></tr>
+            <tr><td><strong>Layer Name</strong></td><td>Text field</td><td><strong>ALWAYS name your layers.</strong> "Layer 47" is a nightmare. "Character Line Art" is a professional habit.</td></tr>
+            <tr><td><strong>Opacity Slider</strong></td><td>Percentage slider</td><td>Controls the transparency of the entire layer.</td></tr>
+            <tr><td><strong>Fill Slider</strong></td><td>Percentage slider</td><td>Controls the transparency of the layer's <strong>content</strong> but <strong>not</strong> Layer Styles (like Drop Shadow or Stroke).</td></tr>
+            <tr><td><strong>Lock Transparent Pixels</strong></td><td>Checkerboard icon</td><td>Prevents you from painting on <strong>empty</strong> areas of the layer. Essential for painting highlights or textures on an existing shape without going "outside the lines."</td></tr>
+            <tr><td><strong>Clipping Mask</strong></td><td>Downward arrow</td><td>The layer only appears <strong>where there is content on the layer directly below it</strong>. The foundational technique for non-destructive shading.</td></tr>
+            <tr><td><strong>Layer Mask</strong></td><td>White/Black rectangle</td><td>Allows you to <strong>hide</strong> parts of a layer without erasing them. Paint with <strong>Black</strong> to hide. Paint with <strong>White</strong> to reveal. <strong>This is the most powerful non-destructive tool in digital art.</strong></td></tr>
+            <tr><td><strong>Blending Mode</strong></td><td>Dropdown menu</td><td>Controls how the layer's pixels interact mathematically with the layers below.</td></tr>
+        </tbody>
+    </table>
+    <h4>1.2 The Professional Layer Workflow (The Golden Stack)</h4>
+    <p><strong>The Recommended Stack (From Bottom to Top):</strong></p>
+    <ol>
+        <li><strong>Background Layer:</strong> A solid color or simple gradient. <strong>Lock this layer.</strong></li>
+        <li><strong>Sketch Layer:</strong> Rough drawing. Set Blending Mode to <strong>Multiply</strong>. <strong>Lock this layer.</strong></li>
+        <li><strong>Local Color Layers (Flats):</strong> Solid flat base colors. Name them clearly ("Flats - Skin").</li>
+        <li><strong>Shading Layer (Multiply):</strong> Clipping Mask attached to Flats. Paint with desaturated blue/purple for core shadows.</li>
+        <li><strong>Highlight Layer (Screen / Color Dodge):</strong> Clipping Mask. Paint with warm yellow/white.</li>
+        <li><strong>Atmosphere / Lighting Layer (Overlay / Soft Light):</strong> Above all others. Unifies piece with overall lighting color.</li>
+        <li><strong>Line Art Layer (Top):</strong> Final cleaned-up line art. Set to <strong>Multiply</strong> or <strong>Normal</strong>.</li>
+    </ol>
+    <p><strong>The Golden Rule of Layers:</strong> <em>"Put it on its own layer until you are 100% certain you want it merged."</em></p>
+    <h4>1.3 Clipping Masks vs. Layer Masks (The Two Essential Masks)</h4>
+    <table>
+        <thead><tr><th>Feature</th><th>Clipping Mask</th><th>Layer Mask</th></tr></thead>
+        <tbody>
+            <tr><td><strong>What it does</strong></td><td>Restricts a layer's visibility to the <strong>shape</strong> of the layer directly below it.</td><td>Hides or reveals <strong>parts</strong> of a single layer using a grayscale image.</td></tr>
+            <tr><td><strong>Visual Metaphor</strong></td><td>A <strong>stencil</strong>. Top layer only shows through "holes" of bottom layer.</td><td>An <strong>eraser that isn't permanent</strong>. Paint black to hide, white to show.</td></tr>
+            <tr><td><strong>Use Case</strong></td><td>Shading character's skin without going outside skin flats.</td><td>Hiding bottom of legs to appear standing in fog; removing a stray branch from a photo.</td></tr>
+        </tbody>
+    </table>
+    <p>&nbsp;</p>
+    
+    <h3>SECTION 2: BLENDING MODES – The Mathematics of Light and Color</h3>
+    <p>Blending Modes change how a layer's pixels calculate their color based on the pixels underneath.</p>
+    <h4>2.1 The Blending Mode Cheat Sheet</h4>
+    <table>
+        <thead><tr><th>Group</th><th>Mode Name</th><th>What It Does</th><th>When To Use It</th></tr></thead>
+        <tbody>
+            <tr><td><strong>Darken</strong></td><td><strong>Multiply</strong></td><td>Always darker. White becomes transparent.</td><td>Shadows, Line Art, adding darkness.</td></tr>
+            <tr><td><strong>Darken</strong></td><td><strong>Linear Burn</strong></td><td>Stronger than Multiply.</td><td>Ambient Occlusion, deep crevices.</td></tr>
+            <tr><td><strong>Lighten</strong></td><td><strong>Screen</strong></td><td>Always lighter. Black becomes transparent.</td><td>Highlights, glows, rim light.</td></tr>
+            <tr><td><strong>Lighten</strong></td><td><strong>Color Dodge / Add</strong></td><td>Extremely intense, saturated light.</td><td>Fire, neon, magical glow, specular highlights.</td></tr>
+            <tr><td><strong>Contrast</strong></td><td><strong>Overlay</strong></td><td>Combines Multiply and Screen. 50% grey transparent.</td><td>Adding texture, increasing contrast, unifying colour temperature.</td></tr>
+            <tr><td><strong>Contrast</strong></td><td><strong>Soft Light</strong></td><td>Gentler version of Overlay.</td><td>Atmospheric lighting, subtle colour washes.</td></tr>
+            <tr><td><strong>Color</strong></td><td><strong>Color</strong></td><td>Preserves base luminosity, applies blend hue/saturation.</td><td>Colorizing a grayscale painting; changing object colour without repainting lighting.</td></tr>
+            <tr><td><strong>Color</strong></td><td><strong>Luminosity</strong></td><td>Preserves base hue/saturation, applies blend value.</td><td>Sharpening an image; fixing value contrast without shifting colours.</td></tr>
+        </tbody>
+    </table>
+    <h4>2.2 The "Grayscale to Color" Workflow</h4>
+    <ol>
+        <li>Paint entire image in <strong>Grayscale</strong> – focus only on values and lighting.</li>
+        <li>Create new layer on top, set to <strong>Overlay</strong> or <strong>Color</strong>.</li>
+        <li>Paint flat colors onto this layer – value structure is preserved automatically.</li>
+        <li>Create final <strong>Normal</strong> layer to add specular highlights and pure color accents.</li>
+    </ol>
+    <p>&nbsp;</p>
+    
+    <h3>SECTION 3: RASTER VS. VECTOR GRAPHICS</h3>
+    <p>This is the fundamental division in digital 2D art.</p>
+    <table>
+        <thead><tr><th>Feature</th><th>Raster Graphics (Pixels)</th><th>Vector Graphics (Mathematics)</th></tr></thead>
+        <tbody>
+            <tr><td><strong>Composition</strong></td><td>Grid of tiny colored squares (Pixels).</td><td>Mathematical equations describing Paths and Shapes.</td></tr>
+            <tr><td><strong>Resolution</strong></td><td>Resolution-dependent. Zoom in → pixelation.</td><td>Resolution-independent. Zoom in infinitely → always crisp.</td></tr>
+            <tr><td><strong>File Size</strong></td><td>Large (stores data for every pixel).</td><td>Small (stores only math for points).</td></tr>
+            <tr><td><strong>Typical Software</strong></td><td>Photoshop, Procreate, Krita, GIMP.</td><td>Illustrator, Affinity Designer, Inkscape.</td></tr>
+            <tr><td><strong>Best For</strong></td><td>Painting, photo editing, complex textures, soft gradients, concept art.</td><td>Logos, typography, icons, crisp line art, technical illustrations, scalable UI.</td></tr>
+        </tbody>
+    </table>
+    <p><strong>Hybrid Workflow:</strong> Sketch in raster, refine line art in vector, color and render in raster. Use <strong>Vector Layers</strong> in Clip Studio Paint or <strong>Pen Tool</strong> in Photoshop to create smooth Paths, then Stroke with a textured raster brush.</p>
+    <p>&nbsp;</p>
+    
+    <h3>SECTION 4: BASIC 3D MODELING CONCEPTS FOR 2D ARTISTS</h3>
+    <p>Modern 2D artists use 3D software as a tool for reference and base creation.</p>
+    <h4>4.1 The Three Pillars of 3D</h4>
+    <ul>
+        <li><strong>Modeling (Mesh):</strong> Shape of the object – vertices, edges, faces (wireframe).</li>
+        <li><strong>Texturing (Material):</strong> Surface appearance – colour, shininess, pattern.</li>
+        <li><strong>Lighting:</strong> Placing virtual light sources.</li>
+    </ul>
+    <h4>4.2 The "Blockout" and "Paintover" Method</h4>
+    <ol>
+        <li><strong>Blockout:</strong> Use simple 3D shapes to create rough scene with correct perspective, scale, lighting (20 minutes).</li>
+        <li><strong>Render:</strong> Take a screenshot.</li>
+        <li><strong>Paint Over:</strong> Bring into 2D software and paint over the 3D base, adding details and organic forms.</li>
+        <li><strong>Result:</strong> Perfect perspective and lighting combined with expressive 2D painting.</li>
+    </ol>
+    <h4>4.3 Essential 3D Terms</h4>
+    <ul>
+        <li><strong>Primitives:</strong> Basic shapes (cube, sphere, cylinder). Building blocks for complex scenes.</li>
+        <li><strong>Extrude:</strong> Pulling a flat 2D shape outward to give depth.</li>
+        <li><strong>Camera (FOV):</strong> Field of View – wide FOV = fish-eye distortion, narrow FOV = flattened space.</li>
+        <li><strong>Ambient Occlusion (AO):</strong> Contact shadows render pass. Export AO and set to <strong>Multiply</strong> over your 2D painting to instantly ground objects.</li>
+        <li><strong>Albedo (Base Colour):</strong> Equivalent to your Flats layer in 2D.</li>
+    </ul>
+    <p><strong>Free Tools:</strong> Blender (free, powerful), SketchUp Free (intuitive for architecture), Clip Studio Paint (3D mannequins).</p>
+    <p>&nbsp;</p>
+    
+    <h3>SECTION 5: COMMON DIGITAL TECHNIQUE MISTAKES &amp; HOW TO FIX THEM</h3>
+    <table>
+        <thead><tr><th>Mistake</th><th>Why It Happens</th><th>The Fix</th></tr></thead>
+        <tbody>
+            <tr><td><strong>The "Mystery Blob" (Layer Chaos)</strong></td><td>50 layers all named "Layer 1 copy 47".</td><td>Name layers immediately. Use Groups (Folders) to organize.</td></tr>
+            <tr><td><strong>The "Muddy" Color Picker</strong></td><td>Sliding straight down to darken a color.</td><td>Hue Shift: move toward Blue/Purple for shadows, Yellow/Orange for highlights.</td></tr>
+            <tr><td><strong>The "Floating" Layer Mask</strong></td><td>Mask not linked to layer; moves independently.</td><td>Click chain link icon between layer thumbnail and mask thumbnail.</td></tr>
+            <tr><td><strong>The "Pixelated" Logo</strong></td><td>Designing logos in raster (Photoshop).</td><td>Design logos in vector (Illustrator); import as Smart Object.</td></tr>
+            <tr><td><strong>The "Over-Blended" Painting</strong></td><td>Using only soft airbrush for everything; looks blurry.</td><td>Use hard-edged brushes for blocking in. Airbrush only for atmospheric effects and final 10% blending.</td></tr>
+            <tr><td><strong>The "Stamped" Texture Overlay</strong></td><td>Applying photo texture with wrong Blending Mode.</td><td>Try Overlay, Soft Light, or Multiply at 20-40% opacity. Mask out texture in highlights and deep shadows.</td></tr>
+        </tbody>
+    </table>
+    <p>&nbsp;</p>
+    
+    <h3>SECTION 6: ASSIGNMENT / PRACTICE DRILL</h3>
+    <p><strong>Drill 1: The Non-Destructive Castle</strong></p>
+    <ul>
+        <li>Create a new document. <strong>Do not use the Eraser Tool.</strong></li>
+        <li>Draw a castle silhouette on one layer. Add a second layer with a Layer Mask to "cut out" windows and doors.</li>
+        <li>Add third layer (Multiply) with Clipping Mask to shade the castle. Add fourth layer (Screen) with Clipping Mask for highlights.</li>
+        <li><em>Goal: Develop an instinct for non-destructive, mask-based workflows.</em></li>
+    </ul>
+    <p><strong>Drill 2: The Blending Mode Recipe Book</strong></p>
+    <ul>
+        <li>Draw a grey sphere on mid-grey background. Create new layer, fill with 50% Grey.</li>
+        <li>Set layer to Multiply, Screen, Overlay, Soft Light, Color Dodge, Linear Burn. Observe effects. Screenshot each for personal cheat sheet.</li>
+        <li><em>Goal: Build visual memory of what each Blending Mode does.</em></li>
+    </ul>
+    <p><strong>Drill 3: The Vector Trace Challenge</strong></p>
+    <ul>
+        <li>Find a simple high-contrast photo (leaf, hand silhouette). Open in Inkscape or Illustrator.</li>
+        <li>Use Pen Tool to trace outline using the fewest possible anchor points. Fill with solid color.</li>
+        <li><em>Goal: Understand economy and precision of vector paths.</em></li>
+    </ul>
+    <p><strong>Drill 4: The 3D Blockout Paintover</strong></p>
+    <ul>
+        <li>Open Blender or SketchUp Free. Build a very simple scene (cube for building, cylinder for tower, plane for ground). Place single light source.</li>
+        <li>Take screenshot, import into Photoshop/Procreate. Paint over it – add windows, bricks, vines, a character.</li>
+        <li><em>Goal: Experience speed and accuracy of hybrid 3D/2D workflow.</em></li>
+    </ul>
+    <p><strong>Drill 5: The Grayscale to Color Conversion</strong></p>
+    <ul>
+        <li>Paint a simple scene (apple on table) entirely in Grayscale. Create new layer set to Color Blending Mode. Paint flat colors onto Color layer.</li>
+        <li>Observe how grayscale value structure perfectly shades the colors.</li>
+        <li><em>Goal: Master professional concept art coloring workflow.</em></li>
+    </ul>
+    <p><strong>Drill 6: The Layer Mask Portrait</strong></p>
+    <ul>
+        <li>Find a portrait photo. Create a Solid Color Fill Layer (bright red). It comes with a white Layer Mask.</li>
+        <li>Invert the mask (Ctrl+I / Cmd+I) so it becomes black (hiding red entirely).</li>
+        <li>Using a white brush, paint on the mask to reveal red over lips, cheeks, nose.</li>
+        <li><em>Goal: Understand fundamental logic of Layer Masks: "White reveals, Black conceals."</em></li>
+    </ul>
+    <hr>
+    <p style="text-align: center; font-size: 0.9rem;"><i class="fas fa-laptop-code"></i> Digital tools are infinitely powerful – but only when you master the fundamentals of your virtual atelier.</p>
+</div>
+<footer>
+    <p>© 2026 ArtHub — Digital Techniques for Artists <i class="fas fa-heart" style="color: var(--accent-pink);"></i></p>
+</footer>
+<button class="theme-btn-lesson" id="themeToggleLesson"><i class="fas fa-moon" id="themeIconLesson"></i> Dark/Light</button>
+
+<script>
+    function initTheme() {
+        if (localStorage.getItem('darkMode') === 'true') {
+            document.body.classList.add('dark');
+        } else {
+            document.body.classList.remove('dark');
+        }
+        updateIcon();
+    }
+    function toggleTheme() {
+        document.body.classList.toggle('dark');
+        localStorage.setItem('darkMode', document.body.classList.contains('dark'));
+        updateIcon();
+    }
+    function updateIcon() {
+        const icon = document.getElementById('themeIconLesson');
+        if (document.body.classList.contains('dark')) {
+            icon.classList.remove('fa-moon');
+            icon.classList.add('fa-sun');
+        } else {
+            icon.classList.remove('fa-sun');
+            icon.classList.add('fa-moon');
+        }
+    }
+    document.getElementById('themeToggleLesson').addEventListener('click', toggleTheme);
+    initTheme();
+</script>
+</body>
+</html>

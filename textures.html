@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>ArtHub · Textures for Artists</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: background-color 0.2s ease, color 0.2s, border-color 0.2s;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Inter', system-ui, -apple-system, 'Roboto', sans-serif;
+            line-height: 1.55;
+            position: relative;
+        }
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -2;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Cpath fill='%23b87c4f' fill-opacity='0.12' d='M60,15 L63,25 L73,25 L65,32 L68,42 L60,36 L52,42 L55,32 L47,25 L57,25 Z'/%3E%3Ccircle cx='30' cy='85' r='5' fill='%23e58a9e' fill-opacity='0.15'/%3E%3Ccircle cx='95' cy='40' r='6' fill='%236c9e4f' fill-opacity='0.12'/%3E%3Cpath fill='%235b8cbf' fill-opacity='0.1' d='M100,90 L103,96 L110,96 L105,101 L107,108 L100,103 L93,108 L95,101 L90,96 L97,96 Z'/%3E%3C/svg%3E");
+            background-repeat: repeat;
+            background-size: 80px 80px;
+        }
+        body.dark::before {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Cpath fill='%23d49c6c' fill-opacity='0.08' d='M60,15 L63,25 L73,25 L65,32 L68,42 L60,36 L52,42 L55,32 L47,25 L57,25 Z'/%3E%3Ccircle cx='30' cy='85' r='5' fill='%23f0a1b3' fill-opacity='0.1'/%3E%3Ccircle cx='95' cy='40' r='6' fill='%2380b35c' fill-opacity='0.08'/%3E%3Cpath fill='%236c9fd6' fill-opacity='0.08' d='M100,90 L103,96 L110,96 L105,101 L107,108 L100,103 L93,108 L95,101 L90,96 L97,96 Z'/%3E%3C/svg%3E");
+        }
+
+        :root {
+            --bg-body: #fef7e9;
+            --bg-card: #ffffff;
+            --text-primary: #2c2418;
+            --text-secondary: #5a4a34;
+            --border-light: #f0e2cf;
+            --accent-brown: #b87c4f;
+            --accent-green: #6c9e4f;
+            --accent-blue: #5b8cbf;
+            --accent-pink: #e58a9e;
+            --accent-brown-soft: #d9b48b;
+            --accent-green-soft: #b3d0a2;
+            --accent-blue-soft: #aac4e6;
+            --accent-pink-soft: #f4c4d0;
+            --shadow: 0 8px 20px rgba(0,0,0,0.05);
+        }
+        body.dark {
+            --bg-body: #1a1714;
+            --bg-card: #2a2622;
+            --text-primary: #f2ede4;
+            --text-secondary: #cdc2b2;
+            --border-light: #3f382f;
+            --accent-brown: #d49c6c;
+            --accent-green: #80b35c;
+            --accent-blue: #6c9fd6;
+            --accent-pink: #f0a1b3;
+            --accent-brown-soft: #9c6e48;
+            --accent-green-soft: #4f7039;
+            --accent-blue-soft: #4a6e96;
+            --accent-pink-soft: #b35f73;
+            --shadow: 0 8px 20px rgba(0,0,0,0.4);
+        }
+        body {
+            background: var(--bg-body);
+            color: var(--text-primary);
+        }
+
+        .lesson-container {
+            max-width: 1000px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: var(--bg-card);
+            border-radius: 2rem;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-light);
+            position: relative;
+            z-index: 1;
+        }
+
+        h1, h2, h3, h4 {
+            color: var(--accent-brown);
+            margin-top: 1.8rem;
+            margin-bottom: 0.8rem;
+            font-weight: 600;
+        }
+        h1 {
+            font-size: 2.4rem;
+            border-left: 6px solid var(--accent-pink);
+            padding-left: 1rem;
+            margin-top: 0.5rem;
+        }
+        h2 {
+            font-size: 1.8rem;
+            border-bottom: 2px solid var(--accent-green-soft);
+            display: inline-block;
+            padding-bottom: 0.3rem;
+        }
+        h3 {
+            font-size: 1.4rem;
+            color: var(--accent-blue);
+            margin-top: 1.2rem;
+        }
+        h4 {
+            font-size: 1.2rem;
+            color: var(--accent-pink);
+        }
+        p, li {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+        ul, ol {
+            margin: 0.8rem 0 1.2rem 2rem;
+        }
+        li {
+            margin: 0.4rem 0;
+        }
+        em, strong {
+            color: var(--accent-brown);
+        }
+        hr {
+            border: none;
+            height: 2px;
+            background: var(--border-light);
+            margin: 2rem 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            background: var(--bg-body);
+            border-radius: 1rem;
+            overflow: hidden;
+        }
+        th, td {
+            border: 1px solid var(--border-light);
+            padding: 10px 12px;
+            text-align: left;
+            vertical-align: top;
+            color: var(--text-secondary);
+        }
+        th {
+            background: var(--accent-blue-soft);
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 1.5rem;
+            background: var(--accent-blue-soft);
+            padding: 0.5rem 1.2rem;
+            border-radius: 40px;
+            text-decoration: none;
+            color: var(--text-primary);
+            font-weight: 500;
+            transition: 0.2s;
+        }
+        .back-link:hover {
+            background: var(--accent-pink-soft);
+            transform: translateX(-4px);
+        }
+        .theme-btn-lesson {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-light);
+            border-radius: 60px;
+            padding: 10px 18px;
+            cursor: pointer;
+            font-weight: 500;
+            color: var(--text-primary);
+            box-shadow: var(--shadow);
+            z-index: 100;
+            backdrop-filter: blur(4px);
+        }
+        .theme-btn-lesson:hover {
+            background: var(--accent-pink-soft);
+            transform: scale(0.96);
+        }
+        footer {
+            text-align: center;
+            padding: 1.5rem;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            border-top: 1px solid var(--border-light);
+            margin-top: 2rem;
+        }
+        @media (max-width: 680px) {
+            .lesson-container {
+                margin: 1rem;
+                padding: 1.2rem;
+            }
+            h1 { font-size: 1.8rem; }
+            h2 { font-size: 1.4rem; }
+            table, thead, tbody, th, td, tr { display: block; }
+            th, td { display: block; width: 100%; }
+        }
+    </style>
+</head>
+<body>
+<div class="lesson-container">
+    <a href="index.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to ArtHub Studio</a>
+    
+    <h2>LESSON 7: TEXTURES</h2>
+    <h3>Visual and Tactile Surfaces, Both Simulated Digitally and Created Traditionally</h3>
+    <p>&nbsp;</p>
+    
+    <h3>Introduction: The Skin of the World</h3>
+    <p>Texture is the <strong>surface quality</strong> of an object. It tells the viewer what something would <strong>feel like</strong> if they could reach out and touch it. Is it rough like tree bark? Smooth like polished marble? Soft like velvet? Sharp like broken glass?</p>
+    <p>Texture serves three critical functions in art:</p>
+    <ol>
+        <li><strong>Realism:</strong> Texture grounds an object in the physical world. A dragon without scales is a balloon. A tree without bark is a green lollipop.</li>
+        <li><strong>Contrast:</strong> Texture provides a resting place for the eye. A highly textured area (a rocky cliff) makes a smooth area (a calm sky) feel even smoother by comparison.</li>
+        <li><strong>Emotion:</strong> Textures carry psychological weight. <strong>Rough</strong> textures feel ancient, dangerous, or weathered. <strong>Smooth</strong> textures feel futuristic, pristine, or cold. <strong>Soft</strong> textures feel comforting, intimate, or vulnerable.</li>
+    </ol>
+    <p>This lesson will teach you how to <strong>see</strong> texture as a pattern of value and edge, and how to <strong>create</strong> it using both traditional tools and digital brushes.</p>
+    <p>&nbsp;</p>
+    
+    <h3>SECTION 1: THE THEORY OF TEXTURE – Seeing Like an Artist</h3>
+    <p>Before you can draw or paint a texture, you must understand <strong>what creates it</strong> visually.</p>
+    <h4>1.1 The Three Components of Visual Texture</h4>
+    <table>
+        <thead><tr><th>Component</th><th>Definition</th><th>Visual Example</th></tr></thead>
+        <tbody>
+            <tr><td><strong>Value Contrast</strong></td><td>The difference between the lightest and darkest parts of the texture.</td><td><strong>High Contrast:</strong> Shiny metal, wet surfaces, broken glass. <strong>Low Contrast:</strong> Matte paper, fog, worn denim.</td></tr>
+            <tr><td><strong>Edge Quality</strong></td><td>How sharp or soft the transitions are between the texture elements.</td><td><strong>Hard Edges:</strong> Cracks in rock, wood grain lines, hair strands. <strong>Soft Edges:</strong> Moss, clouds, brushed suede.</td></tr>
+            <tr><td><strong>Pattern Density</strong></td><td>How tightly packed the repeating elements are.</td><td><strong>High Density:</strong> Fine sand, pebbled leather, skin pores. <strong>Low Density:</strong> Cobblestones, large scales, bark chunks.</td></tr>
+        </tbody>
+    </table>
+    <p><strong>The Golden Rule of Rendering Texture:</strong> <em>"Texture is most visible in the </em><strong>halftone</strong><em> (the transition between light and shadow). It disappears in the brightest highlight and the deepest shadow."</em></p>
+    <p><strong>Implication:</strong> Do not apply texture evenly over the entire object. <strong>Concentrate your texture work in the mid-value areas.</strong> The highlight should be smooth (blown out). The core shadow should be smooth (crushed black). This is what makes a sphere look like a <strong>shiny</strong> sphere vs. a <strong>fuzzy</strong> sphere.</p>
+    <h4>1.2 The Edge of the Silhouette (The "Bristle" Effect)</h4>
+    <p>Texture does not only exist <strong>inside</strong> the object. It affects the <strong>outer contour</strong>. Smooth object: perfectly clean continuous outline. Textured object: broken, jagged, or fuzzy outline. When drawing a furry animal, do not draw a smooth outline and then add fur inside – the fur creates the outline. Draw the silhouette as a series of small, repeated strokes that break the boundary.</p>
+    <p>&nbsp;</p>
+    
+    <h3>SECTION 2: TRADITIONAL TEXTURE TECHNIQUES (The Mark-Making Vocabulary)</h3>
+    <p>Traditional media excels at tactile texture—texture you can actually feel with your fingers.</p>
+    <h4>2.1 Dry Media (Graphite, Charcoal, Pastel)</h4>
+    <ul>
+        <li><strong>Hatching:</strong> Parallel lines. Density controls value. Use: smooth shading, wood grain, directional hair.</li>
+        <li><strong>Cross-Hatching:</strong> Overlapping lines at an angle. Use: deep shadows, rough cloth, weathered metal.</li>
+        <li><strong>Stippling:</strong> Dots. The closer the dots, the darker the value. Use: sand, stone, skin pores, fine mist.</li>
+        <li><strong>Scumbling / Circulism:</strong> Small, overlapping circular scribbles. Use: soft textures like clouds, foliage, or smooth skin gradients.</li>
+        <li><strong>Lifting / Erasing:</strong> Using a kneaded eraser to remove graphite. Use: highlights on hair, light reflecting off water ripples, dust motes.</li>
+    </ul>
+    <p><strong>The "Paper Tooth" Principle:</strong> Rough paper "grabs" charcoal, creating grain automatically. Smooth paper allows seamless blending. Choose your paper based on the texture you want.</p>
+    <h4>2.2 Wet Media (Ink, Watercolor, Acrylic)</h4>
+    <ul>
+        <li><strong>Dry Brush:</strong> Load brush with little paint, drag across rough paper. Use: wood grain, weathered bone, distant grass.</li>
+        <li><strong>Spattering:</strong> Flicking paint off a stiff brush. Use: stars, spray from a wave, dirt, rust, freckles.</li>
+        <li><strong>Salt on Watercolor:</strong> Sprinkle salt onto wet wash. Salt absorbs pigment, creating crystalline blooms. Use: snow, ice, lichen, magical energy.</li>
+        <li><strong>Plastic Wrap / Cling Film:</strong> Press plastic wrap onto wet wash, let dry, remove. Creates angular, faceted pools. Use: cracked earth, ice floes, abstract backgrounds.</li>
+        <li><strong>Lifting Wet-in-Wet:</strong> Dropping clean water or blotting into a wet wash. Use: soft clouds, smoke, soft shadow edges.</li>
+        <li><strong>Impasto (Acrylic/Oil):</strong> Applying paint thickly with palette knife or stiff brush so it stands up from canvas. Use: actual tactile texture – thick snow, heavy oil strokes, bread crust.</li>
+    </ul>
+    <h4>2.3 Rubbing and Frottage</h4>
+    <p>Placing paper over a textured surface and rubbing with graphite or crayon. Surfaces: wood grain, tree bark, coins, manhole covers, lace, leaves, rough concrete. This is a direct transfer of real-world texture, creating unpredictable organic patterns.</p>
+    <p>&nbsp;</p>
+    
+    <h3>SECTION 3: DIGITAL TEXTURE TECHNIQUES (Simulation and Efficiency)</h3>
+    <p>Digital art must simulate texture through brushes, layers, and photographic textures.</p>
+    <h4>3.1 The Custom Brush (The Digital Dry Brush)</h4>
+    <p><strong>Grain / Noise:</strong> Adding noise filter to brush tip makes strokes look like paper tooth.<br>
+    <strong>Dual Brush:</strong> Combining two brush tips creates complex organic strokes.<br>
+    <strong>Scattering:</strong> Randomizing brush tip position along stroke – use for foliage, stars, dust, freckles, gravel.<br>
+    <strong>Pro Tip:</strong> Search for specialized brushes, but don't just stamp them. Vary size, opacity, angle. Hand-paint over stamped texture to break up obvious repetition.</p>
+    <h4>3.2 Layer Modes and Texture Overlays (The Photobash Approach)</h4>
+    <ol>
+        <li>Find a high-resolution photo texture (rusty metal, cracked mud, old leather).</li>
+        <li>Place it over your painting layer.</li>
+        <li>Set Layer Mode to Overlay, Soft Light, or Multiply.</li>
+        <li>Adjust Opacity (usually 20-50%).</li>
+        <li>Mask out areas where you don't want the texture.</li>
+        <li><strong>Critical Step:</strong> Hand-paint shadows and highlights over the texture to make it wrap around the 3D form.</li>
+    </ol>
+    <h4>3.3 Edge Wear and Grunge Maps (The "Used" Look)</h4>
+    <ol>
+        <li>Create a Layer Mask on your object.</li>
+        <li>Alt-Click the mask to enter it.</li>
+        <li>Apply Clouds Filter (Render &gt; Clouds).</li>
+        <li>Apply Threshold Adjustment (Image &gt; Adjustments &gt; Threshold). This creates random jagged black/white pattern.</li>
+        <li>Exit the mask – edges are now "eaten away".</li>
+        <li>Paint manually into the mask to add specific scratches and dents.</li>
+        <li><em>Result:</em> Chipped paint, worn leather, battle-damaged armor.</li>
+    </ol>
+    <p>&nbsp;</p>
+    
+    <h3>SECTION 4: A TEXTURE GLOSSARY – HOW TO DRAW SPECIFIC SURFACES</h3>
+    <table>
+        <thead><tr><th>Texture</th><th>Traditional Approach</th><th>Digital Approach</th><th>Key Visual Cue</th></tr></thead>
+        <tbody>
+            <tr><td><strong>Wood Grain</strong></td><td>Draw flowing, parallel lines that fork and curve around knots. Sharp pencil or crowquill pen.</td><td>Thin hard round brush with Size set to Pen Pressure. Draw grain lines. Add Soft Light layer with brown/orange gradients.</td><td><strong>Knots.</strong> Wood grain wraps around knots like contour lines on a map.</td></tr>
+            <tr><td><strong>Rock / Stone</strong></td><td>Avoid outlines. Draw cracks and fissures (dark sharp lines). Stippling for rough surface. Smudge shadows into crevices.</td><td>Chalky/Square brush to block in planes. Speckle brush for granular surface. Add Ambient Occlusion shadows in deep cracks.</td><td><strong>Facets.</strong> Rocks are flat planes meeting at sharp angles. Draw the planes, not just bumps.</td></tr>
+            <tr><td><strong>Fur / Hair</strong></td><td>Draw in clumps, not individual strands. Layer three tones: Base (mid), Shadow (dark strokes between clumps), Highlight (light strokes on top).</td><td>Specialized hair brush with tapering ends. Block in mass first. Smudge Tool with textured brush to drag wispy ends. Lock Transparent Pixels to paint highlights.</td><td><strong>Flow.</strong> Hair flows from a crown/part outward, following skull curvature.</td></tr>
+            <tr><td><strong>Scales (Reptile/Fish)</strong></td><td>Draw grid of overlapping arcs. Start at tail, work toward head (scales overlap away from head). Cross-hatching in deep overlaps.</td><td>Pattern Overlay of scales. Distort (Warp/Puppet Warp) to follow cylindrical form. Manually erase pattern in highlight area.</td><td><strong>Overlap Direction.</strong> Scales overlap like roof tiles; free edge points toward tail.</td></tr>
+            <tr><td><strong>Fabric / Cloth</strong></td><td>Focus on fold shadows. For rough fabric, use dry brush. For silk, blend smooth gradients.</td><td>Fabric texture overlay (photo of linen) set to Multiply or Overlay. Paint fold shadows on separate layer underneath.</td><td><strong>Weave vs. Fold.</strong> Do not let surface texture distract from form shadow of the fold.</td></tr>
+            <tr><td><strong>Metal (Shiny)</strong></td><td>High contrast – dark darks next to bright highlights. Hard edge for reflection of a window. Soft gradient for curved body.</td><td>Gradient Tool on Color Dodge layer for bright rim light. Hard round brush for specular hits. Slight blue/cyan tint for sky reflection.</td><td><strong>Reflections.</strong> Metal shows the environment – a shiny sphere shows a distorted fisheye reflection of the room.</td></tr>
+            <tr><td><strong>Skin (Human)</strong></td><td>Layer translucent washes or blend smoothly. Texture is subtle. Focus on pores around nose and specular highlights on forehead/nose tip.</td><td>Soft Airbrush for base. Noise Filter or Grain Texture overlay. Speckle Brush at low opacity for subsurface scattering (red glow in thin flesh – ears, fingers).</td><td><strong>Subsurface Scattering.</strong> Skin is translucent, not opaque. Light penetrates and bounces back out.</td></tr>
+        </tbody>
+    </table>
+    <p>&nbsp;</p>
+    
+    <h3>SECTION 5: TEXTURE IN CONTEXT – The Principle of Material Differentiation</h3>
+    <p>In a scene with multiple objects, varying the textures makes the image feel rich and believable. Mistake: everything looks like the same "stuff". Solution: <strong>The 3-Texture Rule.</strong> Every scene or character design should have at least three distinct material textures. Example: matte chainmail + glossy polished steel + worn leather glove. Squint test: can you see clear difference in value range and edge quality between materials?</p>
+    <p>&nbsp;</p>
+    
+    <h3>SECTION 6: COMMON TEXTURE MISTAKES &amp; HOW TO FIX THEM</h3>
+    <table>
+        <thead><tr><th>Mistake</th><th>Why It Happens</th><th>The Fix</th></tr></thead>
+        <tbody>
+            <tr><td><strong>The "Wallpaper" Effect</strong></td><td>Applying texture brush evenly over flat shape without regard to lighting.</td><td>Mask it. Erase texture where light hits directly and where shadow is deep. Texture lives in midtones.</td></tr>
+            <tr><td><strong>The "Spaghetti" Hair</strong></td><td>Drawing every single strand of hair individually.</td><td>Draw clumps first, then add a few breakaway strands at silhouette edge.</td></tr>
+            <tr><td><strong>The "Plastic" Skin</strong></td><td>Blending everything perfectly smooth with a soft airbrush.</td><td>Add grain layer or noise filter at 5-10% opacity. Add specular hit on nose tip. Skin is slightly oily.</td></tr>
+            <tr><td><strong>The "Mud" Texture</strong></td><td>Using custom brush that is too soft and low-opacity, creating blurry mess.</td><td>Use hard-edged brush with Opacity set to Pen Pressure. Build up texture in distinct passes.</td></tr>
+            <tr><td><strong>The "Tile" Repetition</strong></td><td>Using photo texture that is too small, pattern visibly repeats.</td><td>Clone Stamp to manually break up repeat. Use larger texture image. Rotate and scale multiple copies to hide seams.</td></tr>
+        </tbody>
+    </table>
+    <p>&nbsp;</p>
+    
+    <h3>SECTION 7: ASSIGNMENT / PRACTICE DRILL</h3>
+    <p><strong>Drill 1: The Texture Swatch Board (Traditional)</strong></p>
+    <ul>
+        <li>Divide a piece of paper into 12 squares.</li>
+        <li>In each square, draw a different texture using only pencil or pen (no words, no outlines of objects). Examples: Fur, Wood, Rock, Water Ripples, Woven Fabric, Fish Scales, Rusty Metal, Cracked Mud, Clouds, Grass, Leather, Skin Pores.</li>
+        <li><em>Goal: Build a personal visual library of mark-making.</em></li>
+    </ul>
+    <p><strong>Drill 2: The Frottage Hunt (Traditional)</strong></p>
+    <ul>
+        <li>Take thin paper and a graphite stick or crayon.</li>
+        <li>Find 10 different textures in your home or outside. Make a rubbing of each. Label them.</li>
+        <li><em>Goal: Realize texture is everywhere and can be directly captured.</em></li>
+    </ul>
+    <p><strong>Drill 3: The Sphere Material Study (Digital or Traditional)</strong></p>
+    <ul>
+        <li>Draw 5 identical spheres.</li>
+        <li>Render each sphere as a different material using only value and edge control: Shiny Metal, Rough Stone, Fuzzy Tennis Ball, Glass/Crystal, Wood.</li>
+        <li><em>Goal: Prove that material is defined by how it interacts with light, not by its colour.</em></li>
+    </ul>
+    <p><strong>Drill 4: The 50% Photo Overlay (Digital)</strong></p>
+    <ul>
+        <li>Paint a simple sword or rock shape using flat colours.</li>
+        <li>Find a high-resolution photo texture (rust, stone, leather). Overlay it (Overlay mode at 40%).</li>
+        <li>Paint over it to add shadows and highlights that match the 3D form.</li>
+        <li><em>Goal: Learn the hybrid workflow of photobashing and hand-painting.</em></li>
+    </ul>
+    <p><strong>Drill 5: The Edge Eater (Digital)</strong></p>
+    <ul>
+        <li>Draw a smooth, perfect circle.</li>
+        <li>Use the Clouds + Threshold masking technique (Section 3.3) to "destroy" the edge.</li>
+        <li>Paint additional scratches and gouges manually into the mask.</li>
+        <li><em>Goal: Understand procedural texture generation and edge wear.</em></li>
+    </ul>
+    <hr>
+    <p style="text-align: center; font-size: 0.9rem;"><i class="fas fa-paint-brush"></i> Texture is the poetry of the surface – master it, and your worlds become tangible.</p>
+</div>
+<footer>
+    <p>© 2026 ArtHub — Textures for Artists <i class="fas fa-heart" style="color: var(--accent-pink);"></i></p>
+</footer>
+<button class="theme-btn-lesson" id="themeToggleLesson"><i class="fas fa-moon" id="themeIconLesson"></i> Dark/Light</button>
+
+<script>
+    function initTheme() {
+        if (localStorage.getItem('darkMode') === 'true') {
+            document.body.classList.add('dark');
+        } else {
+            document.body.classList.remove('dark');
+        }
+        updateIcon();
+    }
+    function toggleTheme() {
+        document.body.classList.toggle('dark');
+        localStorage.setItem('darkMode', document.body.classList.contains('dark'));
+        updateIcon();
+    }
+    function updateIcon() {
+        const icon = document.getElementById('themeIconLesson');
+        if (document.body.classList.contains('dark')) {
+            icon.classList.remove('fa-moon');
+            icon.classList.add('fa-sun');
+        } else {
+            icon.classList.remove('fa-sun');
+            icon.classList.add('fa-moon');
+        }
+    }
+    document.getElementById('themeToggleLesson').addEventListener('click', toggleTheme);
+    initTheme();
+</script>
+</body>
+</html>

@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>ArtHub · Animal Anatomy for Artists</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: background-color 0.2s ease, color 0.2s, border-color 0.2s;
+        }
+
+        /* Floral background (same as main index) */
+        body {
+            font-family: 'Segoe UI', 'Inter', system-ui, -apple-system, 'Roboto', sans-serif;
+            line-height: 1.55;
+            position: relative;
+        }
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -2;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Cpath fill='%23b87c4f' fill-opacity='0.12' d='M60,15 L63,25 L73,25 L65,32 L68,42 L60,36 L52,42 L55,32 L47,25 L57,25 Z'/%3E%3Ccircle cx='30' cy='85' r='5' fill='%23e58a9e' fill-opacity='0.15'/%3E%3Ccircle cx='95' cy='40' r='6' fill='%236c9e4f' fill-opacity='0.12'/%3E%3Cpath fill='%235b8cbf' fill-opacity='0.1' d='M100,90 L103,96 L110,96 L105,101 L107,108 L100,103 L93,108 L95,101 L90,96 L97,96 Z'/%3E%3C/svg%3E");
+            background-repeat: repeat;
+            background-size: 80px 80px;
+        }
+        body.dark::before {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Cpath fill='%23d49c6c' fill-opacity='0.08' d='M60,15 L63,25 L73,25 L65,32 L68,42 L60,36 L52,42 L55,32 L47,25 L57,25 Z'/%3E%3Ccircle cx='30' cy='85' r='5' fill='%23f0a1b3' fill-opacity='0.1'/%3E%3Ccircle cx='95' cy='40' r='6' fill='%2380b35c' fill-opacity='0.08'/%3E%3Cpath fill='%236c9fd6' fill-opacity='0.08' d='M100,90 L103,96 L110,96 L105,101 L107,108 L100,103 L93,108 L95,101 L90,96 L97,96 Z'/%3E%3C/svg%3E");
+        }
+
+        /* Light & Dark theme variables */
+        :root {
+            --bg-body: #fef7e9;
+            --bg-card: #ffffff;
+            --text-primary: #2c2418;
+            --text-secondary: #5a4a34;
+            --border-light: #f0e2cf;
+            --accent-brown: #b87c4f;
+            --accent-green: #6c9e4f;
+            --accent-blue: #5b8cbf;
+            --accent-pink: #e58a9e;
+            --accent-brown-soft: #d9b48b;
+            --accent-green-soft: #b3d0a2;
+            --accent-blue-soft: #aac4e6;
+            --accent-pink-soft: #f4c4d0;
+            --shadow: 0 8px 20px rgba(0,0,0,0.05);
+        }
+        body.dark {
+            --bg-body: #1a1714;
+            --bg-card: #2a2622;
+            --text-primary: #f2ede4;
+            --text-secondary: #cdc2b2;
+            --border-light: #3f382f;
+            --accent-brown: #d49c6c;
+            --accent-green: #80b35c;
+            --accent-blue: #6c9fd6;
+            --accent-pink: #f0a1b3;
+            --accent-brown-soft: #9c6e48;
+            --accent-green-soft: #4f7039;
+            --accent-blue-soft: #4a6e96;
+            --accent-pink-soft: #b35f73;
+            --shadow: 0 8px 20px rgba(0,0,0,0.4);
+        }
+        body {
+            background: var(--bg-body);
+            color: var(--text-primary);
+        }
+
+        .lesson-container {
+            max-width: 1000px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: var(--bg-card);
+            border-radius: 2rem;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-light);
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Typography */
+        h1, h2, h3, h4 {
+            color: var(--accent-brown);
+            margin-top: 1.8rem;
+            margin-bottom: 0.8rem;
+            font-weight: 600;
+        }
+        h1 {
+            font-size: 2.4rem;
+            border-left: 6px solid var(--accent-pink);
+            padding-left: 1rem;
+            margin-top: 0.5rem;
+        }
+        h2 {
+            font-size: 1.8rem;
+            border-bottom: 2px solid var(--accent-green-soft);
+            display: inline-block;
+            padding-bottom: 0.3rem;
+        }
+        h3 {
+            font-size: 1.4rem;
+            color: var(--accent-blue);
+            margin-top: 1.2rem;
+        }
+        h4 {
+            font-size: 1.2rem;
+            color: var(--accent-pink);
+        }
+        p, li {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+        .caption {
+            font-style: italic;
+            color: var(--accent-pink);
+            font-size: 0.9rem;
+            text-align: center;
+            margin: 1rem 0;
+        }
+        ul, ol {
+            margin: 0.8rem 0 1.2rem 2rem;
+        }
+        li {
+            margin: 0.4rem 0;
+        }
+        em, strong {
+            color: var(--accent-brown);
+        }
+        hr {
+            border: none;
+            height: 2px;
+            background: var(--border-light);
+            margin: 2rem 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            background: var(--bg-body);
+            border-radius: 1rem;
+            overflow: hidden;
+        }
+        th, td {
+            border: 1px solid var(--border-light);
+            padding: 10px 12px;
+            text-align: left;
+            vertical-align: top;
+            color: var(--text-secondary);
+        }
+        th {
+            background: var(--accent-blue-soft);
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 1.5rem;
+            background: var(--accent-blue-soft);
+            padding: 0.5rem 1.2rem;
+            border-radius: 40px;
+            text-decoration: none;
+            color: var(--text-primary);
+            font-weight: 500;
+            transition: 0.2s;
+        }
+        .back-link:hover {
+            background: var(--accent-pink-soft);
+            transform: translateX(-4px);
+        }
+        .theme-btn-lesson {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-light);
+            border-radius: 60px;
+            padding: 10px 18px;
+            cursor: pointer;
+            font-weight: 500;
+            color: var(--text-primary);
+            box-shadow: var(--shadow);
+            z-index: 100;
+            backdrop-filter: blur(4px);
+        }
+        .theme-btn-lesson:hover {
+            background: var(--accent-pink-soft);
+            transform: scale(0.96);
+        }
+        footer {
+            text-align: center;
+            padding: 1.5rem;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            border-top: 1px solid var(--border-light);
+            margin-top: 2rem;
+        }
+        @media (max-width: 680px) {
+            .lesson-container {
+                margin: 1rem;
+                padding: 1.2rem;
+            }
+            h1 { font-size: 1.8rem; }
+            h2 { font-size: 1.4rem; }
+            table, thead, tbody, th, td, tr { 
+                display: block; 
+            }
+            th, td {
+                display: block;
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="lesson-container">
+    <a href="index.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to ArtHub Studio</a>
+    
+    <h2>LESSON 2: ANIMAL ANATOMY FOR ARTISTS</h2>
+    <h3>Comparative Anatomy for Creature Design &amp; Wildlife Illustration</h3>
+    <p>&nbsp;</p>
+    <h3>Introduction: The Four-Legged Blueprint</h3>
+    <p><em>Human anatomy centers on a vertical spine and a pelvis designed for upright walking. </em><strong><em>Animal anatomy centers on a horizontal spine suspended between four limbs.</em></strong></p>
+    <p><em>Your first job when drawing any animal is to </em><strong><em>identify the bridge</em></strong><em>. The spine is a suspension bridge. The front legs are the </em><strong><em>pillars</em></strong><em> (bearing 60% of the weight). The back legs are the </em><strong><em>engines</em></strong><em> (providing thrust).</em></p>
+    <p>&nbsp;</p>
+    
+    <h3>SECTION 1: THE TORSO – The Horizontal Cylinder</h3>
+    <p><em>The animal torso is not a human torso turned sideways. It has unique proportions and a different ribcage shape.</em></p>
+    <p>&nbsp;</p>
+    <h4>1.1 The "Keel" Shape of the Ribcage</h4>
+    <ul>
+        <li><p><strong>Human Ribcage:</strong> Wide side-to-side, narrow front-to-back (barrel-shaped).</p></li>
+        <li><p><strong>Quadruped Ribcage:</strong> <strong>Narrow side-to-side, deep top-to-bottom.</strong> It is compressed laterally like the hull of a ship. This is called a <strong>keel</strong>.</p></li>
+        <li><p><strong>Artistic Implication:</strong> When drawing a dog, horse, or cat from the <strong>front view</strong>, the chest is very narrow. You see the <strong>sternum</strong> as a sharp ridge between the front legs. The widest point of the chest is actually much lower, near the <strong>elbows</strong>.</p></li>
+    </ul>
+    <p>&nbsp;</p>
+    <h4>1.2 The Spine Curves</h4>
+    <ul>
+        <li><p><strong>The "Bow" Curve:</strong> The spine of a quadruped naturally curves <strong>upward</strong> (convex) like an archer's bow. The highest point is usually the <strong>withers</strong> (shoulder blades).</p></li>
+    </ul>
+    <p><strong>Exceptions:</strong></p>
+    <ul>
+        <li><p><strong>Bison/Bears:</strong> Spine curves <strong>downward</strong> (concave) between massive shoulder hump and hip hump.</p></li>
+        <li><p><strong>Cats (Stalking):</strong> Spine flattens or slightly dips to lower the center of gravity.</p></li>
+    </ul>
+    <p>&nbsp;</p>
+    <h4>1.3 The Belly Line (Ventral Contour)</h4>
+    <p><em>Unlike the human flat stomach, the animal belly is a </em><strong><em>hammock</em></strong><em>. It sags slightly between the ribcage and the pelvis. The </em><strong><em>tuck-up</em></strong><em> (the angle where the belly meets the hind legs) defines the animal's silhouette:</em></p>
+    <ul>
+        <li><p><strong>Deep Tuck (Sighthounds/Cheetahs):</strong> Extreme speed. Belly cuts sharply up toward the spine.</p></li>
+        <li><p><strong>Shallow Tuck (Horses/Cows):</strong> Endurance or bulk. Belly is a gentle, longer curve.</p></li>
+        <li><p><strong>No Tuck (Pigs/Bears):</strong> Belly is a continuous cylinder.</p></li>
+    </ul>
+    <p>&nbsp;</p>
+    
+    <h3>SECTION 2: THE LIMBS – The "Z" Patterns</h3>
+    <p><em>This is where </em><strong><em>comparative anatomy</em></strong><em> is most critical. A beginner draws dog legs like human arms bent over. This is incorrect. The joints are </em><strong><em>not</em></strong><em> elbows and knees in the human sense.</em></p>
+    <p>&nbsp;</p>
+    <h4>2.1 The Front Leg (The Pillar)</h4>
+    <p><strong>Human Arm Comparison:</strong></p>
+    <ul>
+        <li><p>Shoulder -&gt; Elbow -&gt; Wrist -&gt; Fingers.</p></li>
+        <li><p>All joints flex <strong>forward</strong> (toward the chest).</p></li>
+    </ul>
+    <p><strong>Quadruped Front Leg Comparison:</strong></p>
+    <ul>
+        <li><p><strong>Shoulder Blade (Scapula):</strong> Glides along the <strong>side</strong> of the ribcage, not the back.</p></li>
+        <li><p><strong>Upper Arm (Humerus):</strong> Hidden inside the body silhouette. It points <strong>backward</strong> and slightly down.</p></li>
+        <li><p><strong>Elbow:</strong> Points <strong>backward</strong> toward the tail. It is tucked tight against the lower ribcage.</p></li>
+        <li><p><strong>Forearm (Radius/Ulna):</strong> This is the long, vertical section we see.</p></li>
+        <li><p><strong>Wrist (Carpus):</strong> This is what we mistakenly call the <strong>"front knee."</strong> It is <strong>not a knee</strong>. It is the <strong>wrist</strong>. It bends <strong>forward</strong> (when the animal is standing, it's locked straight; when lifting a paw, it bends forward).</p></li>
+    </ul>
+    <p><strong>The "Z" Shape of the Front Leg:</strong></p>
+    <p><em>Scapula (angles back) -&gt; Humerus (angles forward) -&gt; Radius (angles straight down). This creates a shock-absorbing spring.</em></p>
+    <p>&nbsp;</p>
+    <h4>2.2 The Hind Leg (The Engine)</h4>
+    <p><strong>Human Leg Comparison:</strong></p>
+    <ul>
+        <li><p>Hip -&gt; Knee (points forward) -&gt; Ankle (heel on ground) -&gt; Toes.</p></li>
+    </ul>
+    <p><strong>Quadruped Hind Leg Comparison:</strong></p>
+    <ul>
+        <li><p><strong>Pelvis (Ilium):</strong> The "rump" bone. It is <strong>long and narrow</strong>, pointing forward toward the head.</p></li>
+        <li><p><strong>Upper Leg (Femur):</strong> Hidden in the flank. It points <strong>forward</strong> and down.</p></li>
+        <li><p><strong>Knee (Stifle):</strong> Points <strong>forward</strong>. It is tucked up against the belly. On a horse, it's nearly invisible under the skin.</p></li>
+        <li><p><strong>Lower Leg (Tibia/Fibula):</strong> Angles <strong>backward</strong>.</p></li>
+        <li><p><strong>Ankle (Hock):</strong> This is the sharp bony angle pointing <strong>backward</strong> we mistakenly call the "back knee." <strong>It is the heel.</strong></p></li>
+        <li><p><strong>Foot (Metatarsals):</strong> The long, slender bone leading down to the ground.</p></li>
+        <li><p><strong>Toes (Phalanges):</strong> The animal walks on its <strong>tiptoes</strong> (digitigrade) or <strong>toenails</strong> (unguligrade).</p></li>
+    </ul>
+    <p><strong>The "Z" Shape of the Hind Leg:</strong></p>
+    <p><em>Pelvis (angles forward) -&gt; Femur (angles forward/down) -&gt; Tibia (angles back) -&gt; Metatarsal (straight down).</em></p>
+    <p>&nbsp;</p>
+    <h4>2.3 Comparative Joint Chart (The "What Is That Bump?" Guide)</h4>
+    <table>
+        <thead>
+            <tr><th>Bump on Animal</th><th><strong>Actual Anatomical Name</strong></th><th><strong>Human Equivalent</strong></th><th><strong>Direction of Bend</strong></th></tr>
+        </thead>
+        <tbody>
+            <tr><td><strong>Shoulder Point</strong></td><td>Greater Tubercle of Humerus</td><td>The hard point of <strong>your</strong> shoulder</td><td>Does not bend (pivot)</td></tr>
+            <tr><td><strong>"Front Knee"</strong></td><td><strong>Carpus (Wrist)</strong></td><td>Your wrist doing a push-up</td><td>Bends <strong>Forward</strong></td></tr>
+            <tr><td><strong>Elbow</strong></td><td>Olecranon Process</td><td>Your elbow</td><td>Points <strong>Backward</strong></td></tr>
+            <tr><td><strong>Rump Bump</strong></td><td>Tuber Coxae (Hip Bone)</td><td>The side of your pelvis</td><td>Does not bend</td></tr>
+            <tr><td><strong>"Back Knee"</strong></td><td><strong>Tarsus (Hock/Ankle)</strong></td><td>Your heel</td><td>Points <strong>Backward</strong></td></tr>
+            <tr><td><strong>Stifle</strong></td><td>Patella (Knee)</td><td>Your kneecap</td><td>Points <strong>Forward</strong></td></tr>
+        </tbody>
+    </table>
+    <p>&nbsp;</p>
+    
+    <h3>SECTION 3: THE HEAD – The Snout Formula</h3>
+    <p><em>Animal heads are defined by the </em><strong><em>ratio of Cranium to Snout</em></strong><em>.</em></p>
+    <p>&nbsp;</p>
+    <h4>3.1 The Three Basic Skull Shapes (For Construction)</h4>
+    <ol>
+        <li><p><strong>The Box (Dog/Wolf/Bear):</strong> Cranium is a <strong>sphere</strong>. Snout is a <strong>rectangular wedge</strong> attached to the <strong>front-middle</strong> of the sphere. Eye socket is on the <strong>side</strong> of the sphere.</p></li>
+        <li><p><strong>The Cone (Horse/Deer/Cow):</strong> Cranium is a <strong>slanted wedge</strong>. The forehead slopes straight down into the nasal bone with almost no "stop" (forehead step). Eyes are <strong>widely set</strong> on the sides.</p></li>
+        <li><p><strong>The Short Face (Cat/Owl/Primate):</strong> Cranium is <strong>huge</strong>, snout is <strong>compressed/flat</strong>. Eyes are <strong>forward-facing</strong> (binocular vision for predators).</p></li>
+    </ol>
+    <p>&nbsp;</p>
+    <h4>3.2 Eye Placement Rule (Crucial for Realism)</h4>
+    <ul>
+        <li><p><strong>Humans:</strong> Eyes on the <strong>front midline</strong>.</p></li>
+        <li><p><strong>Predators (Dogs/Cats):</strong> Eyes angled slightly <strong>forward</strong>, but still on the <strong>front-lateral corner</strong>. You can see a little bit of <strong>sclera (white)</strong> on both sides of the iris when looking forward.</p></li>
+        <li><p><strong>Prey (Horses/Deer):</strong> Eyes are <strong>completely lateral</strong> (on the sides of the head). The pupil is a <strong>horizontal bar</strong>. <strong>You almost never see the white of the eye</strong> unless the horse is terrified or rolling its eye back.</p></li>
+    </ul>
+    <p>&nbsp;</p>
+    <h4>3.3 The Nose Leather (Rhinarium)</h4>
+    <p><em>The </em><strong><em>philtrum</em></strong><em> (the vertical groove in the upper lip) is pronounced in most mammals. It splits the lip and connects to the wet nose pad. In </em><strong><em>cats</em></strong><em>, this groove is deep and short. In </em><strong><em>dogs</em></strong><em>, it's a distinct vertical line. In </em><strong><em>horses</em></strong><em>, it's gone—the lip is a solid, prehensile unit.</em></p>
+    <p>&nbsp;</p>
+    <h4>3.4 Ears: The Mood Barometer</h4>
+    <p><em>Animals have </em><strong><em>muscular ear control</em></strong><em>. The </em><strong><em>ear base</em></strong><em> is the only thing that stays fixed.</em></p>
+    <ul>
+        <li><p><strong>Alert:</strong> Ears point <strong>forward</strong> (bases rotate forward).</p></li>
+        <li><p><strong>Aggressive/Fearful:</strong> Ears pinned <strong>flat back</strong> (defense mechanism to protect ears from biting).</p></li>
+        <li><p><strong>Relaxed:</strong> Ears droop sideways or down (gravity takes over).</p></li>
+    </ul>
+    <p>&nbsp;</p>
+    
+    <h3>SECTION 4: COMPARATIVE FEET – What's On the Ground?</h3>
+    <p><em>This is the "hand" of the animal. Understanding this allows you to turn a human foot into a satyr leg or a werewolf paw.</em></p>
+    <p>&nbsp;</p>
+    <h4>4.1 Plantigrade (Flat-Footed)</h4>
+    <ul>
+        <li><p><strong>Examples:</strong> Humans, Bears, Raccoons, Rodents.</p></li>
+        <li><p><strong>Bones on Ground:</strong> Heel, Sole, Toes.</p></li>
+        <li><p><strong>Artistic Note:</strong> The <strong>heel</strong> is a massive, wide pad. The wrist (carpal pad) is high off the ground but visible as a small nub <em>behind</em> the main paw.</p></li>
+    </ul>
+    <p>&nbsp;</p>
+    <h4>4.2 Digitigrade (Tiptoe Walkers)</h4>
+    <ul>
+        <li><p><strong>Examples:</strong> Dogs, Cats, Birds (yes, birds are digitigrade).</p></li>
+        <li><p><strong>Bones on Ground:</strong> Only the <strong>Toes</strong>. The "palm" of the hand is the long, vertical bone (metacarpals).</p></li>
+        <li><p><strong>Artistic Note:</strong> The <strong>Dewclaw</strong> is the <strong>thumb</strong>. It is vestigial and high on the leg. In dogs, it's the 5th toe.</p></li>
+    </ul>
+    <p>&nbsp;</p>
+    <h4>4.3 Unguligrade (Hoof Walkers)</h4>
+    <ul>
+        <li><p><strong>Examples:</strong> Horses, Deer, Cows, Pigs.</p></li>
+        <li><p><strong>Bones on Ground:</strong> The very <strong>tip of the toenail</strong>. The "foot" is the long cannon bone.</p></li>
+        <li><p><strong>Artistic Note:</strong> The <strong>Fetlock Joint</strong> is the <strong>knuckle</strong> (metacarpophalangeal joint). The <strong>Ergot</strong> and <strong>Chestnut</strong> are callouses—evolutionary remnants of toes that disappeared.</p></li>
+    </ul>
+    <p>&nbsp;</p>
+    
+    <h3>SECTION 5: SPECIFIC ANIMAL BLUEPRINTS (Quick Reference)</h3>
+    <p>&nbsp;</p>
+    <h4>5.1 The Feline (Cat/Big Cat)</h4>
+    <ul>
+        <li><p><strong>Spine:</strong> Extremely flexible. Can compress like a spring and elongate like taffy.</p></li>
+        <li><p><strong>Scapula:</strong> Attached <strong>only by muscle</strong>. This allows the "liquid cat" shoulder movement.</p></li>
+        <li><p><strong>Hindquarters:</strong> The knee (stifle) is low. The hock is long. This gives the <strong>sickle shape</strong> of a crouching predator.</p></li>
+        <li><p><strong>Skeleton Hack:</strong> The cat skull is <strong>round</strong> in front view. The eye sockets are huge and face forward.</p></li>
+    </ul>
+    <p>&nbsp;</p>
+    <h4>5.2 The Canine (Dog/Wolf)</h4>
+    <ul>
+        <li><p><strong>Chest:</strong> Deep but <strong>very narrow</strong>. From the front, the legs look like they sprout from a single point in the center of the chest.</p></li>
+        <li><p><strong>Tuck Up:</strong> Moderate to deep.</p></li>
+        <li><p><strong>Tail:</strong> An extension of the <strong>spine rhythm</strong>, not just a limp appendage. The tail curves <strong>up</strong> (happy) or <strong>down/tucked</strong> (submissive/fearful).</p></li>
+        <li><p><strong>Skeleton Hack:</strong> The wolf skull has a <strong>40-degree angle</strong> stop at the forehead. The dog skull varies wildly (bulldog vs. greyhound).</p></li>
+    </ul>
+    <p>&nbsp;</p>
+    <h4>5.3 The Equine (Horse/Donkey)</h4>
+    <ul>
+        <li><p><strong>Neck:</strong> The lower line of the neck is <strong>straight</strong>. The upper line (crest) is <strong>curved</strong>.</p></li>
+        <li><p><strong>Chest:</strong> The pectoral muscles are <strong>massive</strong> triangular slabs that define the entire front silhouette.</p></li>
+        <li><p><strong>The Knee (Carpus):</strong> Has an <strong>accessory carpal bone</strong> sticking out the back. This is the <strong>"pisiform"</strong> (the bump on your wrist). Draw this bump on the back of the horse's knee—it's a critical landmark.</p></li>
+        <li><p><strong>Skeleton Hack:</strong> The horse has <strong>no collarbone</strong>. The shoulder is attached by a muscular sling.</p></li>
+    </ul>
+    <p>&nbsp;</p>
+    <h4>5.4 The Avian (Bird)</h4>
+    <ul>
+        <li><p><strong>Wing Structure:</strong> It is a <strong>modified arm</strong>.</p></li>
+        <li><p><strong>Humerus:</strong> Hidden under feathers close to the body.</p></li>
+        <li><p><strong>Elbow:</strong> Points <strong>backward</strong> (just like a dog's front leg!).</p></li>
+        <li><p><strong>Wrist:</strong> The sharp bend in the middle of the wing.</p></li>
+        <li><p><strong>Hand (Metacarpals):</strong> Fused into a single blade supporting the primary flight feathers.</p></li>
+        <li><p><strong>Legs:</strong> <strong>Digitigrade</strong>. The "backward knee" is the <strong>ankle</strong>. The visible leg is the <strong>foot</strong> (tarsometatarsus).</p></li>
+        <li><p><strong>Neck:</strong> Has <strong>more vertebrae than a giraffe</strong> (proportionally). It can curve into a perfect <strong>S-shape</strong>.</p></li>
+    </ul>
+    <p>&nbsp;</p>
+    
+    <h3>SECTION 6: CREATURE DESIGN APPLICATION (Fantasy/Sci-Fi)</h3>
+    <p><em>How to use this anatomy to design a </em><strong><em>believable</em></strong><em> monster.</em></p>
+    <p>&nbsp;</p>
+    <h4>6.1 The Rule of One</h4>
+    <p><em>Do not change everything. Keep </em><strong><em>three out of four</em></strong><em> limb segments realistic, and change </em><strong><em>one</em></strong><em>.</em></p>
+    <ul>
+        <li><p><em>Example (Centaur):</em> Human torso (real anatomy) + Horse body (real anatomy) = Plausible, if biologically impossible, creature. The <strong>transition point</strong> (waist to withers) is the only place you need to invent muscle connection.</p></li>
+        <li><p><em>Example (Dragon):</em> The wing is just a <strong>giant, elongated hand</strong> (bat wing) attached to <strong>giant, heavy back muscles</strong> (Lats and Traps). If you don't draw the massive back muscles anchoring those wings, the dragon looks like a balloon animal.</p></li>
+    </ul>
+    <p>&nbsp;</p>
+    <h4>6.2 The Gravity Test</h4>
+    <p><em>A 20-foot tall bipedal lizard (T-Rex/Komodo Dragon) must follow </em><strong><em>digitigrade</em></strong><em> leg physics.</em></p>
+    <ul>
+        <li><p><strong>Weight Bearing:</strong> The femur (upper leg) must be <strong>thick</strong>. The "knee" (stifle) points forward. The "ankle" (hock) is high off the ground.</p></li>
+        <li><p><strong>Tail:</strong> The tail is <strong>not just a cone</strong>. It is a <strong>counterbalance beam</strong> filled with massive <strong>caudofemoralis muscles</strong> that power the hind legs. A heavy creature has a <strong>thick tail base</strong>.</p></li>
+    </ul>
+    <p>&nbsp;</p>
+    <h4>6.3 Anthropomorphism: The "Furry" Gradient</h4>
+    <ul>
+        <li><p><strong>Level 1 (Sonic the Hedgehog):</strong> Human proportions, cartoon animal head. (Ignore anatomy).</p></li>
+        <li><p><strong>Level 2 (Disney Robin Hood):</strong> Human skeleton, animal head, <strong>digitigrade legs</strong> (the feet are animal paws).</p></li>
+        <li><p><strong>Level 3 (Werewolf):</strong> Human torso <strong>blended</strong> with animal hind legs. The <strong>hock</strong> (ankle) becomes the <strong>heel</strong> of a plantigrade foot? <strong>No.</strong> The werewolf must walk on <strong>toes</strong> to look feral. If you put a human heel on the ground, it looks like a man in a suit.</p></li>
+    </ul>
+    <p>&nbsp;</p>
+    
+    <h3>SECTION 7: ASSIGNMENT / PRACTICE DRILL</h3>
+    <p><em>Instructions for the student:</em></p>
+    <p>&nbsp;</p>
+    <p><strong>Drill 1: The Skeleton Overlay</strong></p>
+    <ul>
+        <li><p>Find a clear side-view photo of a <strong>Dog</strong> and a <strong>Horse</strong>.</p></li>
+        <li><p>Using a red digital pen or red pencil, trace <strong>only</strong> these joints:</p>
+            <ul><li>Shoulder Point</li><li>Elbow</li><li>Wrist (Front "Knee")</li><li>Hip Point (Rump)</li><li>Stifle (Real Knee)</li><li>Hock (Back "Ankle")</li></ul>
+        </li>
+        <li><p>Connect the dots to see the <strong>Z-Pattern</strong> of the limbs.</p></li>
+    </ul>
+    <p>&nbsp;</p>
+    <p><strong>Drill 2: The Werewolf Leg</strong></p>
+    <ul>
+        <li><p>Draw a human leg from the hip to the knee.</p></li>
+        <li><p>From the knee down, draw a <strong>dog's hind leg</strong> (long ankle/hock section).</p></li>
+        <li><p><em>Goal: Understand where the extra length in an animal leg comes from (the foot).</em></p></li>
+    </ul>
+    <p>&nbsp;</p>
+    <p><strong>Drill 3: The 3-Snout Challenge</strong></p>
+    <ul>
+        <li><p>Draw the exact same skull (a sphere with a crosshair).</p></li>
+        <li><p>Attach a <strong>Box Snout</strong> (Wolf).</p></li>
+        <li><p>Attach a <strong>Cone Snout</strong> (Horse).</p></li>
+        <li><p>Attach a <strong>Flat Snout</strong> (Lion).</p></li>
+    </ul>
+    <p>&nbsp;</p>
+    <p><strong>Drill 4: The Negative Space Check (Bird Wings)</strong></p>
+    <ul>
+        <li><p>Draw a bird wing folded at rest.</p></li>
+        <li><p>Identify the <strong>triangle of negative space</strong> between the body, the elbow, and the wrist. This triangle is the key to making folded wings look anatomical, not like a messy blob of lines.</p></li>
+    </ul>
+    <hr>
+    <p style="text-align: center; font-size: 0.9rem;"><i class="fas fa-paw"></i> Study live animals, sketch from life, and always compare bone landmarks.</p>
+</div>
+<footer>
+    <p>© 2026 ArtHub — Animal Anatomy for Artists <i class="fas fa-heart" style="color: var(--accent-pink);"></i></p>
+</footer>
+<button class="theme-btn-lesson" id="themeToggleLesson"><i class="fas fa-moon" id="themeIconLesson"></i> Dark/Light</button>
+
+<script>
+    function initTheme() {
+        if (localStorage.getItem('darkMode') === 'true') {
+            document.body.classList.add('dark');
+        } else {
+            document.body.classList.remove('dark');
+        }
+        updateIcon();
+    }
+    function toggleTheme() {
+        document.body.classList.toggle('dark');
+        localStorage.setItem('darkMode', document.body.classList.contains('dark'));
+        updateIcon();
+    }
+    function updateIcon() {
+        const icon = document.getElementById('themeIconLesson');
+        if (document.body.classList.contains('dark')) {
+            icon.classList.remove('fa-moon');
+            icon.classList.add('fa-sun');
+        } else {
+            icon.classList.remove('fa-sun');
+            icon.classList.add('fa-moon');
+        }
+    }
+    document.getElementById('themeToggleLesson').addEventListener('click', toggleTheme);
+    initTheme();
+</script>
+</body>
+</html>

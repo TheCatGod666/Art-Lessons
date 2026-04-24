@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>ArtHub · Gesture Drawing for Artists</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: background-color 0.2s ease, color 0.2s, border-color 0.2s;
+        }
+
+        /* Floral background */
+        body {
+            font-family: 'Segoe UI', 'Inter', system-ui, -apple-system, 'Roboto', sans-serif;
+            line-height: 1.55;
+            position: relative;
+        }
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -2;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Cpath fill='%23b87c4f' fill-opacity='0.12' d='M60,15 L63,25 L73,25 L65,32 L68,42 L60,36 L52,42 L55,32 L47,25 L57,25 Z'/%3E%3Ccircle cx='30' cy='85' r='5' fill='%23e58a9e' fill-opacity='0.15'/%3E%3Ccircle cx='95' cy='40' r='6' fill='%236c9e4f' fill-opacity='0.12'/%3E%3Cpath fill='%235b8cbf' fill-opacity='0.1' d='M100,90 L103,96 L110,96 L105,101 L107,108 L100,103 L93,108 L95,101 L90,96 L97,96 Z'/%3E%3C/svg%3E");
+            background-repeat: repeat;
+            background-size: 80px 80px;
+        }
+        body.dark::before {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Cpath fill='%23d49c6c' fill-opacity='0.08' d='M60,15 L63,25 L73,25 L65,32 L68,42 L60,36 L52,42 L55,32 L47,25 L57,25 Z'/%3E%3Ccircle cx='30' cy='85' r='5' fill='%23f0a1b3' fill-opacity='0.1'/%3E%3Ccircle cx='95' cy='40' r='6' fill='%2380b35c' fill-opacity='0.08'/%3E%3Cpath fill='%236c9fd6' fill-opacity='0.08' d='M100,90 L103,96 L110,96 L105,101 L107,108 L100,103 L93,108 L95,101 L90,96 L97,96 Z'/%3E%3C/svg%3E");
+        }
+
+        :root {
+            --bg-body: #fef7e9;
+            --bg-card: #ffffff;
+            --text-primary: #2c2418;
+            --text-secondary: #5a4a34;
+            --border-light: #f0e2cf;
+            --accent-brown: #b87c4f;
+            --accent-green: #6c9e4f;
+            --accent-blue: #5b8cbf;
+            --accent-pink: #e58a9e;
+            --accent-brown-soft: #d9b48b;
+            --accent-green-soft: #b3d0a2;
+            --accent-blue-soft: #aac4e6;
+            --accent-pink-soft: #f4c4d0;
+            --shadow: 0 8px 20px rgba(0,0,0,0.05);
+        }
+        body.dark {
+            --bg-body: #1a1714;
+            --bg-card: #2a2622;
+            --text-primary: #f2ede4;
+            --text-secondary: #cdc2b2;
+            --border-light: #3f382f;
+            --accent-brown: #d49c6c;
+            --accent-green: #80b35c;
+            --accent-blue: #6c9fd6;
+            --accent-pink: #f0a1b3;
+            --accent-brown-soft: #9c6e48;
+            --accent-green-soft: #4f7039;
+            --accent-blue-soft: #4a6e96;
+            --accent-pink-soft: #b35f73;
+            --shadow: 0 8px 20px rgba(0,0,0,0.4);
+        }
+        body {
+            background: var(--bg-body);
+            color: var(--text-primary);
+        }
+
+        .lesson-container {
+            max-width: 1000px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: var(--bg-card);
+            border-radius: 2rem;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-light);
+            position: relative;
+            z-index: 1;
+        }
+
+        h1, h2, h3, h4 {
+            color: var(--accent-brown);
+            margin-top: 1.8rem;
+            margin-bottom: 0.8rem;
+            font-weight: 600;
+        }
+        h1 {
+            font-size: 2.4rem;
+            border-left: 6px solid var(--accent-pink);
+            padding-left: 1rem;
+            margin-top: 0.5rem;
+        }
+        h2 {
+            font-size: 1.8rem;
+            border-bottom: 2px solid var(--accent-green-soft);
+            display: inline-block;
+            padding-bottom: 0.3rem;
+        }
+        h3 {
+            font-size: 1.4rem;
+            color: var(--accent-blue);
+            margin-top: 1.2rem;
+        }
+        h4 {
+            font-size: 1.2rem;
+            color: var(--accent-pink);
+        }
+        p, li {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+        ul, ol {
+            margin: 0.8rem 0 1.2rem 2rem;
+        }
+        li {
+            margin: 0.4rem 0;
+        }
+        em, strong {
+            color: var(--accent-brown);
+        }
+        hr {
+            border: none;
+            height: 2px;
+            background: var(--border-light);
+            margin: 2rem 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            background: var(--bg-body);
+            border-radius: 1rem;
+            overflow: hidden;
+        }
+        th, td {
+            border: 1px solid var(--border-light);
+            padding: 10px 12px;
+            text-align: left;
+            vertical-align: top;
+            color: var(--text-secondary);
+        }
+        th {
+            background: var(--accent-blue-soft);
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 1.5rem;
+            background: var(--accent-blue-soft);
+            padding: 0.5rem 1.2rem;
+            border-radius: 40px;
+            text-decoration: none;
+            color: var(--text-primary);
+            font-weight: 500;
+            transition: 0.2s;
+        }
+        .back-link:hover {
+            background: var(--accent-pink-soft);
+            transform: translateX(-4px);
+        }
+        .theme-btn-lesson {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-light);
+            border-radius: 60px;
+            padding: 10px 18px;
+            cursor: pointer;
+            font-weight: 500;
+            color: var(--text-primary);
+            box-shadow: var(--shadow);
+            z-index: 100;
+            backdrop-filter: blur(4px);
+        }
+        .theme-btn-lesson:hover {
+            background: var(--accent-pink-soft);
+            transform: scale(0.96);
+        }
+        footer {
+            text-align: center;
+            padding: 1.5rem;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            border-top: 1px solid var(--border-light);
+            margin-top: 2rem;
+        }
+        @media (max-width: 680px) {
+            .lesson-container {
+                margin: 1rem;
+                padding: 1.2rem;
+            }
+            h1 { font-size: 1.8rem; }
+            h2 { font-size: 1.4rem; }
+            table, thead, tbody, th, td, tr { display: block; }
+            th, td { display: block; width: 100%; }
+        }
+    </style>
+</head>
+<body>
+<div class="lesson-container">
+    <a href="index.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to ArtHub Studio</a>
+    
+    <h2>LESSON 5: GESTURES</h2>
+    <h3>Capturing Dynamic Poses and Movement in Figure Drawing</h3>
+    <p>&nbsp;</p>
+    
+    <h3>Introduction: The Heartbeat of the Drawing</h3>
+    <p><strong><em>Gesture is not contour. Gesture is not anatomy. Gesture is the intention of the pose.</em></strong></p>
+    <p>A drawing with perfect anatomy but no gesture looks like a stiff mannequin. A drawing with rough anatomy but powerful gesture feels <strong>alive</strong>—it breathes, it moves, it tells a story.</p>
+    <p>Gesture drawing is the <strong>first 30 seconds</strong> of any figure study. It is the bold, sweeping line that captures the <strong>energy</strong>, the <strong>weight</strong>, and the <strong>direction</strong> of the body before you commit to muscles, bones, or clothing.</p>
+    <p><strong>The Golden Rule of Gesture:</strong> <em>"Draw the verb, not the noun."</em> Don't draw "a man standing." Draw "a man <strong>leaning</strong>," "a woman <strong>reaching</strong>," "a figure <strong>collapsing</strong>."</p>
+    <p>&nbsp;</p>
+    
+    <h3>SECTION 1: THE THREE LINES OF GESTURE</h3>
+    <p><em>Every dynamic pose, no matter how complex, can be reduced to </em><strong><em>three essential lines</em></strong><em>. Master these three, and you can capture any pose in seconds.</em></p>
+    <p>&nbsp;</p>
+    <h4>1.1 The Line of Action (The Spine of the Pose)</h4>
+    <p><em>This is the </em><strong><em>single, continuous curve</em></strong><em> that runs through the entire body from head to toe. It represents the </em><strong><em>primary force</em></strong><em> of the movement.</em></p>
+    <ul>
+        <li><strong>How to Find It:</strong> Look at the pose and ask: <em>"If this figure were a whip cracking, which way would the energy flow?"</em></li>
+        <li><strong>The Shape:</strong> It is almost never a straight vertical line. It is a <strong>C-Curve</strong>, an <strong>S-Curve</strong>, or a <strong>Spiral</strong>.</li>
+        <li><strong>The Test:</strong> If you draw <strong>only the Line of Action</strong> and show it to a friend, can they tell which way the figure is leaning or moving? If yes, it's a strong line.</li>
+    </ul>
+    <p><strong>Examples:</strong> Michelangelo's David → gentle S-Curve. Baseball pitcher mid-throw → extreme C-Curve. Slumping figure → heavy downward C-Curve.</p>
+    <p>&nbsp;</p>
+    <h4>1.2 The Shoulder Line (Axis of Upper Body)</h4>
+    <p>The line connecting the <strong>two acromion processes</strong> (bony shoulder tops). The shoulder line is almost never perpendicular to the Line of Action; it is angled dynamically. <strong>The Seesaw Rule:</strong> one shoulder up → the other down; one forward → the other back. This tilt creates tension and asymmetry.</p>
+    <p>&nbsp;</p>
+    <h4>1.3 The Hip Line (Axis of Lower Body)</h4>
+    <p>The line connecting the <strong>two Iliac Crests</strong> (front hip bones). In <strong>Contrapposto</strong> (weight on one leg), the hip of the weight-bearing leg tilts <strong>UP</strong>, while the shoulder on the same side tilts <strong>DOWN</strong>. The shoulder line and hip line slope in opposite directions, counter-balancing each other.</p>
+    <p><strong>The Three-Line Gesture Drill:</strong> Look at a pose for 10 seconds. Draw <strong>one</strong> sweeping curve for the Line of Action, <strong>one</strong> angled line for the Shoulders, <strong>one</strong> angled line for the Hips. Stop. The entire essence captured in three marks.</p>
+    <p>&nbsp;</p>
+    
+    <h3>SECTION 2: THE 30-SECOND GESTURE METHOD (The "CSI" System)</h3>
+    <p>Use <strong>C-Curve</strong> (sweeping curve for spine, hip, calf), <strong>S-Curve</strong> (changing direction for leg rhythm), and <strong>I-Line</strong> (straight line for stretch side or locked limb).</p>
+    <p><strong>30-Second Recipe:</strong></p>
+    <ol>
+        <li>Seconds 1-5: Draw the Line of Action (big C or S).</li>
+        <li>Seconds 6-15: Draw Head Oval and Ribcage Oval (angled opposite hips).</li>
+        <li>Seconds 16-25: Draw Limbs using CSI lines (no hands/feet, just flow).</li>
+        <li>Seconds 26-30: Add one line for twist of waist or thrust of chin.</li>
+    </ol>
+    <p><strong>Avoid:</strong> eyes, fingers, kneecaps, muscles, hair strands. Goal: feel weight and direction instantly.</p>
+    <p>&nbsp;</p>
+    
+    <h3>SECTION 3: THE FIVE FORCES OF DYNAMIC MOVEMENT</h3>
+    <p>A static standing pose and a dynamic action pose are governed by different physics. To make a drawing feel like it's moving, exaggerate these five forces.</p>
+    <table>
+        <thead><tr><th>Force</th><th>Description</th><th>Exaggeration Tip</th></tr></thead>
+        <tbody>
+            <tr><td><strong>Torque / Twist</strong></td><td>The torso rotates: ribcage turns one way, pelvis the opposite. Creates spiral energy.</td><td>Push the twist beyond reality – shoulders facing 3/4 left, hips facing 3/4 right.</td></tr>
+            <tr><td><strong>Compression & Stretch</strong></td><td>One side of torso squashes (compresses), the opposite side elongates (stretches).</td><td>Make the compressed side shorter and darker; stretch side longer and lighter.</td></tr>
+            <tr><td><strong>Rhythmic Flow</strong></td><td>The eye travels through the drawing in a continuous loop (like a dance).</td><td>Use alternating C-curves: thigh (C out), calf (C in), foot (C out).</td></tr>
+            <tr><td><strong>Asymmetry</strong></td><td>Symmetry = stiffness. Asymmetry = life. Never draw both arms or legs identically.</td><td>Tilt head, shoulders, hips all at different angles. Check: are they all horizontal? Tilt one.</td></tr>
+            <tr><td><strong>Directional Force</strong></td><td>Every line should point toward the action (e.g., fingers pointing to the ball, toes pointing to the jump).</td><td>Extend lines beyond the figure – imagine wind or motion lines trailing behind.</td></tr>
+        </tbody>
+    </table>
+    <p>&nbsp;</p>
+    
+    <h3>SECTION 4: LAYERING GESTURE WITH ANATOMY</h3>
+    <p>Many artists learn anatomy and then draw stiff figures because they forget the gesture. Here is how to <strong>layer</strong> anatomy on top of a strong gesture foundation.</p>
+    <ol>
+        <li><strong>Step 1: The Gesture Layer (Ghost Layer)</strong> – 30 seconds, CSI lines only. No anatomy. The pose's energy is locked in.</li>
+        <li><strong>Step 2: The Volume Layer (The Mannequin)</strong> – Draw simple 3D shapes (ovals for ribcage/pelvis, cylinders for limbs). Follow the gesture curves.</li>
+        <li><strong>Step 3: The Anatomy Layer (The Muscles)</strong> – Add muscle landmarks (clavicles, pectorals, iliac crests). Always keep the gesture visible underneath.</li>
+        <li><strong>Step 4: The Clarity Layer (Clean-Up)</strong> – Refine contours, but never erase the original gesture line completely – it's the soul of the drawing.</li>
+    </ol>
+    <p><strong>Golden Rule:</strong> If the gesture is lost at any stage, start over. Anatomy cannot rescue a dead pose.</p>
+    <p>&nbsp;</p>
+    
+    <h3>SECTION 5: GESTURE IN DIFFERENT BODY TYPES AND OBJECTS</h3>
+    <p>Gesture is not just for lean superheroes. It applies to everyone.</p>
+    <ul>
+        <li><strong>Heavy figures:</strong> The line of action is still there, but curves are softer, with more <strong>I-lines</strong> (gravity pulling down). Look for the <strong>bulge and hang</strong> of mass – gesture captures the <em>weight</em>.</li>
+        <li><strong>Elderly figures:</strong> The line of action may be broken into multiple C-curves (stooped spine). Compression is extreme on one side, stretch on the other.</li>
+        <li><strong>Children:</strong> Exaggerated C-curves, big head, huge asymmetry. Gesture should feel bouncy and unpredictable.</li>
+        <li><strong>Animals & Creatures:</strong> Same principles. A galloping horse has a massive S-curve through the spine. A crouching cat is a compressed C-curve ready to spring.</li>
+        <li><strong>Beyond figures:</strong> Trees, cloth, rocks have gesture. A windswept tree's line of action is a dramatic C-curve. A crumpled cloth has overlapping S-curves.</li>
+    </ul>
+    <p>&nbsp;</p>
+    
+    <h3>SECTION 6: COMMON GESTURE MISTAKES &amp; FIXES</h3>
+    <table>
+        <thead><tr><th>Mistake</th><th>Why It Happens</th><th>The Fix</th></tr></thead>
+        <tbody>
+            <tr><td><strong>Stiff "Tin Soldier"</strong></td><td>Drawing symmetry, straight lines, no tilt.</td><td>Force yourself to draw only C-curves for 10 poses. No straight lines allowed.</td></tr>
+            <tr><td><strong>Starting with the Head</strong></td><td>You're drawing the noun, not the verb.</td><td>Always start with the Line of Action. The head is placed last.</td></tr>
+            <tr><td><strong>Too Much Detail</strong></td><td>You're afraid of "ugly" lines.</td><td>Set a timer for 15 seconds. You cannot finish details. Embrace messiness.</td></tr>
+            <tr><td><strong>Losing the Line of Action</strong></td><td>You added anatomy and overwrote the gesture.</td><td>Draw the gesture in a <strong>different color</strong> (blue pencil) and never erase it.</td></tr>
+            <tr><td><strong>Flat Silhouette</strong></td><td>No overlapping limbs, no depth.</td><td>Push one arm in front of the torso, the other behind. Overlap is the #1 depth cue.</td></tr>
+        </tbody>
+    </table>
+    <p>&nbsp;</p>
+    
+    <h3>SECTION 7: ASSIGNMENT / PRACTICE DRILL</h3>
+    <p><em>Instructions for the student – complete all five drills over one week.</em></p>
+    <p><strong>Drill 1: The 10-Second Blitz (Warm-Up)</strong></p>
+    <ul>
+        <li>Find 30 photos of athletes, dancers, or everyday actions.</li>
+        <li>Set a timer for <strong>10 seconds per pose</strong>.</li>
+        <li>Draw <strong>only the Line of Action</strong> (one single stroke).</li>
+        <li>Do not lift your pen. Do not worry about accuracy – just capture the <em>energy direction</em>.</li>
+        <li><em>Goal: Train your eye to see the core force instantly.</em></li>
+    </ul>
+    <p><strong>Drill 2: The Three-Line Pose</strong></p>
+    <ul>
+        <li>Using the same reference photos, set timer to <strong>20 seconds</strong>.</li>
+        <li>Draw: 1) Line of Action, 2) Shoulder Line, 3) Hip Line.</li>
+        <li>That's it. No ovals, no limbs. Just three lines.</li>
+        <li><em>Goal: Understand how those three lines define the entire pose's balance and twist.</em></li>
+    </ul>
+    <p><strong>Drill 3: The CSI Exaggeration</strong></p>
+    <ul>
+        <li>Take a static standing pose (e.g., a person waiting for a bus).</li>
+        <li>Redraw it <strong>three times</strong>, each time exaggerating the C-curves more.</li>
+        <li>Version 1: subtle curve. Version 2: medium curve. Version 3: extreme curve (almost cartoonish).</li>
+        <li><em>Goal: Overcome the fear of "breaking" anatomy. Gesture should be felt, not measured.</em></li>
+    </ul>
+    <p><strong>Drill 4: The Blind Contour Gesture</strong></p>
+    <ul>
+        <li>Set a timer for <strong>45 seconds</strong>.</li>
+        <li>Look at your reference, but <strong>do not look at your paper</strong> while drawing.</li>
+        <li>Draw the entire figure in one continuous line (blind contour).</li>
+        <li>It will look messy and wrong. That's fine.</li>
+        <li><em>Goal: Break the habit of "symbol drawing" (preconceived shapes) and force your hand to follow what your eye actually sees.</em></li>
+    </ul>
+    <p><strong>Drill 5: The Skeleton of Motion (Advanced)</strong></p>
+    <ul>
+        <li>Find a video of a person running, jumping, or dancing (YouTube is fine).</li>
+        <li>Pause at the peak of the action (e.g., mid-jump).</li>
+        <li>Draw the figure using <strong>only 7 lines</strong>: spine, head tilt, shoulders, hips, two arm flow lines, two leg flow lines.</li>
+        <li>Then, without looking at the reference, draw the <strong>next frame</strong> of motion (predict where the limbs will go).</li>
+        <li><em>Goal: Internalize the physics of movement so you can invent dynamic poses from imagination.</em></li>
+    </ul>
+    <hr>
+    <p style="text-align: center; font-size: 0.9rem;"><i class="fas fa-running"></i> Gesture is the heartbeat of figure drawing. Practice daily, and your figures will never look stiff again.</p>
+</div>
+<footer>
+    <p>© 2026 ArtHub — Gesture Drawing for Artists <i class="fas fa-heart" style="color: var(--accent-pink);"></i></p>
+</footer>
+<button class="theme-btn-lesson" id="themeToggleLesson"><i class="fas fa-moon" id="themeIconLesson"></i> Dark/Light</button>
+
+<script>
+    function initTheme() {
+        if (localStorage.getItem('darkMode') === 'true') {
+            document.body.classList.add('dark');
+        } else {
+            document.body.classList.remove('dark');
+        }
+        updateIcon();
+    }
+    function toggleTheme() {
+        document.body.classList.toggle('dark');
+        localStorage.setItem('darkMode', document.body.classList.contains('dark'));
+        updateIcon();
+    }
+    function updateIcon() {
+        const icon = document.getElementById('themeIconLesson');
+        if (document.body.classList.contains('dark')) {
+            icon.classList.remove('fa-moon');
+            icon.classList.add('fa-sun');
+        } else {
+            icon.classList.remove('fa-sun');
+            icon.classList.add('fa-moon');
+        }
+    }
+    document.getElementById('themeToggleLesson').addEventListener('click', toggleTheme);
+    initTheme();
+</script>
+</body>
+</html>

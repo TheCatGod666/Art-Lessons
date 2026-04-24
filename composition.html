@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>ArtHub · Composition for Artists</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: background-color 0.2s ease, color 0.2s, border-color 0.2s;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Inter', system-ui, -apple-system, 'Roboto', sans-serif;
+            line-height: 1.55;
+            position: relative;
+        }
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -2;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Cpath fill='%23b87c4f' fill-opacity='0.12' d='M60,15 L63,25 L73,25 L65,32 L68,42 L60,36 L52,42 L55,32 L47,25 L57,25 Z'/%3E%3Ccircle cx='30' cy='85' r='5' fill='%23e58a9e' fill-opacity='0.15'/%3E%3Ccircle cx='95' cy='40' r='6' fill='%236c9e4f' fill-opacity='0.12'/%3E%3Cpath fill='%235b8cbf' fill-opacity='0.1' d='M100,90 L103,96 L110,96 L105,101 L107,108 L100,103 L93,108 L95,101 L90,96 L97,96 Z'/%3E%3C/svg%3E");
+            background-repeat: repeat;
+            background-size: 80px 80px;
+        }
+        body.dark::before {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Cpath fill='%23d49c6c' fill-opacity='0.08' d='M60,15 L63,25 L73,25 L65,32 L68,42 L60,36 L52,42 L55,32 L47,25 L57,25 Z'/%3E%3Ccircle cx='30' cy='85' r='5' fill='%23f0a1b3' fill-opacity='0.1'/%3E%3Ccircle cx='95' cy='40' r='6' fill='%2380b35c' fill-opacity='0.08'/%3E%3Cpath fill='%236c9fd6' fill-opacity='0.08' d='M100,90 L103,96 L110,96 L105,101 L107,108 L100,103 L93,108 L95,101 L90,96 L97,96 Z'/%3E%3C/svg%3E");
+        }
+
+        :root {
+            --bg-body: #fef7e9;
+            --bg-card: #ffffff;
+            --text-primary: #2c2418;
+            --text-secondary: #5a4a34;
+            --border-light: #f0e2cf;
+            --accent-brown: #b87c4f;
+            --accent-green: #6c9e4f;
+            --accent-blue: #5b8cbf;
+            --accent-pink: #e58a9e;
+            --accent-brown-soft: #d9b48b;
+            --accent-green-soft: #b3d0a2;
+            --accent-blue-soft: #aac4e6;
+            --accent-pink-soft: #f4c4d0;
+            --shadow: 0 8px 20px rgba(0,0,0,0.05);
+        }
+        body.dark {
+            --bg-body: #1a1714;
+            --bg-card: #2a2622;
+            --text-primary: #f2ede4;
+            --text-secondary: #cdc2b2;
+            --border-light: #3f382f;
+            --accent-brown: #d49c6c;
+            --accent-green: #80b35c;
+            --accent-blue: #6c9fd6;
+            --accent-pink: #f0a1b3;
+            --accent-brown-soft: #9c6e48;
+            --accent-green-soft: #4f7039;
+            --accent-blue-soft: #4a6e96;
+            --accent-pink-soft: #b35f73;
+            --shadow: 0 8px 20px rgba(0,0,0,0.4);
+        }
+        body {
+            background: var(--bg-body);
+            color: var(--text-primary);
+        }
+
+        .lesson-container {
+            max-width: 1000px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: var(--bg-card);
+            border-radius: 2rem;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-light);
+            position: relative;
+            z-index: 1;
+        }
+
+        h1, h2, h3, h4 {
+            color: var(--accent-brown);
+            margin-top: 1.8rem;
+            margin-bottom: 0.8rem;
+            font-weight: 600;
+        }
+        h1 {
+            font-size: 2.4rem;
+            border-left: 6px solid var(--accent-pink);
+            padding-left: 1rem;
+            margin-top: 0.5rem;
+        }
+        h2 {
+            font-size: 1.8rem;
+            border-bottom: 2px solid var(--accent-green-soft);
+            display: inline-block;
+            padding-bottom: 0.3rem;
+        }
+        h3 {
+            font-size: 1.4rem;
+            color: var(--accent-blue);
+            margin-top: 1.2rem;
+        }
+        h4 {
+            font-size: 1.2rem;
+            color: var(--accent-pink);
+        }
+        p, li {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+        ul, ol {
+            margin: 0.8rem 0 1.2rem 2rem;
+        }
+        li {
+            margin: 0.4rem 0;
+        }
+        em, strong {
+            color: var(--accent-brown);
+        }
+        hr {
+            border: none;
+            height: 2px;
+            background: var(--border-light);
+            margin: 2rem 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            background: var(--bg-body);
+            border-radius: 1rem;
+            overflow: hidden;
+        }
+        th, td {
+            border: 1px solid var(--border-light);
+            padding: 10px 12px;
+            text-align: left;
+            vertical-align: top;
+            color: var(--text-secondary);
+        }
+        th {
+            background: var(--accent-blue-soft);
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 1.5rem;
+            background: var(--accent-blue-soft);
+            padding: 0.5rem 1.2rem;
+            border-radius: 40px;
+            text-decoration: none;
+            color: var(--text-primary);
+            font-weight: 500;
+            transition: 0.2s;
+        }
+        .back-link:hover {
+            background: var(--accent-pink-soft);
+            transform: translateX(-4px);
+        }
+        .theme-btn-lesson {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-light);
+            border-radius: 60px;
+            padding: 10px 18px;
+            cursor: pointer;
+            font-weight: 500;
+            color: var(--text-primary);
+            box-shadow: var(--shadow);
+            z-index: 100;
+            backdrop-filter: blur(4px);
+        }
+        .theme-btn-lesson:hover {
+            background: var(--accent-pink-soft);
+            transform: scale(0.96);
+        }
+        footer {
+            text-align: center;
+            padding: 1.5rem;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            border-top: 1px solid var(--border-light);
+            margin-top: 2rem;
+        }
+        @media (max-width: 680px) {
+            .lesson-container {
+                margin: 1rem;
+                padding: 1.2rem;
+            }
+            h1 { font-size: 1.8rem; }
+            h2 { font-size: 1.4rem; }
+            table, thead, tbody, th, td, tr { display: block; }
+            th, td { display: block; width: 100%; }
+        }
+    </style>
+</head>
+<body>
+<div class="lesson-container">
+    <a href="index.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to ArtHub Studio</a>
+    
+    <h2>LESSON 8: COMPOSITION</h2>
+    <h3>Principles of Design, Focal Points, Balance, and the Rule of Thirds</h3>
+    <p>&nbsp;</p>
+    
+    <h3>Introduction: The Invisible Architecture of an Image</h3>
+    <p>Composition is the arrangement of visual elements within the picture frame. It is the <strong>scaffolding</strong> upon which every other skill hangs. You can render perfect anatomy, masterful perspective, and luminous colour, but if the composition is weak, the image will feel <strong>uncomfortable</strong>, <strong>aimless</strong>, or <strong>boring</strong>.</p>
+    <p>Composition is not a set of rigid rules. It is a <strong>language of visual weight and flow</strong>. It answers three critical questions:</p>
+    <ol>
+        <li><strong>Where does the viewer look first?</strong> (Focal Point)</li>
+        <li><strong>Where does the viewer look next?</strong> (Visual Path)</li>
+        <li><strong>Does the image feel stable or dynamic?</strong> (Balance)</li>
+    </ol>
+    <p>This lesson will teach you the foundational principles of design and the practical compositional frameworks that have guided artists for centuries.</p>
+    <p>&nbsp;</p>
+    
+    <h3>SECTION 1: THE PRINCIPLES OF DESIGN – The Seven Pillars</h3>
+    <p>Before discussing specific layouts like the Rule of Thirds, you must understand the <strong>underlying principles</strong> that make any composition work. These are the "why" behind the "what."</p>
+    <table>
+        <thead>
+            <tr><th>Principle</th><th>Definition</th><th>Visual Effect</th><th>Example</th></tr>
+        </thead>
+        <tbody>
+            <tr><td><strong>1. Balance</strong></td><td>The distribution of visual weight across the frame.</td><td>Creates stability (symmetrical) or tension (asymmetrical).</td><td>A large dark shape on the left balanced by a small bright shape on the right.</td></tr>
+            <tr><td><strong>2. Emphasis</strong></td><td>Creating a <strong>Focal Point</strong>—the area that commands the most attention.</td><td>Guides the viewer's eye to the most important element.</td><td>The single red apple in a pile of green apples. The lightest light against the darkest dark.</td></tr>
+            <tr><td><strong>3. Contrast</strong></td><td>Juxtaposition of opposing elements (light/dark, large/small, rough/smooth).</td><td>Generates visual interest and defines the hierarchy.</td><td>A sharp, detailed foreground figure against a soft, blurred background.</td></tr>
+            <tr><td><strong>4. Movement / Rhythm</strong></td><td>The path the viewer's eye takes through the artwork.</td><td>Creates a sense of action or a calm, contemplative journey.</td><td>A winding river leading the eye from the foreground to a distant mountain.</td></tr>
+            <tr><td><strong>5. Pattern / Repetition</strong></td><td>Recurring elements that create a sense of unity.</td><td>Can be soothing (regular pattern) or dynamic (broken pattern).</td><td>A row of identical columns, or a flock of birds with one bird flying the opposite direction.</td></tr>
+            <tr><td><strong>6. Proportion / Scale</strong></td><td>The relative size of elements within the composition.</td><td>Creates depth and establishes hierarchy.</td><td>A tiny human figure standing before a colossal statue.</td></tr>
+            <tr><td><strong>7. Unity / Harmony</strong></td><td>The sense that all elements belong together in the same image.</td><td>Prevents the image from feeling like a random collage.</td><td>Consistent colour palette, consistent lighting direction, consistent level of detail.</td></tr>
+        </tbody>
+    </table>
+    <p><strong>The Golden Thread:</strong> All seven principles work together. You cannot have <strong>Emphasis</strong> without <strong>Contrast</strong>. You cannot have <strong>Rhythm</strong> without <strong>Repetition</strong>.</p>
+    <p>&nbsp;</p>
+    
+    <h3>SECTION 2: THE FOCAL POINT – The Star of the Show</h3>
+    <p>Every successful composition has a <strong>clear Focal Point</strong>. This is the area where the viewer's eye lands first and returns to repeatedly. An image without a focal point is like a sentence without a subject—confusing and unresolved.</p>
+    <h4>2.1 The Five Methods to Create a Focal Point (The Hierarchy of Attention)</h4>
+    <p>These methods are ranked from <strong>most powerful</strong> to <strong>most subtle</strong>. Use the top three to guarantee a strong read.</p>
+    <ol>
+        <li><strong>Value Contrast (The Number One Tool):</strong> The human eye is drawn irresistibly to the area of <strong>highest contrast</strong>. Formula: Place the <strong>lightest light</strong> next to the <strong>darkest dark</strong>. Example: A figure in a shadowy doorway with a beam of sunlight hitting their face.</li>
+        <li><strong>Placement (The Bullseye &amp; The Edge):</strong> Dead center creates iconic, confrontational focal points. Rule of Thirds intersections create dynamic focal points.</li>
+        <li><strong>Edge Quality (Sharpness vs. Blur):</strong> The eye goes to the area of <strong>sharpest focus</strong>. Use atmospheric perspective or rack focus.</li>
+        <li><strong>Colour Isolation:</strong> A saturated colour surrounded by desaturated colours; a warm colour surrounded by cool colours.</li>
+        <li><strong>Leading Lines:</strong> Actual or implied lines that point to the focal point (roads, rivers, pointing hands, gaze of secondary characters).</li>
+    </ol>
+    <h4>2.2 The "One Focal Point" Rule (And When to Break It)</h4>
+    <p><strong>The Rule:</strong> A composition should have <strong>one primary focal point</strong>. Secondary focal points should be subordinate (smaller, lower contrast, less sharp).<br>
+    <strong>The Exception (The "Where's Waldo" Composition):</strong> For busy scenes where you want the viewer to explore slowly, the overall value massing must still work with large unifying shapes.</p>
+    <p>&nbsp;</p>
+    
+    <h3>SECTION 3: BALANCE – The Visual Scale</h3>
+    <p>Balance refers to the <strong>distribution of visual weight</strong>. An unbalanced composition feels like it's tipping over, creating a sense of unease (which can be intentional).</p>
+    <h4>3.1 Symmetrical Balance (Formal Balance)</h4>
+    <p>Left and right sides are mirror images. Mood: calm, stable, formal, dignified, powerful. Examples: The Last Supper, Wes Anderson films. Use for order, authority, or spiritual perfection.</p>
+    <h4>3.2 Asymmetrical Balance (Informal Balance)</h4>
+    <p>Left and right sides are different but visual weights are equal. Mood: dynamic, natural, engaging. The see-saw analogy: a large object close to center balances a small object far from center. Ways to balance: Mass vs. Value (large light shape vs. small dark shape); Mass vs. Complexity (large simple shape vs. small intricate shape); Mass vs. Direction (figure looking left needs weight on right).</p>
+    <h4>3.3 Radial Balance</h4>
+    <p>Elements radiate from a central point. Mood: hypnotic, energetic, spiritual, chaotic. Examples: sunflower, mandala, bomb explosion, cathedral rose window.</p>
+    <h4>3.4 The "Weight" of Gaze (Psychological Balance)</h4>
+    <p>A human face and especially eyes carry immense visual weight. Looking into the frame creates natural balance; looking out creates tension and unease. Use deliberately for suspense.</p>
+    <p>&nbsp;</p>
+    
+    <h3>SECTION 4: CLASSICAL COMPOSITIONAL FRAMEWORKS (The Formulas)</h3>
+    <p>These are the proven "recipes" for arranging elements within the frame.</p>
+    <h4>4.1 The Rule of Thirds (The Workhorse)</h4>
+    <p>Divide the frame into a 3x3 grid. The four intersections are power points. Place horizon on top third (emphasize land) or bottom third (emphasize sky). Place subject's eye on an upper intersection. Avoids static dullness.</p>
+    <h4>4.2 The Golden Ratio (The Divine Proportion)</h4>
+    <p>A logarithmic spiral derived from the Fibonacci sequence (1:1.618). The focal point sits in the tightest curl. The Rule of Thirds is a simplified approximation.</p>
+    <h4>4.3 The Pyramid / Triangle Composition (The Stable Foundation)</h4>
+    <p>Large triangle at the base. Mood: stability, strength, permanence. Inverted triangle: unstable, precarious, dramatic – use for action scenes or villains.</p>
+    <h4>4.4 The "S" Curve / Compound Curve (The Graceful Flow)</h4>
+    <p>A winding line from foreground to background. Mood: elegance, sensuality, journey, depth. The ultimate depth cue.</p>
+    <h4>4.5 The "L" Shape / Fulcrum (The Framing Device)</h4>
+    <p>Strong vertical on one side and strong horizontal at the bottom. Creates a "window" feeling, grounds the viewer.</p>
+    <h4>4.6 The Circular / "O" Composition (The Contained World)</h4>
+    <p>Elements arranged in a circle or oval. Mood: unity, wholeness, protection, claustrophobia.</p>
+    <h4>4.7 The Diagonal / Dynamic Symmetry (The Baroque Energy)</h4>
+    <p>Main action along a strong diagonal axis. Mood: action, drama, movement, tension. Opposite of the stable pyramid. Tilt the horizon.</p>
+    <p>&nbsp;</p>
+    
+    <h3>SECTION 5: COMPOSITION FOR DIFFERENT FORMATS</h3>
+    <p>The shape of your canvas (aspect ratio) dictates which compositions work best.</p>
+    <ul>
+        <li><strong>Square (1:1):</strong> Forces symmetry or radial compositions. Center is very powerful.</li>
+        <li><strong>Landscape (16:9, 4:3):</strong> Rule of Thirds and S-Curves thrive. Room for wide, sweeping narrative.</li>
+        <li><strong>Portrait (3:4, 9:16):</strong> Pyramid and vertical leading lines work best. Great for single figures.</li>
+        <li><strong>Panorama (2:1, 3:1):</strong> Requires multiple focal points or a very strong S-Curve to keep the eye moving.</li>
+    </ul>
+    <p>&nbsp;</p>
+    
+    <h3>SECTION 6: ANALYZING COMPOSITION – The Thumbnail Habit</h3>
+    <p>The single best way to improve your composition is to draw small, rough thumbnails before starting any piece.</p>
+    <p><strong>The 10-Thumbnail Rule:</strong> Draw a small rectangle (2 inches wide). Fill it with 3 to 5 values. Do not draw details – draw shapes. Create 10 different thumbnails for the same scene concept. Squint and compare: which reads best? Clear focal point? Interesting negative space?</p>
+    <p><strong>Thumbnail Checklist:</strong> Is the Focal Point clearly defined by value contrast? Is there Foreground, Midground, Background? Does the eye have a path to follow? Any tangents? Is Balance intentional?</p>
+    <p>&nbsp;</p>
+    
+    <h3>SECTION 7: COMMON COMPOSITION MISTAKES &amp; HOW TO FIX THEM</h3>
+    <table>
+        <thead><tr><th>Mistake</th><th>Why It Happens</th><th>The Fix</th></tr></thead>
+        <tbody>
+            <tr><td><strong>The "Bullseye" Trap</strong></td><td>Focal point exactly in dead center with no other visual interest.</td><td>Move it slightly off-center to create relationship with negative space, or embrace center with radial symmetry.</td></tr>
+            <tr><td><strong>The "Kissing" Edges (Tangents)</strong></td><td>A tree branch exactly touches the edge of a mountain peak.</td><td>Overlap or create clear space. Either cross the mountain or stop well short.</td></tr>
+            <tr><td><strong>The "Equal Division" Horizon</strong></td><td>Horizon line exactly across the middle of the page.</td><td>Choose a side – lower third to emphasize sky, upper third to emphasize land. 50/50 creates indecision.</td></tr>
+            <tr><td><strong>The "Lead Out" Gaze</strong></td><td>Character looks directly at the edge of the frame; viewer's eye falls off.</td><td>Flip the canvas or place character on opposite side so they look into empty space.</td></tr>
+            <tr><td><strong>The "Floating" Subject</strong></td><td>Subject not touching ground or any element; no cast shadow.</td><td>Add a cast shadow. The contact point is the anchor of the composition.</td></tr>
+            <tr><td><strong>The "Cluttered" Corner</strong></td><td>All four corners equally busy; eye cannot rest.</td><td>Vignette – darken or simplify at least two corners to push eye back toward center/focal point.</td></tr>
+            <tr><td><strong>The "Staircase" Repetition</strong></td><td>Three identical trees evenly spaced.</td><td>Vary spacing and size: one large tree, two small trees clustered. Big, Medium, Small.</td></tr>
+        </tbody>
+    </table>
+    <p>&nbsp;</p>
+    
+    <h3>SECTION 8: ASSIGNMENT / PRACTICE DRILL</h3>
+    <p><strong>Drill 1: The Master Copy Thumbnail</strong></p>
+    <ul>
+        <li>Find 10 famous paintings from different eras (Rembrandt, Monet, Hopper, Rockwell, Leyendecker).</li>
+        <li>For each, draw a small 2-inch thumbnail using only 3 values (White, Mid-Grey, Black).</li>
+        <li>Do not draw details – capture only the large value masses, the horizon line, and the dominant shape (pyramid, S-curve, L-shape).</li>
+        <li><em>Goal: Internalize the compositional frameworks of the masters.</em></li>
+    </ul>
+    <p><strong>Drill 2: The 10-Thumbnail Challenge</strong></p>
+    <ul>
+        <li>Choose a simple subject (e.g., "A figure standing on a hill overlooking a valley").</li>
+        <li>Draw 10 distinct thumbnails (each 2 inches wide). Change the composition for each: centered, Rule of Thirds left/right, pyramid, S-curve, L-shape, diagonal, high horizon, low horizon, silhouette.</li>
+        <li><em>Goal: Exhaust obvious choices and discover unexpected, dynamic solutions.</em></li>
+    </ul>
+    <p><strong>Drill 3: The "Weight" of Gaze (Digital or Collage)</strong></p>
+    <ul>
+        <li>Find a photo of a person looking to the side.</li>
+        <li>Place the photo in a square canvas in three versions: left looking right, right looking right (off edge), right looking left.</li>
+        <li>Observe the visual tension in each version.</li>
+        <li><em>Goal: Feel the psychological weight of gaze and negative space.</em></li>
+    </ul>
+    <p><strong>Drill 4: The Negative Space Silhouette Check</strong></p>
+    <ul>
+        <li>Take a finished drawing or painting.</li>
+        <li>Trace the negative space shapes (the empty areas around the subject).</li>
+        <li>Are these shapes varied and interesting? Or boring, equal-sized rectangles?</li>
+        <li><em>Goal: Realize that the "empty" parts of the composition are just as important as the subject.</em></li>
+    </ul>
+    <p><strong>Drill 5: The 60-30-10 Colour Composition (Advanced)</strong></p>
+    <ul>
+        <li>Plan a composition where the value distribution is: 60% Mid-Grey (Background/Midground), 30% Dark Grey (Shadows/Foreground masses), 10% White/Light Grey (The Focal Point).</li>
+        <li>Paint a quick study using only these three values.</li>
+        <li><em>Goal: Apply the principle of value massing to create a clear hierarchy.</em></li>
+    </ul>
+    <hr>
+    <p style="text-align: center; font-size: 0.9rem;"><i class="fas fa-th-large"></i> Composition is the silent storyteller – master it, and your images will speak clearly.</p>
+</div>
+<footer>
+    <p>© 2026 ArtHub — Composition for Artists <i class="fas fa-heart" style="color: var(--accent-pink);"></i></p>
+</footer>
+<button class="theme-btn-lesson" id="themeToggleLesson"><i class="fas fa-moon" id="themeIconLesson"></i> Dark/Light</button>
+
+<script>
+    function initTheme() {
+        if (localStorage.getItem('darkMode') === 'true') {
+            document.body.classList.add('dark');
+        } else {
+            document.body.classList.remove('dark');
+        }
+        updateIcon();
+    }
+    function toggleTheme() {
+        document.body.classList.toggle('dark');
+        localStorage.setItem('darkMode', document.body.classList.contains('dark'));
+        updateIcon();
+    }
+    function updateIcon() {
+        const icon = document.getElementById('themeIconLesson');
+        if (document.body.classList.contains('dark')) {
+            icon.classList.remove('fa-moon');
+            icon.classList.add('fa-sun');
+        } else {
+            icon.classList.remove('fa-sun');
+            icon.classList.add('fa-moon');
+        }
+    }
+    document.getElementById('themeToggleLesson').addEventListener('click', toggleTheme);
+    initTheme();
+</script>
+</body>
+</html>

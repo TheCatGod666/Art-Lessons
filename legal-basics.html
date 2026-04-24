@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>ArtHub · Legal Basics for Artists</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: background-color 0.2s ease, color 0.2s, border-color 0.2s;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Inter', system-ui, -apple-system, 'Roboto', sans-serif;
+            line-height: 1.55;
+            position: relative;
+        }
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -2;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Cpath fill='%23b87c4f' fill-opacity='0.12' d='M60,15 L63,25 L73,25 L65,32 L68,42 L60,36 L52,42 L55,32 L47,25 L57,25 Z'/%3E%3Ccircle cx='30' cy='85' r='5' fill='%23e58a9e' fill-opacity='0.15'/%3E%3Ccircle cx='95' cy='40' r='6' fill='%236c9e4f' fill-opacity='0.12'/%3E%3Cpath fill='%235b8cbf' fill-opacity='0.1' d='M100,90 L103,96 L110,96 L105,101 L107,108 L100,103 L93,108 L95,101 L90,96 L97,96 Z'/%3E%3C/svg%3E");
+            background-repeat: repeat;
+            background-size: 80px 80px;
+        }
+        body.dark::before {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Cpath fill='%23d49c6c' fill-opacity='0.08' d='M60,15 L63,25 L73,25 L65,32 L68,42 L60,36 L52,42 L55,32 L47,25 L57,25 Z'/%3E%3Ccircle cx='30' cy='85' r='5' fill='%23f0a1b3' fill-opacity='0.1'/%3E%3Ccircle cx='95' cy='40' r='6' fill='%2380b35c' fill-opacity='0.08'/%3E%3Cpath fill='%236c9fd6' fill-opacity='0.08' d='M100,90 L103,96 L110,96 L105,101 L107,108 L100,103 L93,108 L95,101 L90,96 L97,96 Z'/%3E%3C/svg%3E");
+        }
+
+        :root {
+            --bg-body: #fef7e9;
+            --bg-card: #ffffff;
+            --text-primary: #2c2418;
+            --text-secondary: #5a4a34;
+            --border-light: #f0e2cf;
+            --accent-brown: #b87c4f;
+            --accent-green: #6c9e4f;
+            --accent-blue: #5b8cbf;
+            --accent-pink: #e58a9e;
+            --accent-brown-soft: #d9b48b;
+            --accent-green-soft: #b3d0a2;
+            --accent-blue-soft: #aac4e6;
+            --accent-pink-soft: #f4c4d0;
+            --shadow: 0 8px 20px rgba(0,0,0,0.05);
+        }
+        body.dark {
+            --bg-body: #1a1714;
+            --bg-card: #2a2622;
+            --text-primary: #f2ede4;
+            --text-secondary: #cdc2b2;
+            --border-light: #3f382f;
+            --accent-brown: #d49c6c;
+            --accent-green: #80b35c;
+            --accent-blue: #6c9fd6;
+            --accent-pink: #f0a1b3;
+            --accent-brown-soft: #9c6e48;
+            --accent-green-soft: #4f7039;
+            --accent-blue-soft: #4a6e96;
+            --accent-pink-soft: #b35f73;
+            --shadow: 0 8px 20px rgba(0,0,0,0.4);
+        }
+        body {
+            background: var(--bg-body);
+            color: var(--text-primary);
+        }
+
+        .lesson-container {
+            max-width: 1000px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: var(--bg-card);
+            border-radius: 2rem;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-light);
+            position: relative;
+            z-index: 1;
+        }
+
+        h1, h2, h3, h4 {
+            color: var(--accent-brown);
+            margin-top: 1.8rem;
+            margin-bottom: 0.8rem;
+            font-weight: 600;
+        }
+        h1 {
+            font-size: 2.4rem;
+            border-left: 6px solid var(--accent-pink);
+            padding-left: 1rem;
+            margin-top: 0.5rem;
+        }
+        h2 {
+            font-size: 1.8rem;
+            border-bottom: 2px solid var(--accent-green-soft);
+            display: inline-block;
+            padding-bottom: 0.3rem;
+        }
+        h3 {
+            font-size: 1.4rem;
+            color: var(--accent-blue);
+            margin-top: 1.2rem;
+        }
+        h4 {
+            font-size: 1.2rem;
+            color: var(--accent-pink);
+        }
+        p, li {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+        ul, ol {
+            margin: 0.8rem 0 1.2rem 2rem;
+        }
+        li {
+            margin: 0.4rem 0;
+        }
+        em, strong {
+            color: var(--accent-brown);
+        }
+        hr {
+            border: none;
+            height: 2px;
+            background: var(--border-light);
+            margin: 2rem 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            background: var(--bg-body);
+            border-radius: 1rem;
+            overflow: hidden;
+        }
+        th, td {
+            border: 1px solid var(--border-light);
+            padding: 10px 12px;
+            text-align: left;
+            vertical-align: top;
+            color: var(--text-secondary);
+        }
+        th {
+            background: var(--accent-blue-soft);
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 1.5rem;
+            background: var(--accent-blue-soft);
+            padding: 0.5rem 1.2rem;
+            border-radius: 40px;
+            text-decoration: none;
+            color: var(--text-primary);
+            font-weight: 500;
+            transition: 0.2s;
+        }
+        .back-link:hover {
+            background: var(--accent-pink-soft);
+            transform: translateX(-4px);
+        }
+        .theme-toggle {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-light);
+            border-radius: 60px;
+            padding: 10px 18px;
+            cursor: pointer;
+            font-weight: 500;
+            color: var(--text-primary);
+            box-shadow: var(--shadow);
+            z-index: 100;
+            backdrop-filter: blur(4px);
+        }
+        .theme-toggle:hover {
+            background: var(--accent-pink-soft);
+            transform: scale(0.96);
+        }
+        footer {
+            text-align: center;
+            padding: 1.5rem;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            border-top: 1px solid var(--border-light);
+            margin-top: 2rem;
+        }
+        @media (max-width: 680px) {
+            .lesson-container {
+                margin: 1rem;
+                padding: 1.2rem;
+            }
+            h1 { font-size: 1.8rem; }
+            h2 { font-size: 1.4rem; }
+            table, thead, tbody, th, td, tr { display: block; }
+            th, td { display: block; width: 100%; }
+        }
+    </style>
+</head>
+<body>
+<div class="lesson-container">
+    <a href="index.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to ArtHub Studio</a>
+    
+    <h2>PROFESSIONAL PRACTICE: LEGAL BASICS FOR ARTISTS</h2>
+    <h3>Copyright, Contracts, and Protecting Your Creative Work</h3>
+    <p>&nbsp;</p>
+    
+    <h3>Introduction: Your Art Is an Asset—Protect It</h3>
+    <p>You have spent years developing your skills. You have built a portfolio, established a pricing structure, and learned how to market yourself. But there is one more critical layer to a sustainable art career: <strong>understanding your legal rights and responsibilities</strong>.</p>
+    <p>This lesson is not a substitute for professional legal advice. Laws vary by country and specific circumstances. However, every professional artist should have a <strong>working knowledge</strong> of the fundamental legal concepts that govern their work: <strong>copyright, contracts, licensing, and business structure</strong>.</p>
+    <p>Think of this lesson as your <strong>legal first-aid kit</strong>. It will help you identify potential issues, ask the right questions, and know when it's time to consult a qualified attorney.</p>
+    <p>&nbsp;</p>
+    
+    <h3>SECTION 1: COPYRIGHT – The Foundation of Your Rights</h3>
+    <p>Copyright is the single most important legal concept for any visual artist to understand. It is the bedrock upon which your entire ability to earn a living from your art is built.</p>
+    <h4>1.1 What Is Copyright?</h4>
+    <p>Copyright is a form of intellectual property law that protects <strong>original works of authorship</strong> fixed in a tangible medium of expression. If you create an original piece of art—a painting, a drawing, a digital illustration, a photograph—you automatically own the copyright to that work the moment it is created.</p>
+    <p><strong>What Copyright Protects:</strong> Visual art, graphic design and logos, characters, architectural works, motion pictures, literary works.<br>
+    <strong>What Copyright Does NOT Protect:</strong> Ideas, concepts, or styles; facts; titles, names, short phrases; unfixed works.</p>
+    <h4>1.2 The Bundle of Exclusive Rights</h4>
+    <table>
+        <thead><tr><th>Right</th><th>What It Means</th><th>Practical Implication for Artists</th></tr></thead>
+        <tbody>
+            <tr><td><strong>Reproduction</strong></td><td>Make copies of the work. </strong> </td><td>You control who can make prints or digital copies. </strong> </td></tr>
+            <tr><td><strong>Distribution</strong> </td><td>Sell, rent, lease, or lend copies.</strong> </td><td>You control where your art is sold. </strong> </td></tr>
+            <tr><td><strong>Derivative Works</strong> </td><td>Create new works based on the original.</strong> </td><td>You control adaptations, sequels, or modifications. </strong> </td></tr>
+            <tr><td><strong>Public Display</strong> </td><td>Show the work publicly.</strong> </td><td>You control where your work is exhibited online or offline. </strong> </td></tr>
+        </tbody>
+    </table>
+    <p><strong>The Key Insight:</strong> When a client "buys" art from you, they are <strong>not</strong> automatically buying these rights. You retain all rights unless you explicitly transfer them in writing.</p>
+    <h4>1.3 How Copyright Is Secured</h4>
+    <p>Copyright is <strong>automatic</strong> upon creation (Berne Convention). In the U.S., registration with the U.S. Copyright Office provides significant advantages: public record, ability to sue for infringement, and eligibility for statutory damages and attorney's fees if registered before infringement or within three months of publication.</p>
+    <h4>1.4 Fair Use: The Exception (Not the Rule)</h4>
+    <p>Fair use allows limited use without permission for purposes like criticism, comment, teaching, or research. Courts consider four factors: purpose of use, nature of work, amount used, and effect on market value. <strong>Fair use is a defense determined case-by-case; do not assume your use qualifies.</strong></p>
+    <h4>1.5 Fan Art and Copyright</h4>
+    <p>Fan art of copyrighted characters (e.g., Disney, Nintendo) is technically infringement. Many rights holders tolerate non-commercial fan art but may issue a cease-and-desist at any time. For commercial work, focus on <strong>original characters and worlds</strong> for a fully protected career.</p>
+    <p>&nbsp;</p>
+    
+    <h3>SECTION 2: LICENSING VS. WORK-FOR-HIRE</h3>
+    <h4>2.1 Licensing (You Retain Copyright)</h4>
+    <p>A license grants specific, limited rights to use artwork for a defined purpose, period, and territory. <strong>You retain full copyright.</strong> A license should specify scope of use, exclusivity, duration, territory, media, and attribution.</p>
+    <h4>2.2 Work-for-Hire (You Transfer Copyright)</h4>
+    <p>Under U.S. law, a work is "made for hire" only if created by an employee or if it is a commissioned work falling into one of nine specific categories <strong>and</strong> the parties sign a written agreement. Most freelance illustration does not qualify. The practical alternative is a <strong>full copyright assignment</strong>, which should cost significantly more (3⨯ to 10⨯ a standard license).</p>
+    <p>&nbsp;</p>
+    
+    <h3>SECTION 3: CONTRACTS AND WRITTEN AGREEMENTS</h3>
+    <p>"If it's not in writing, it didn't happen." A written agreement provides clarity and evidence.</p>
+    <p><strong>Minimum Viable Contract Checklist:</strong> Parties, scope of work, deliverables, timeline, revisions, fee and payment schedule, cancellation and kill fee, rights granted/license, credit/attribution, governing law. <strong>Red flags:</strong> refusing to sign any agreement, vague terms, pressure to start without deposit.</p>
+    <p>&nbsp;</p>
+    
+    <h3>SECTION 4: TRADEMARK AND RIGHT OF PUBLICITY</h3>
+    <p><strong>Trademark</strong> protects words, phrases, symbols that identify the source of goods. Your artist name or logo can be trademarked. Do not use another company's trademark without permission.<br>
+    <strong>Right of Publicity</strong> protects an individual's control over commercial use of their name, image, likeness. You generally cannot sell prints or merchandise of a recognizable person without written permission.</p>
+    <p>&nbsp;</p>
+    
+    <h3>SECTION 5: AI, NFTS, AND EMERGING TECHNOLOGIES</h3>
+    <p><strong>AI:</strong> Works created entirely by AI without human authorship are not eligible for copyright protection. Lawsuits about AI training on copyrighted works are unsettled. Use tools like Glaze/Nightshade to protect your work. State your policy in TOS: <em>"Client may not use Artwork for AI training or blockchain technology."</em><br>
+    <strong>NFTs:</strong> Buying an NFT does not equal buying copyright; the artist retains copyright unless explicitly transferred.</p>
+    <p>&nbsp;</p>
+    
+    <h3>SECTION 6: BUSINESS FORMATION – Sole Proprietorship vs. LLC</h3>
+    <p><strong>Sole Proprietorship (default):</strong> Simple, but unlimited personal liability.<br>
+    <strong>LLC (Limited Liability Company):</strong> Provides liability shield between personal assets and business. Has filing fees and annual requirements. Recommended when earning significant income from art or working with commercial clients.</p>
+    <p>&nbsp;</p>
+    
+    <h3>SECTION 7: TAXES FOR ARTISTS (The Absolute Basics)</h3>
+    <p><strong>Disclaimer:</strong> Not tax advice. Consult a professional.</p>
+    <p>You are a business owner: report all income, pay income tax and self-employment tax, make quarterly estimated payments. Deductible expenses: art supplies, digital equipment, software, website fees, studio rent or home office, travel, professional development, legal/accounting fees. Sales tax may apply for physical products sold in your state; check local rules.</p>
+    <p>&nbsp;</p>
+    
+    <h3>SECTION 8: WHEN TO CONSULT AN ATTORNEY</h3>
+    <p>Consult an attorney if you receive a cease-and-desist letter, negotiate high-value contracts, face significant copyright infringement, form a partnership or multi-member LLC, have complex legal questions. Use Volunteer Lawyers for the Arts (VLA) for low-cost help.</p>
+    <p>&nbsp;</p>
+    
+    <h3>SECTION 9: SAMPLE "ALL-PURPOSE" COMMISSION AGREEMENT TEMPLATE</h3>
+    <p><em>Simplified for educational purposes; not a substitute for legal advice.</em></p>
+    <p><strong>ART COMMISSION AGREEMENT</strong><br>
+    <strong>Date:</strong> [Date]<br>
+    <strong>Parties:</strong> [Artist Name] ("Artist") and [Client Name] ("Client").<br>
+    <strong>1. Scope of Work.</strong> [Detailed description].<br>
+    <strong>2. Deliverables.</strong> High-resolution digital file (JPEG, 300 DPI).<br>
+    <strong>3. Timeline.</strong> [Number] weeks after deposit and sketch approval.<br>
+    <strong>4. Revisions.</strong> One sketch round + one minor final round. Additional revisions billed at $[X]/hour.<br>
+    <strong>5. Fee and Payment.</strong> Total $[Total]. 50% non-refundable deposit upfront; 50% upon completion before final delivery.<br>
+    <strong>6. Cancellation.</strong> Deposit forfeited if cancelled after work begins; kill fee of 75% if beyond sketch phase.<br>
+    <strong>7. Rights Granted.</strong> Artist retains copyright. Client receives non-exclusive, non-transferable personal use license. No commercial use, no NFTs, no AI training.<br>
+    <strong>8. Artist's Portfolio Rights.</strong> Artist may display work in portfolio with credit.<br>
+    <strong>9. Credit.</strong> Client must credit Artist when displayed online.<br>
+    <strong>10. Governing Law.</strong> [Your State].<br>
+    <strong>IN WITNESS WHEREOF</strong> ... [Signature lines].</p>
+    <p>&nbsp;</p>
+    
+    <h3>SECTION 10: COMMON LEGAL MISTAKES &amp; HOW TO AVOID THEM</h3>
+    <table>
+        <thead><tr><th>Mistake</th><th>The Fix</th></tr></thead>
+        <tbody>
+            <tr><td><strong>Assuming "I bought it, I own the copyright."</strong> </strong> </td><td>Explicitly state in writing that you retain copyright. Educate clients. </strong> </td></tr>
+            <tr><td><strong>No written agreement.</strong> </strong> </td><td>Always use a written agreement, even for small commissions. </strong> </td></tr>
+            <tr><td><strong>Vague scope of work.</strong> </strong> </td><td>Be specific: "One full-body character with sword and forest background." </strong> </td></tr>
+            <tr><td><strong>Unlimited revisions.</strong> </strong> </td><td>Specify a revision limit and bill for additional work. </strong> </td></tr>
+            <tr><td><strong>Not registering key works.</strong> </strong> </td><td>Register high-value commercial work and key portfolio pieces. </strong> </td></tr>
+            <tr><td><strong>Using trademarked names in product listings.</strong> </strong> </td><td>Use descriptive, generic language. "Wizard boy print" not "Harry Potter print." </strong> </td></tr>
+            <tr><td><strong>Selling portraits of celebrities.</strong> </strong> </td><td>Obtain permission or do not sell commercially. Right of publicity applies. </strong> </td></tr>
+        </tbody>
+    </table>
+    <p>&nbsp;</p>
+    
+    <h3>SECTION 11: ASSIGNMENT / PRACTICE DRILL</h3>
+    <p><strong>Drill 1: The "Rights" Audit</strong> – Review your last 3-5 commission agreements. Write a clear "Rights Granted" clause for future use.<br>
+    <strong>Drill 2: Create Your Commission Agreement Template</strong> – Customize the template in Section 9 for your art business. Save as PDF.<br>
+    <strong>Drill 3: The Copyright Registration Walkthrough</strong> – Visit your country's copyright office website. Walk through the application process to demystify it.<br>
+    <strong>Drill 4: The "Red Flag" Checklist</strong> – Create a list of red flags (e.g., "client refuses to sign agreement," "insists on work-for-hire but won't pay higher fee"). Keep it visible.<br>
+    <strong>Drill 5: The Intellectual Property "Inventory"</strong> – List your most valuable IP assets (artist name, original characters, best-selling prints). For each, ask: "Is this adequately protected?" Begin thinking as an IP manager.</p>
+    <hr>
+    <p style="text-align: center; font-size: 0.9rem;"><i class="fas fa-gavel"></i> Knowledge of your legal rights is not a luxury—it is a professional necessity. Protect your work as fiercely as you create it.</p>
+</div>
+<footer>
+    <p>© 2026 ArtHub — Professional Practice: Legal Basics for Artists <i class="fas fa-heart" style="color: var(--accent-pink);"></i></p>
+</footer>
+<div class="theme-toggle" id="themeToggle"><i class="fas fa-moon" id="themeIcon"></i> Dark/Light</div>
+
+<script>
+    function initTheme() {
+        if (localStorage.getItem('darkMode') === 'true') {
+            document.body.classList.add('dark');
+        } else {
+            document.body.classList.remove('dark');
+        }
+        updateIcon();
+    }
+    function toggleTheme() {
+        document.body.classList.toggle('dark');
+        localStorage.setItem('darkMode', document.body.classList.contains('dark'));
+        updateIcon();
+    }
+    function updateIcon() {
+        const icon = document.getElementById('themeIcon');
+        if (document.body.classList.contains('dark')) {
+            icon.classList.remove('fa-moon');
+            icon.classList.add('fa-sun');
+        } else {
+            icon.classList.remove('fa-sun');
+            icon.classList.add('fa-moon');
+        }
+    }
+    document.getElementById('themeToggle').addEventListener('click', toggleTheme);
+    initTheme();
+</script>
+</body>
+</html>

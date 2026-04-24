@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>ArtHub · Traditional Media for Artists</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: background-color 0.2s ease, color 0.2s, border-color 0.2s;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Inter', system-ui, -apple-system, 'Roboto', sans-serif;
+            line-height: 1.55;
+            position: relative;
+        }
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -2;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Cpath fill='%23b87c4f' fill-opacity='0.12' d='M60,15 L63,25 L73,25 L65,32 L68,42 L60,36 L52,42 L55,32 L47,25 L57,25 Z'/%3E%3Ccircle cx='30' cy='85' r='5' fill='%23e58a9e' fill-opacity='0.15'/%3E%3Ccircle cx='95' cy='40' r='6' fill='%236c9e4f' fill-opacity='0.12'/%3E%3Cpath fill='%235b8cbf' fill-opacity='0.1' d='M100,90 L103,96 L110,96 L105,101 L107,108 L100,103 L93,108 L95,101 L90,96 L97,96 Z'/%3E%3C/svg%3E");
+            background-repeat: repeat;
+            background-size: 80px 80px;
+        }
+        body.dark::before {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Cpath fill='%23d49c6c' fill-opacity='0.08' d='M60,15 L63,25 L73,25 L65,32 L68,42 L60,36 L52,42 L55,32 L47,25 L57,25 Z'/%3E%3Ccircle cx='30' cy='85' r='5' fill='%23f0a1b3' fill-opacity='0.1'/%3E%3Ccircle cx='95' cy='40' r='6' fill='%2380b35c' fill-opacity='0.08'/%3E%3Cpath fill='%236c9fd6' fill-opacity='0.08' d='M100,90 L103,96 L110,96 L105,101 L107,108 L100,103 L93,108 L95,101 L90,96 L97,96 Z'/%3E%3C/svg%3E");
+        }
+
+        :root {
+            --bg-body: #fef7e9;
+            --bg-card: #ffffff;
+            --text-primary: #2c2418;
+            --text-secondary: #5a4a34;
+            --border-light: #f0e2cf;
+            --accent-brown: #b87c4f;
+            --accent-green: #6c9e4f;
+            --accent-blue: #5b8cbf;
+            --accent-pink: #e58a9e;
+            --accent-brown-soft: #d9b48b;
+            --accent-green-soft: #b3d0a2;
+            --accent-blue-soft: #aac4e6;
+            --accent-pink-soft: #f4c4d0;
+            --shadow: 0 8px 20px rgba(0,0,0,0.05);
+        }
+        body.dark {
+            --bg-body: #1a1714;
+            --bg-card: #2a2622;
+            --text-primary: #f2ede4;
+            --text-secondary: #cdc2b2;
+            --border-light: #3f382f;
+            --accent-brown: #d49c6c;
+            --accent-green: #80b35c;
+            --accent-blue: #6c9fd6;
+            --accent-pink: #f0a1b3;
+            --accent-brown-soft: #9c6e48;
+            --accent-green-soft: #4f7039;
+            --accent-blue-soft: #4a6e96;
+            --accent-pink-soft: #b35f73;
+            --shadow: 0 8px 20px rgba(0,0,0,0.4);
+        }
+        body {
+            background: var(--bg-body);
+            color: var(--text-primary);
+        }
+
+        .lesson-container {
+            max-width: 1000px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: var(--bg-card);
+            border-radius: 2rem;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-light);
+            position: relative;
+            z-index: 1;
+        }
+
+        h1, h2, h3, h4 {
+            color: var(--accent-brown);
+            margin-top: 1.8rem;
+            margin-bottom: 0.8rem;
+            font-weight: 600;
+        }
+        h1 {
+            font-size: 2.4rem;
+            border-left: 6px solid var(--accent-pink);
+            padding-left: 1rem;
+            margin-top: 0.5rem;
+        }
+        h2 {
+            font-size: 1.8rem;
+            border-bottom: 2px solid var(--accent-green-soft);
+            display: inline-block;
+            padding-bottom: 0.3rem;
+        }
+        h3 {
+            font-size: 1.4rem;
+            color: var(--accent-blue);
+            margin-top: 1.2rem;
+        }
+        h4 {
+            font-size: 1.2rem;
+            color: var(--accent-pink);
+        }
+        p, li {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+        ul, ol {
+            margin: 0.8rem 0 1.2rem 2rem;
+        }
+        li {
+            margin: 0.4rem 0;
+        }
+        em, strong {
+            color: var(--accent-brown);
+        }
+        hr {
+            border: none;
+            height: 2px;
+            background: var(--border-light);
+            margin: 2rem 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            background: var(--bg-body);
+            border-radius: 1rem;
+            overflow: hidden;
+        }
+        th, td {
+            border: 1px solid var(--border-light);
+            padding: 10px 12px;
+            text-align: left;
+            vertical-align: top;
+            color: var(--text-secondary);
+        }
+        th {
+            background: var(--accent-blue-soft);
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 1.5rem;
+            background: var(--accent-blue-soft);
+            padding: 0.5rem 1.2rem;
+            border-radius: 40px;
+            text-decoration: none;
+            color: var(--text-primary);
+            font-weight: 500;
+            transition: 0.2s;
+        }
+        .back-link:hover {
+            background: var(--accent-pink-soft);
+            transform: translateX(-4px);
+        }
+        .theme-btn-lesson {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-light);
+            border-radius: 60px;
+            padding: 10px 18px;
+            cursor: pointer;
+            font-weight: 500;
+            color: var(--text-primary);
+            box-shadow: var(--shadow);
+            z-index: 100;
+            backdrop-filter: blur(4px);
+        }
+        .theme-btn-lesson:hover {
+            background: var(--accent-pink-soft);
+            transform: scale(0.96);
+        }
+        footer {
+            text-align: center;
+            padding: 1.5rem;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            border-top: 1px solid var(--border-light);
+            margin-top: 2rem;
+        }
+        @media (max-width: 680px) {
+            .lesson-container {
+                margin: 1rem;
+                padding: 1.2rem;
+            }
+            h1 { font-size: 1.8rem; }
+            h2 { font-size: 1.4rem; }
+            table, thead, tbody, th, td, tr { display: block; }
+            th, td { display: block; width: 100%; }
+        }
+    </style>
+</head>
+<body>
+<div class="lesson-container">
+    <a href="index.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to ArtHub Studio</a>
+    
+    <h2>LESSON 12: TRADITIONAL MEDIA</h2>
+    <h3>Graphite, Charcoal, Inks, Watercolor, Acrylics/Oils, and Mixed Media</h3>
+    <p>&nbsp;</p>
+    
+    <h3>Introduction: The Tactile Foundation</h3>
+    <p>Digital art offers infinite undos and perfect precision. Traditional media offers something digital cannot replicate: <strong>physical presence</strong>. The tooth of the paper, the smell of linseed oil, the weight of a brush loaded with paint—these sensory experiences connect the artist to a lineage stretching back tens of thousands of years.</p>
+    <p>Working traditionally trains the hand and eye in ways that translate directly to digital work. It teaches <strong>commitment</strong> (no undo button), <strong>economy of mark-making</strong> (every stroke costs paint and time), and <strong>the alchemy of material interaction</strong> (how water and pigment dance on paper).</p>
+    <p>This lesson will survey the essential traditional media, providing you with the foundational knowledge to choose the right tool for your vision and to begin your physical practice.</p>
+    <p>&nbsp;</p>
+    
+    <h3>SECTION 1: DRY MEDIA – The Mark of the Hand</h3>
+    <p>Dry media are pigments held together with a binder and applied to a textured surface. They are the most direct and immediate artistic tools.</p>
+    <h4>1.1 Graphite (The Pencil)</h4>
+    <p>Graphite is not lead. It is a crystalline form of carbon mixed with clay. The <strong>ratio of graphite to clay</strong> determines the hardness or softness of the pencil.</p>
+    <p><strong>The Graphite Hardness Scale:</strong></p>
+    <table>
+        <thead><tr><th>Grade</th><th>Description</th><th>Best Used For</th></tr></thead>
+        <tbody>
+            <tr><td><strong>9H – 2H</strong></td><td>Hard. Light, silvery marks. Difficult to smudge.</td><td>Technical drawing, fine details, light under-drawing.</td></tr>
+            <tr><td><strong>H, F, HB</strong></td><td>Medium. The standard writing and sketching pencil.</td><td>General sketching, light shading.</td></tr>
+            <tr><td><strong>B – 6B</strong></td><td>Soft. Dark, rich marks. Blends beautifully.</td><td>Expressive sketching, deep shadows, figure drawing.</td></tr>
+            <tr><td><strong>7B – 9B, Ebony</strong></td><td>Very Soft. Velvety, deep black marks. Smudges at a touch.</td><td>Bold value studies, dramatic chiaroscuro, large-scale drawings.</td></tr>
+        </tbody>
+    </table>
+    <p><strong>Essential Graphite Techniques:</strong> Hatching/cross-hatching, blending/smudging (with tortillon or chamois), lifting/erasing (kneaded or vinyl eraser), and <strong>indenting</strong> (pressing a hard tool into paper before drawing, so graphite skips over the groove, leaving a white line). The <strong>paper tooth</strong> principle: smooth hot-press paper gives photographic smoothness; rough cold-press paper creates automatic grain.</p>
+    <h4>1.2 Charcoal (The Sculptor's Pencil)</h4>
+    <p>Charcoal is darker, richer, more expressive, and messier than graphite.</p>
+    <table>
+        <thead><tr><th>Type</th><th>Description</th><th>Best Used For</th></tr></thead>
+        <tbody>
+            <tr><td><strong>Vine Charcoal (Willow)</strong></td><td>Soft, powdery, light grey. Easily erased.</td><td>Gesture drawing, initial lay-ins.</td></tr>
+            <tr><td><strong>Compressed Charcoal</strong></td><td>Deep, intense black. Difficult to erase completely.</td><td>Bold value studies, final rendering, dramatic shadows.</td></tr>
+            <tr><td><strong>Charcoal Pencil</strong></td><td>Compressed charcoal encased in wood or paper.</td><td>Precision work, fine lines, detail.</td></tr>
+            <tr><td><strong>White Charcoal / Conté</strong></td><td>Chalk or pastel pencil.</td><td>Highlights on toned paper ("trois crayons" technique).</td></tr>
+        </tbody>
+    </table>
+    <p><strong>Essential Charcoal Techniques:</strong> The <strong>toned ground</strong> – cover page with vine charcoal, then lift lights with kneaded eraser and push darks with compressed charcoal. Use fixative to prevent smudging.</p>
+    <h4>1.3 Graphite vs. Charcoal: The Tactile Difference</h4>
+    <table>
+        <thead><tr><th>Feature</th><th>Graphite</th><th>Charcoal</th></tr></thead>
+        <tbody>
+            <tr><td><strong>Darkest Value</strong></td><td>Silvery dark grey (reflects light)</td><td>Velvety, matte black (absorbs light)</td></tr>
+            <tr><td><strong>Texture</strong></td><td>Smooth, metallic sheen</td><td>Powdery, grainy, toothy</td></tr>
+            <tr><td><strong>Ease of Erasing</strong></td><td>Easy to moderately easy</td><td>Vine erases easily; Compressed leaves a ghost</td></tr>
+            <tr><td><strong>Mess Factor</strong></td><td>Low</td><td>High (keep wet wipes nearby)</td></tr>
+            <tr><td><strong>Best For</strong></td><td>Precise detail, realistic portraiture, clean line work</td><td>Dramatic value studies, loose gesture, atmospheric effects</td></tr>
+        </tbody>
+    </table>
+    <h4>1.4 Colored Pencil and Pastel</h4>
+    <p><strong>Colored Pencil:</strong> Layering translucent color; <strong>burnishing</strong> (pressing hard) creates smooth glossy finish. <strong>Soft Pastel:</strong> Pure pigment with minimal binder – intensely vibrant, blends with fingers, requires toothy paper and fixative.</p>
+    <p>&nbsp;</p>
+    
+    <h3>SECTION 2: WET MEDIA – The Alchemy of Fluid</h3>
+    <h4>2.1 Ink (The Eternal Line)</h4>
+    <p>Types: India Ink (waterproof), Acrylic Ink (vibrant, lightfast), Sumi Ink (warm greys, expressive brushwork). Techniques: ink wash (dilute with water for tonal gradients), dry brush, dip pen, resist techniques (masking fluid or wax crayon).</p>
+    <h4>2.2 Watercolor (The Luminous Wash)</h4>
+    <p><strong>The Golden Rule:</strong> Work from light to dark, preserve your whites (unpainted paper).</p>
+    <p><strong>Essential Techniques:</strong> Wet-on-wet (soft blooms), wet-on-dry (crisp edges), glazing (thin transparent layers over dry), lifting (removing damp pigment), dry brush. The <strong>Split Primary Palette</strong> – cool and warm versions of each primary – avoids muddy mixtures.</p>
+    <h4>2.3 Acrylics (The Versatile Polymer)</h4>
+    <p>Water-soluble when wet, dries to permanent plastic film. Can be used thinly like watercolor or thickly like oil (impasto). Techniques: impasto (palette knife), glazing with glazing liquid, dry brushing. Use a stay-wet palette to slow drying.</p>
+    <h4>2.4 Oils (The Old Master's Medium)</h4>
+    <p><strong>The "Fat Over Lean" Rule (Crucial):</strong> Always paint fat (oil-rich) layers over lean (solvent-thinned) layers to prevent cracking.</p>
+    <p><strong>Workflow:</strong> Underpainting (lean) → body layer (medium fat) → glazes/details (fat). Techniques: Alla Prima (wet-into-wet in one session), glazing (multiple layers), impasto, scumbling (light opaque dragged over dark dry layer).</p>
+    <p>&nbsp;</p>
+    
+    <h3>SECTION 3: MIXED MEDIA – The Art of Combination</h3>
+    <p><strong>Compatibility Rules:</strong> Dry over wet works; wet over dry (water-based) works; do not paint oil over acrylic unless fully cured, and never acrylic over oil (peeling). Classic combinations: Ink + Watercolor, Watercolor + Colored Pencil, Acrylic + Oil Pastel, Collage + Acrylic, Charcoal + White Conté on toned paper. Acrylic Gesso is the universal primer for mixing everything.</p>
+    <p>&nbsp;</p>
+    
+    <h3>SECTION 4: PAPER AND SURFACE GUIDE</h3>
+    <table>
+        <thead><tr><th>Surface</th><th>Best For</th><th>Key Characteristics</th></tr></thead>
+        <tbody>
+            <tr><td>Newsprint</td><td>Gesture practice, charcoal warm-ups</td><td>Cheap, thin, yellows quickly. Not for finished work.</td></tr>
+            <tr><td>Bristol Board (Smooth)</td><td>Ink, line art, markers, colored pencil</td><td>Ultra-smooth, hard surface. Minimal tooth.</td></tr>
+            <tr><td>Bristol Board (Vellum)</td><td>Graphite, light watercolor wash</td><td>Slight tooth. Good for both line and light shading.</td></tr>
+            <tr><td>Watercolor Paper (Hot Press)</td><td>Detailed watercolor, ink wash, gouache</td><td>Smooth surface. Allows fine detail.</td></tr>
+            <tr><td>Watercolor Paper (Cold Press)</td><td>General watercolor, expressive washes</td><td>Medium tooth. The standard choice.</td></tr>
+            <tr><td>Watercolor Paper (Rough)</td><td>Loose landscapes, dry brush effects</td><td>Heavy, pronounced tooth.</td></tr>
+            <tr><td>Canvas (Stretched)</td><td>Acrylics, Oils</td><td>Fabric surface. Requires Gesso priming.</td></tr>
+            <tr><td>Wood Panel</td><td>Mixed Media, Encaustic, detailed Oils</td><td>Rigid, smooth. No "bounce" like canvas.</td></tr>
+        </tbody>
+    </table>
+    <p>&nbsp;</p>
+    
+    <h3>SECTION 5: COMMON TRADITIONAL MEDIA MISTAKES &amp; HOW TO FIX THEM</h3>
+    <table>
+        <thead><tr><th>Mistake</th><th>Why It Happens</th><th>The Fix</th></tr></thead>
+        <tbody>
+            <tr><td>The "Shiny" Graphite</td><td>Pressing too hard with hard pencil, burnishing the graphite.</td><td>Use softer pencil (2B-6B) for dark values. Build up layers gently.</td></tr>
+            <tr><td>The "Muddy" Watercolor</td><td>Mixing more than 3 pigments; overworking a wet wash.</td><td>Use limited palette. Let layers dry completely before glazing.</td></tr>
+            <tr><td>The "Cracked" Acrylic</td><td>Adding too much water to cheap student-grade paint.</td><td>Use professional grade paint or add acrylic medium instead of water.</td></tr>
+            <tr><td>The "Smeared" Charcoal</td><td>Touching drawing with bare hands or not using fixative.</td><td>Rest hand on clean paper. Spray workable fixative between layers.</td></tr>
+            <tr><td>The "Pilling" Paper</td><td>Scrubbing wet media on paper too thin for water.</td><td>Use paper at least 140 lb (300 gsm). Stretch paper before painting.</td></tr>
+            <tr><td>The "Melted" Plastic Palette (Oils)</td><td>Using plastic palette with oil paint and solvent.</td><td>Use wooden, glass, or disposable paper palette for oils.</td></tr>
+        </tbody>
+    </table>
+    <p>&nbsp;</p>
+    
+    <h3>SECTION 6: ASSIGNMENT / PRACTICE DRILL</h3>
+    <p><strong>Drill 1: The Graphite Value Scale (The 10-Step Ladder)</strong></p>
+    <ul>
+        <li>Draw a strip of 10 squares. Using a single HB pencil, fill squares from White (Square 1) to Black (Square 10).</li>
+        <li>You may not press harder – only use layering and hatching density.</li>
+        <li><em>Goal: Develop control over pencil pressure and layer building.</em></li>
+    </ul>
+    <p><strong>Drill 2: The Reductive Charcoal Sphere</strong></p>
+    <ul>
+        <li>Cover a page with mid-tone grey using side of vine charcoal.</li>
+        <li>Using a kneaded eraser, "draw" the highlight and reflected light of a sphere.</li>
+        <li>Using compressed charcoal, push the core shadow and cast shadow.</li>
+        <li><em>Goal: Think like a painter in a drawing medium.</em></li>
+    </ul>
+    <p><strong>Drill 3: The Watercolor Wash Trio</strong></p>
+    <ul>
+        <li>Tape down three pieces of watercolor paper.</li>
+        <li>Wet-on-Dry: Paint flat even wash of blue from top to bottom.</li>
+        <li>Wet-on-Wet: Wet paper first, then drop in blue paint – watch it bloom.</li>
+        <li>Graded Wash: Start dark blue at top, gradually add water to lighten as you move down.</li>
+        <li><em>Goal: Master the three foundational watercolor washes.</em></li>
+    </ul>
+    <p><strong>Drill 4: The Acrylic Palette Knife Study</strong></p>
+    <ul>
+        <li>Paint a simple still life (e.g., orange and cup). Do not use a brush – only a palette knife.</li>
+        <li><em>Goal: Learn textural possibilities of impasto and stop over-blending.</em></li>
+    </ul>
+    <p><strong>Drill 5: The Mixed Media Portrait</strong></p>
+    <ul>
+        <li>Start with loose watercolor wash of face (warm yellows and cool purples). Let dry.</li>
+        <li>Draw features on top with colored pencil (dark brown and black).</li>
+        <li>Add White Conté highlights on nose and forehead.</li>
+        <li><em>Goal: Experience synergy of watercolor's fluidity and pencil's precision.</em></li>
+    </ul>
+    <p><strong>Drill 6: The Solvent-Free Oil Study (Water-Mixable Oils)</strong></p>
+    <ul>
+        <li>Obtain water-mixable oil paints (e.g., Winsor &amp; Newton Artisan).</li>
+        <li>Paint a simple apple. Clean brushes with soap and water.</li>
+        <li><em>Goal: Experience slow blending of oils without health concerns of solvents.</em></li>
+    </ul>
+    <hr>
+    <p style="text-align: center; font-size: 0.9rem;"><i class="fas fa-paintbrush-pencil"></i> The physicality of traditional media is irreplaceable. Let your hands learn the poetry of real materials.</p>
+</div>
+<footer>
+    <p>© 2026 ArtHub — Traditional Media for Artists <i class="fas fa-heart" style="color: var(--accent-pink);"></i></p>
+</footer>
+<button class="theme-btn-lesson" id="themeToggleLesson"><i class="fas fa-moon" id="themeIconLesson"></i> Dark/Light</button>
+
+<script>
+    function initTheme() {
+        if (localStorage.getItem('darkMode') === 'true') {
+            document.body.classList.add('dark');
+        } else {
+            document.body.classList.remove('dark');
+        }
+        updateIcon();
+    }
+    function toggleTheme() {
+        document.body.classList.toggle('dark');
+        localStorage.setItem('darkMode', document.body.classList.contains('dark'));
+        updateIcon();
+    }
+    function updateIcon() {
+        const icon = document.getElementById('themeIconLesson');
+        if (document.body.classList.contains('dark')) {
+            icon.classList.remove('fa-moon');
+            icon.classList.add('fa-sun');
+        } else {
+            icon.classList.remove('fa-sun');
+            icon.classList.add('fa-moon');
+        }
+    }
+    document.getElementById('themeToggleLesson').addEventListener('click', toggleTheme);
+    initTheme();
+</script>
+</body>
+</html>

@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>ArtHub · Art Block & Burnout Prevention</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: background-color 0.2s ease, color 0.2s, border-color 0.2s;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Inter', system-ui, -apple-system, 'Roboto', sans-serif;
+            line-height: 1.55;
+            position: relative;
+        }
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -2;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Cpath fill='%23b87c4f' fill-opacity='0.12' d='M60,15 L63,25 L73,25 L65,32 L68,42 L60,36 L52,42 L55,32 L47,25 L57,25 Z'/%3E%3Ccircle cx='30' cy='85' r='5' fill='%23e58a9e' fill-opacity='0.15'/%3E%3Ccircle cx='95' cy='40' r='6' fill='%236c9e4f' fill-opacity='0.12'/%3E%3Cpath fill='%235b8cbf' fill-opacity='0.1' d='M100,90 L103,96 L110,96 L105,101 L107,108 L100,103 L93,108 L95,101 L90,96 L97,96 Z'/%3E%3C/svg%3E");
+            background-repeat: repeat;
+            background-size: 80px 80px;
+        }
+        body.dark::before {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Cpath fill='%23d49c6c' fill-opacity='0.08' d='M60,15 L63,25 L73,25 L65,32 L68,42 L60,36 L52,42 L55,32 L47,25 L57,25 Z'/%3E%3Ccircle cx='30' cy='85' r='5' fill='%23f0a1b3' fill-opacity='0.1'/%3E%3Ccircle cx='95' cy='40' r='6' fill='%2380b35c' fill-opacity='0.08'/%3E%3Cpath fill='%236c9fd6' fill-opacity='0.08' d='M100,90 L103,96 L110,96 L105,101 L107,108 L100,103 L93,108 L95,101 L90,96 L97,96 Z'/%3E%3C/svg%3E");
+        }
+
+        :root {
+            --bg-body: #fef7e9;
+            --bg-card: #ffffff;
+            --text-primary: #2c2418;
+            --text-secondary: #5a4a34;
+            --border-light: #f0e2cf;
+            --accent-brown: #b87c4f;
+            --accent-green: #6c9e4f;
+            --accent-blue: #5b8cbf;
+            --accent-pink: #e58a9e;
+            --accent-brown-soft: #d9b48b;
+            --accent-green-soft: #b3d0a2;
+            --accent-blue-soft: #aac4e6;
+            --accent-pink-soft: #f4c4d0;
+            --shadow: 0 8px 20px rgba(0,0,0,0.05);
+        }
+        body.dark {
+            --bg-body: #1a1714;
+            --bg-card: #2a2622;
+            --text-primary: #f2ede4;
+            --text-secondary: #cdc2b2;
+            --border-light: #3f382f;
+            --accent-brown: #d49c6c;
+            --accent-green: #80b35c;
+            --accent-blue: #6c9fd6;
+            --accent-pink: #f0a1b3;
+            --accent-brown-soft: #9c6e48;
+            --accent-green-soft: #4f7039;
+            --accent-blue-soft: #4a6e96;
+            --accent-pink-soft: #b35f73;
+            --shadow: 0 8px 20px rgba(0,0,0,0.4);
+        }
+        body {
+            background: var(--bg-body);
+            color: var(--text-primary);
+        }
+
+        .lesson-container {
+            max-width: 1000px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: var(--bg-card);
+            border-radius: 2rem;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-light);
+            position: relative;
+            z-index: 1;
+        }
+
+        h1, h2, h3, h4 {
+            color: var(--accent-brown);
+            margin-top: 1.8rem;
+            margin-bottom: 0.8rem;
+            font-weight: 600;
+        }
+        h1 {
+            font-size: 2.4rem;
+            border-left: 6px solid var(--accent-pink);
+            padding-left: 1rem;
+            margin-top: 0.5rem;
+        }
+        h2 {
+            font-size: 1.8rem;
+            border-bottom: 2px solid var(--accent-green-soft);
+            display: inline-block;
+            padding-bottom: 0.3rem;
+        }
+        h3 {
+            font-size: 1.4rem;
+            color: var(--accent-blue);
+            margin-top: 1.2rem;
+        }
+        h4 {
+            font-size: 1.2rem;
+            color: var(--accent-pink);
+        }
+        p, li {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+        ul, ol {
+            margin: 0.8rem 0 1.2rem 2rem;
+        }
+        li {
+            margin: 0.4rem 0;
+        }
+        em, strong {
+            color: var(--accent-brown);
+        }
+        hr {
+            border: none;
+            height: 2px;
+            background: var(--border-light);
+            margin: 2rem 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            background: var(--bg-body);
+            border-radius: 1rem;
+            overflow: hidden;
+        }
+        th, td {
+            border: 1px solid var(--border-light);
+            padding: 10px 12px;
+            text-align: left;
+            vertical-align: top;
+            color: var(--text-secondary);
+        }
+        th {
+            background: var(--accent-blue-soft);
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 1.5rem;
+            background: var(--accent-blue-soft);
+            padding: 0.5rem 1.2rem;
+            border-radius: 40px;
+            text-decoration: none;
+            color: var(--text-primary);
+            font-weight: 500;
+            transition: 0.2s;
+        }
+        .back-link:hover {
+            background: var(--accent-pink-soft);
+            transform: translateX(-4px);
+        }
+        .theme-btn-lesson {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-light);
+            border-radius: 60px;
+            padding: 10px 18px;
+            cursor: pointer;
+            font-weight: 500;
+            color: var(--text-primary);
+            box-shadow: var(--shadow);
+            z-index: 100;
+            backdrop-filter: blur(4px);
+        }
+        .theme-btn-lesson:hover {
+            background: var(--accent-pink-soft);
+            transform: scale(0.96);
+        }
+        footer {
+            text-align: center;
+            padding: 1.5rem;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            border-top: 1px solid var(--border-light);
+            margin-top: 2rem;
+        }
+        @media (max-width: 680px) {
+            .lesson-container {
+                margin: 1rem;
+                padding: 1.2rem;
+            }
+            h1 { font-size: 1.8rem; }
+            h2 { font-size: 1.4rem; }
+            table, thead, tbody, th, td, tr { display: block; }
+            th, td { display: block; width: 100%; }
+        }
+    </style>
+</head>
+<body>
+<div class="lesson-container">
+    <a href="index.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to ArtHub Studio</a>
+    
+    <h2>PROFESSIONAL PRACTICE: ART BLOCK &amp; BURNOUT PREVENTION</h2>
+    <h3>Sustaining Creativity and Protecting Your Mental Well-Being</h3>
+    <p>&nbsp;</p>
+    
+    <h3>Introduction: The Silent Crisis of the Creative Life</h3>
+    <p>Art block and burnout are not signs of weakness or a lack of talent. They are <strong>predictable, physiological, and psychological responses</strong> to the unique pressures of a creative life. Every professional artist, from the Old Masters to contemporary concept artists, has faced periods where the well runs dry.</p>
+    <p>Art block is the acute feeling: <em>"I'm sitting here, and nothing is coming out. I am stuck."</em><br>
+    Burnout is the chronic condition: <em>"I don't even want to sit down anymore. I am empty."</em></p>
+    <p>This lesson will not offer magical inspiration potions. It will offer a <strong>clear-eyed understanding of the causes</strong> and a <strong>toolkit of actionable strategies</strong> to prevent block, manage creative droughts, and recover from burnout.</p>
+    <p>&nbsp;</p>
+    
+    <h3>SECTION 1: UNDERSTANDING THE ENEMY – DEFINITIONS AND CAUSES</h3>
+    <p>You cannot fix a problem you cannot name.</p>
+    <h4>1.1 What is Art Block? (The Acute Phase)</h4>
+    <p>Art block is a <strong>temporary inability to access one's creative flow</strong>. Characterized by staring at blank canvas, feeling every mark is wrong, frustration, procrastination.</p>
+    <p><strong>Common Causes of Art Block:</strong></p>
+    <table>
+        <thead><tr><th>Causeth</th><th>Explanation</th><th>Internal Narrative</th></tr></thead>
+        <tbody>
+            <tr><td><strong>Perfectionism</strong></td><td>Gap between taste and current skill</td><td>"If it's not a masterpiece, why bother?"</td></tr>
+            <tr><td><strong>Decision Fatigue</strong></td><td>Daily decision quota used up</td><td>"I can't choose a brush/pose/color."</td></tr>
+            <tr><td><strong>Fear of Failure/Judgment</strong></td><td>Imagined audience looms</td><td>"What if no one likes it?"</td></tr>
+            <tr><td><strong>Lack of Clear Constraints</strong></td><td>"I can draw anything" is paralyzing</td><td>"I have no idea what to draw."</td></tr>
+            <tr><td><strong>Physical/Mental Fatigue</strong></td><td>Tired brain cannot create</td><td>"My brain feels like static."</td></tr>
+        </tbody>
+    </table>
+    <h4>1.2 What is Burnout? (The Chronic Phase)</h4>
+    <p>Burnout is a state of <strong>emotional, physical, and mental exhaustion</strong> caused by prolonged stress. Three dimensions: exhaustion, cynicism/detachment, reduced professional efficacy. Common causes: chronic overwork, financial precarity, social media grind, comparison culture, lack of autonomy, isolation.</p>
+    <p>&nbsp;</p>
+    
+    <h3>SECTION 2: PREVENTION – BUILDING A RESILIENT CREATIVE PRACTICE</h3>
+    <p>The best time to fix a leaky roof is when the sun is shining.</p>
+    <h4>2.1 The "Creative Tank" Metaphor</h4>
+    <p>Output (drawing) drains the tank; Input (rest, play, inspiration) fills the tank. Burnout occurs when Output exceeds Input for a sustained period. Schedule Input activities: active input (no-outcome sketching, master studies), passive input (museums, films, nature without headphones), restorative input (sleep, hydration, actual rest).</p>
+    <h4>2.2 The "Sacred Sketchbook" (The Pressure-Free Zone)</h4>
+    <p>Maintain one sketchbook you never show anyone. A place for ugliness, experimentation, mess. Keeps the hand moving when you're blocked on "serious" work.</p>
+    <h4>2.3 The "Idea Parking Lot" (Defeating the Blank Page)</h4>
+    <p>Create a digital document or notebook. Write down any fleeting idea (one sentence, tiny thumbnail) as it comes. When block hits, pick an existing idea from the lot – you bypass the "what to draw" paralysis.</p>
+    <h4>2.4 The "Minimum Viable Session" (The 10-Minute Commitment)</h4>
+    <p>Set a timer for 10 minutes. Commit to any art-related action. After timer, you have permission to stop. Often momentum carries you forward; even if you stop, you've maintained the <strong>habit</strong> of showing up.</p>
+    <h4>2.5 The "Good Enough" Practice (Combating Perfectionism)</h4>
+    <p>"This is good enough for this pass." Aim for 70% of your imagined ideal. Recognise when a piece has taught you what it needed to teach, and let it go.</p>
+    <p>&nbsp;</p>
+    
+    <h3>SECTION 3: INTERVENTION – WHAT TO DO WHEN THE BLOCK HITS</h3>
+    <p>Do not panic. Here is the triage protocol.</p>
+    <p><strong>Level 1 (Physical):</strong> Stand up, walk away, drink water, do jumping jacks, look far away.<br>
+    <strong>Level 2 (Sensory):</strong> Switch mediums (pencil to brush pen), switch subjects (cube, hand, crumpled paper), change music.<br>
+    <strong>Level 3 (Cognitive):</strong> Give yourself "Bad Art" permission slip – make the ugliest thing possible. Copy a master to reconnect with craft without pressure.<br>
+    <strong>The "Reference Remix" Drill:</strong> Combine 5 random references (1920s fashion + deep-sea fish + Brutalist building) to force new connections.</p>
+    <p>&nbsp;</p>
+    
+    <h3>SECTION 4: RECOVERY – THE LONG ROAD BACK FROM BURNOUT</h3>
+    <p>Burnout requires fundamental change, not a quick fix.</p>
+    <h4>4.1 The "Stop Digging" Rule</h4>
+    <p>Identify the primary source of drain (toxic client, social media, a project that became a millstone). Drop that commitment. Take a social media hiatus. Put passion projects on hold. You are making space for recovery.</p>
+    <h4>4.2 The "Minimum Viable Income" Reassessment</h4>
+    <p>Calculate minimum monthly expenses; identify least draining income streams; temporarily focus only on meeting minimum with low-drain work. This buys you time to heal.</p>
+    <h4>4.3 Rediscovering the "Why" (The Artist's Date)</h4>
+    <p>Once a week, solo expedition to fill the creative well: touch textures in a fabric store, visit a botanical garden, browse paint chips, sit in a used bookstore. Reconnect with wonder and curiosity.</p>
+    <h4>4.4 Seeking Professional Support</h4>
+    <p>If hopelessness or numbness persists >2 weeks, speak to a mental health professional. Not a sign of failure, but of self-awareness and strength.</p>
+    <p>&nbsp;</p>
+    
+    <h3>SECTION 5: COMMUNITY AND CONNECTION – THE ANTIDOTE TO ISOLATION</h3>
+    <p><strong>Accountability Buddy:</strong> Weekly check-in with another artist – not critique, just "How are you? What are you working on?"<br>
+    <strong>Silent Coworking:</strong> Use Focusmate or Zoom calls – state intention, mute mics, work, check in.<br>
+    <strong>Curating Your Digital Environment:</strong> Aggressively unfollow accounts that make you feel inadequate. Follow artists who share process, failures, and honest talk. Use app timers to limit daily social media exposure.</p>
+    <p>&nbsp;</p>
+    
+    <h3>SECTION 6: A BURNOUT RECOVERY TIMELINE (Realistic Expectations)</h3>
+    <table>
+        <thead><tr><th>Phase</th><th>Duration</th><th>Focus</th><th>What to Expect</th></tr></thead>
+        <tbody>
+            <tr><td><strong>1: Acute Rest</strong></td><td>1-2 weeks</td><td>Radical rest, sleep, eat, walk, no deadlines</td><td>Guilt, anxiety, restlessness – resist the "should"</td></tr>
+            <tr><td><strong>2: Gentle Input</strong></td><td>2-4 weeks</td><td>Artist's Dates, Sacred Sketchbook play, films</td><td>Slow return of curiosity, fleeting "I want to draw"</td></tr>
+            <tr><td><strong>3: Re-engagement</strong></td><td>1-2 months</td><td>Small low-stakes projects, strict work limits</td><td>Fluctuating motivation – normal</td></tr>
+            <tr><td><strong>4: Sustainable Practice</strong></td><td>Ongoing</td><td>Prevention strategies, monitoring creative tank</td><td>New, resilient relationship with art</td></tr>
+        </tbody>
+    </table>
+    <p>&nbsp;</p>
+    
+    <h3>SECTION 7: COMMON MISCONCEPTIONS &amp; THE TRUTH</h3>
+    <table>
+        <thead><tr><th>Misconception</th><th>The Truth</th></tr></thead>
+        <tbody>
+            <tr><td><em>"Real artists are inspired all the time."</em></td><td><strong>False.</strong> Real artists have discipline and process for the 90% of time they are not inspired.</td></tr>
+            <tr><td><em>"If I just take a weekend off, I'll be fine."</em></td><td><strong>False</strong> (for burnout). Burnout is chronic; requires systemic change.</td></tr>
+            <tr><td><em>"I just need to push through the block."</em></td><td><strong>Sometimes true, often false.</strong> Pushing through fatigue leads to burnout; pushing through fear with small steps can work. Learn to distinguish.</td></tr>
+            <tr><td><em>"I can't afford to rest."</em></td><td><strong>Reframe:</strong> You cannot afford <em>not</em> to rest. Untreated burnout leads to months of lost productivity.</td></tr>
+            <tr><td><em>"Talking about this is just complaining."</em></td><td><strong>False.</strong> Naming the struggle is the first step. Seeking support is professional maturity.</td></tr>
+        </tbody>
+    </table>
+    <p>&nbsp;</p>
+    
+    <h3>SECTION 8: ASSIGNMENT / PRACTICE DRILL</h3>
+    <p><strong>Drill 1: The Creative Tank Audit</strong></p>
+    <ul>
+        <li>Draw a simple picture of a tank (or battery) with a line indicating current "water level."</li>
+        <li>List: 3 things that drained the tank last week; 3 things that filled it.</li>
+        <li><strong>Action:</strong> Commit to doing one more filling activity this week.</li>
+    </ul>
+    <p><strong>Drill 2: The "Bad Art" Session</strong></p>
+    <ul>
+        <li>Set timer for 20 minutes. Open new canvas or fresh paper.</li>
+        <li><strong>Rule:</strong> You must make the ugliest, worst coloured image possible. Use wrong tools, clash colours, draw with non-dominant hand.</li>
+        <li><em>Goal:</em> Liberation of creating without quality burden.</li>
+    </ul>
+    <p><strong>Drill 3: The Idea Parking Lot Setup</strong></p>
+    <ul>
+        <li>Create a digital document or notebook titled "Idea Parking Lot."</li>
+        <li>Spend 10 minutes writing down 10 ideas – any silliness accepted. Do not judge.</li>
+    </ul>
+    <p><strong>Drill 4: The Social Media Cleanse (1 Week)</strong></p>
+    <ul>
+        <li>Delete social media apps from your phone (or log out). Keep a brief daily note of feelings.</li>
+        <li><em>Goal:</em> Observe your relationship with platforms and reclaim mental space.</li>
+    </ul>
+    <p><strong>Drill 5: The Artist's Date (Solo)</strong></p>
+    <ul>
+        <li>Schedule a 2-hour block this week. Go alone to a museum, park, antique store, library, fabric store.</li>
+        <li>No phone except emergencies. Just look, touch, be curious.</li>
+        <li><em>Goal:</em> Practice filling the well.</li>
+    </ul>
+    <hr>
+    <p style="text-align: center; font-size: 0.9rem;"><i class="fas fa-heart-broken"></i> Your creativity is renewable – but only if you protect the source. Rest is not weakness; it is strategy.</p>
+</div>
+<footer>
+    <p>© 2026 ArtHub — Professional Practice: Art Block & Burnout Prevention <i class="fas fa-heart" style="color: var(--accent-pink);"></i></p>
+</footer>
+<button class="theme-btn-lesson" id="themeToggleLesson"><i class="fas fa-moon" id="themeIconLesson"></i> Dark/Light</button>
+
+<script>
+    function initTheme() {
+        if (localStorage.getItem('darkMode') === 'true') {
+            document.body.classList.add('dark');
+        } else {
+            document.body.classList.remove('dark');
+        }
+        updateIcon();
+    }
+    function toggleTheme() {
+        document.body.classList.toggle('dark');
+        localStorage.setItem('darkMode', document.body.classList.contains('dark'));
+        updateIcon();
+    }
+    function updateIcon() {
+        const icon = document.getElementById('themeIconLesson');
+        if (document.body.classList.contains('dark')) {
+            icon.classList.remove('fa-moon');
+            icon.classList.add('fa-sun');
+        } else {
+            icon.classList.remove('fa-sun');
+            icon.classList.add('fa-moon');
+        }
+    }
+    document.getElementById('themeToggleLesson').addEventListener('click', toggleTheme);
+    initTheme();
+</script>
+</body>
+</html>

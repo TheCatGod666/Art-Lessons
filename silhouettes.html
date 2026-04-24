@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>ArtHub · Silhouettes for Artists</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: background-color 0.2s ease, color 0.2s, border-color 0.2s;
+        }
+
+        /* Floral background (same as main index) */
+        body {
+            font-family: 'Segoe UI', 'Inter', system-ui, -apple-system, 'Roboto', sans-serif;
+            line-height: 1.55;
+            position: relative;
+        }
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -2;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Cpath fill='%23b87c4f' fill-opacity='0.12' d='M60,15 L63,25 L73,25 L65,32 L68,42 L60,36 L52,42 L55,32 L47,25 L57,25 Z'/%3E%3Ccircle cx='30' cy='85' r='5' fill='%23e58a9e' fill-opacity='0.15'/%3E%3Ccircle cx='95' cy='40' r='6' fill='%236c9e4f' fill-opacity='0.12'/%3E%3Cpath fill='%235b8cbf' fill-opacity='0.1' d='M100,90 L103,96 L110,96 L105,101 L107,108 L100,103 L93,108 L95,101 L90,96 L97,96 Z'/%3E%3C/svg%3E");
+            background-repeat: repeat;
+            background-size: 80px 80px;
+        }
+        body.dark::before {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Cpath fill='%23d49c6c' fill-opacity='0.08' d='M60,15 L63,25 L73,25 L65,32 L68,42 L60,36 L52,42 L55,32 L47,25 L57,25 Z'/%3E%3Ccircle cx='30' cy='85' r='5' fill='%23f0a1b3' fill-opacity='0.1'/%3E%3Ccircle cx='95' cy='40' r='6' fill='%2380b35c' fill-opacity='0.08'/%3E%3Cpath fill='%236c9fd6' fill-opacity='0.08' d='M100,90 L103,96 L110,96 L105,101 L107,108 L100,103 L93,108 L95,101 L90,96 L97,96 Z'/%3E%3C/svg%3E");
+        }
+
+        :root {
+            --bg-body: #fef7e9;
+            --bg-card: #ffffff;
+            --text-primary: #2c2418;
+            --text-secondary: #5a4a34;
+            --border-light: #f0e2cf;
+            --accent-brown: #b87c4f;
+            --accent-green: #6c9e4f;
+            --accent-blue: #5b8cbf;
+            --accent-pink: #e58a9e;
+            --accent-brown-soft: #d9b48b;
+            --accent-green-soft: #b3d0a2;
+            --accent-blue-soft: #aac4e6;
+            --accent-pink-soft: #f4c4d0;
+            --shadow: 0 8px 20px rgba(0,0,0,0.05);
+        }
+        body.dark {
+            --bg-body: #1a1714;
+            --bg-card: #2a2622;
+            --text-primary: #f2ede4;
+            --text-secondary: #cdc2b2;
+            --border-light: #3f382f;
+            --accent-brown: #d49c6c;
+            --accent-green: #80b35c;
+            --accent-blue: #6c9fd6;
+            --accent-pink: #f0a1b3;
+            --accent-brown-soft: #9c6e48;
+            --accent-green-soft: #4f7039;
+            --accent-blue-soft: #4a6e96;
+            --accent-pink-soft: #b35f73;
+            --shadow: 0 8px 20px rgba(0,0,0,0.4);
+        }
+        body {
+            background: var(--bg-body);
+            color: var(--text-primary);
+        }
+
+        .lesson-container {
+            max-width: 1000px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: var(--bg-card);
+            border-radius: 2rem;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-light);
+            position: relative;
+            z-index: 1;
+        }
+
+        h1, h2, h3, h4 {
+            color: var(--accent-brown);
+            margin-top: 1.8rem;
+            margin-bottom: 0.8rem;
+            font-weight: 600;
+        }
+        h1 {
+            font-size: 2.4rem;
+            border-left: 6px solid var(--accent-pink);
+            padding-left: 1rem;
+            margin-top: 0.5rem;
+        }
+        h2 {
+            font-size: 1.8rem;
+            border-bottom: 2px solid var(--accent-green-soft);
+            display: inline-block;
+            padding-bottom: 0.3rem;
+        }
+        h3 {
+            font-size: 1.4rem;
+            color: var(--accent-blue);
+            margin-top: 1.2rem;
+        }
+        h4 {
+            font-size: 1.2rem;
+            color: var(--accent-pink);
+        }
+        p, li {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+        ul, ol {
+            margin: 0.8rem 0 1.2rem 2rem;
+        }
+        li {
+            margin: 0.4rem 0;
+        }
+        em, strong {
+            color: var(--accent-brown);
+        }
+        hr {
+            border: none;
+            height: 2px;
+            background: var(--border-light);
+            margin: 2rem 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            background: var(--bg-body);
+            border-radius: 1rem;
+            overflow: hidden;
+        }
+        th, td {
+            border: 1px solid var(--border-light);
+            padding: 10px 12px;
+            text-align: left;
+            vertical-align: top;
+            color: var(--text-secondary);
+        }
+        th {
+            background: var(--accent-blue-soft);
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 1.5rem;
+            background: var(--accent-blue-soft);
+            padding: 0.5rem 1.2rem;
+            border-radius: 40px;
+            text-decoration: none;
+            color: var(--text-primary);
+            font-weight: 500;
+            transition: 0.2s;
+        }
+        .back-link:hover {
+            background: var(--accent-pink-soft);
+            transform: translateX(-4px);
+        }
+        .theme-btn-lesson {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-light);
+            border-radius: 60px;
+            padding: 10px 18px;
+            cursor: pointer;
+            font-weight: 500;
+            color: var(--text-primary);
+            box-shadow: var(--shadow);
+            z-index: 100;
+            backdrop-filter: blur(4px);
+        }
+        .theme-btn-lesson:hover {
+            background: var(--accent-pink-soft);
+            transform: scale(0.96);
+        }
+        footer {
+            text-align: center;
+            padding: 1.5rem;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            border-top: 1px solid var(--border-light);
+            margin-top: 2rem;
+        }
+        @media (max-width: 680px) {
+            .lesson-container {
+                margin: 1rem;
+                padding: 1.2rem;
+            }
+            h1 { font-size: 1.8rem; }
+            h2 { font-size: 1.4rem; }
+            table, thead, tbody, th, td, tr { display: block; }
+            th, td { display: block; width: 100%; }
+        }
+    </style>
+</head>
+<body>
+<div class="lesson-container">
+    <a href="index.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to ArtHub Studio</a>
+    
+    <h2>LESSON 6: SILHOUETTES</h2>
+    <h3>Reading Shapes and Negative Space for Strong Character and Composition Design</h3>
+    <p>&nbsp;</p>
+    
+    <h3>Introduction: The First Read</h3>
+    <p>Before a viewer sees the color of a character's eyes, before they notice the texture of their armor, before they even register the expression on their face—they see the <strong>silhouette</strong>.</p>
+    <p>The silhouette is the <strong>purest, most immediate communication</strong> of what something is. It is the shape that remains when all detail, all color, and all internal lines are removed.</p>
+    <p><strong>The Silhouette Test:</strong> Fill your drawing or design completely with <strong>solid black</strong>. Can you still tell:</p>
+    <ul>
+        <li>What the character is holding?</li>
+        <li>What action they are performing?</li>
+        <li>What species or archetype they are?</li>
+        <li>Where one object ends and another begins?</li>
+    </ul>
+    <p>If the answer is "no," the silhouette needs work.</p>
+    <p>This lesson will teach you to see the world as a collection of <strong>interlocking shapes</strong> and to use that vision to create designs that are <strong>instantly readable</strong> and compositions that are <strong>graphically powerful</strong>.</p>
+    <p>&nbsp;</p>
+    
+    <h3>SECTION 1: WHAT MAKES A STRONG SILHOUETTE?</h3>
+    <p>A strong silhouette is not just a blob. It has specific, definable qualities.</p>
+    <h4>1.1 The Four Pillars of Iconic Silhouette Design</h4>
+    <table>
+        <thead>
+            <tr><th>Pillar</th><th>Definition</th><th>Weak Example</th><th>Strong Example</th></tr>
+        </thead>
+        <tbody>
+            <tr><td><strong>Clarity</strong></td><td>The shape communicates the subject immediately.</td><td>A character with arms pressed against sides, holding a sword straight down. Reads as a <strong>pillar</strong> or <strong>lump</strong>.</td><td>Arms spread wide, cape flowing outward, sword raised. Reads as a <strong>warrior</strong>.</td></tr>
+            <tr><td><strong>Asymmetry</strong></td><td>The shape is different on left and right sides.</td><td>Perfectly symmetrical robot. Boring.</td><td>One large pauldron, one bare arm. Creates visual <strong>tension</strong>.</td></tr>
+            <tr><td><strong>Rhythm</strong></td><td>The outline flows with a sense of movement.</td><td>A stiff, upright rectangle.</td><td>A curve leading the eye from head down the arm to the weapon tip.</td></tr>
+            <tr><td><strong>Contrast of Mass</strong></td><td>The shape alternates between thick and thin areas.</td><td>A sausage shape (uniform thickness).</td><td>Broad shoulders, narrow waist, wide skirt (bell shape or hourglass).</td></tr>
+        </tbody>
+    </table>
+    <h4>1.2 The "Squint Test" in Practice</h4>
+    <p>This is the single most powerful habit you can develop as an artist.</p>
+    <ol>
+        <li>Look at your work.</li>
+        <li>Squint your eyes until the image becomes <strong>blurred shapes only</strong>.</li>
+        <li>Ask: <em>"Is the figure separating from the background?"</em></li>
+        <li>Ask: <em>"Is the action readable?"</em></li>
+    </ol>
+    <p><strong>Pro Tip:</strong> In digital art, create a Threshold Adjustment Layer or fill a layer with black set to "Lock Transparency" and paint over the character. Toggle this layer on and off constantly during sketching.</p>
+    <p>&nbsp;</p>
+    
+    <h3>SECTION 2: SILHOUETTE IN CHARACTER DESIGN</h3>
+    <p>This is where silhouette is non-negotiable. In animation, comics, and concept art, a character <strong>must</strong> be recognizable by shape alone.</p>
+    <h4>2.1 The Shape Language of Archetypes</h4>
+    <p>Different shapes communicate different personalities before the character speaks a single word. This is <strong>shape psychology</strong>.</p>
+    <ul>
+        <li><strong>The Circle / Sphere (Friendly, Soft, Harmless):</strong> Baymax, Winnie the Pooh, Kirby. Round shoulders, soft belly, minimal protrusions.</li>
+        <li><strong>The Square / Rectangle (Stable, Strong, Stubborn):</strong> The Hulk, Buzz Lightyear, Carl Fredricksen. Broad flat shoulders, blocky torso, straight thick legs.</li>
+        <li><strong>The Triangle / Wedge (Aggressive, Dangerous, Cunning):</strong> Maleficent, Jafar, Predator. <strong>Wide at top, narrow at bottom</strong> – large shoulders/cape, tiny waist, spindly legs. This is the most common villain silhouette: "looming" and "unstable".</li>
+    </ul>
+    <h4>2.2 The Rule of the "Big, Medium, Small"</h4>
+    <p>A memorable silhouette has varied spacing between its elements: <strong>Big Shape</strong> (main torso mass), <strong>Medium Shape</strong> (head, weapon, cape), <strong>Small Shape</strong> (spikes, fingers, tail tip). Like a handful of dropped pick-up sticks – varied intersections, not parallel sticks.</p>
+    <h4>2.3 The "Negative Space Window" (Crucial for Action Poses)</h4>
+    <p>The spaces between limbs and the body are part of the silhouette. Mistake: arm straight down, sword overlapping leg → unreadable chunk. Solution: lift elbow away, create a distinct triangle of negative space between torso and arm. Now the sword is surrounded by background, reading clearly as "arm holding sword".</p>
+    <p><strong>Mickey Mouse's Ears:</strong> The iconic silhouette works because the negative space between the two ears and the head creates an unmistakable three-circle rhythm.</p>
+    <h4>2.4 The "Lineup Test" (Professional Concept Art Standard)</h4>
+    <p>Draw multiple characters as pure black silhouettes side-by-side. Every character should be identifiable instantly by shape alone. Use contrast of silhouettes: tall thin triangle, short wide rectangle, round soft circle, spiky asymmetrical star. (Star Wars cantina scene is a masterclass).</p>
+    <p>&nbsp;</p>
+    
+    <h3>SECTION 3: SILHOUETTE IN COMPOSITION (Notan)</h3>
+    <p><strong>Notan</strong> is the Japanese term for the balance of light and dark in a composition – the silhouette of the entire scene.</p>
+    <h4>3.1 The Two-Value Composition (The Foundation of Painting)</h4>
+    <p>Before color or rendering, a composition must work in pure black and white. Squint, decide what is in Light Family and Shadow Family, assign White to light, Black to shadow. Strong composition usually has 60-70% of one value, 30-40% of the other. Avoid 50/50 split (visual confusion).</p>
+    <h4>3.2 Grouping Values for Readability (The "Massing" Technique)</h4>
+    <p>In complex scenes, group values. Mass trees into one large dark shape, group leaves into one large mid-tone shape. Process: identify largest dark object, draw as one connected shape; identify largest light object, draw as one connected shape; then add smaller details inside those masses.</p>
+    <h4>3.3 The "Tangents" Warning (The Silhouette Killer)</h4>
+    <p>A tangent occurs when two separate objects share the same edge or just barely touch at a single point. Fix: overlap (arm crosses in front of building edge) or clear gap (separated by background space). Squint test: if objects seem to glue together into a confusing blob, you have a tangent – separate them.</p>
+    <p>&nbsp;</p>
+    
+    <h3>SECTION 4: APPLYING SILHOUETTE TO DIFFERENT MEDIUMS</h3>
+    <p><strong>Traditional Media:</strong> Notan cut paper exercise – use black paper and scissors, cut shapes without drawing first. Brush pen inking – practice filling large solid black areas.</p>
+    <p><strong>Digital Media:</strong> Lasso fill technique – create hard-edged shape and fill with black. Logo design – world's best logos are perfect silhouettes (Nike Swoosh, Apple, Twitter Bird).</p>
+    <p>&nbsp;</p>
+    
+    <h3>SECTION 5: READING THE MASTERS THROUGH SILHOUETTE</h3>
+    <ul>
+        <li><strong>Rembrandt:</strong> Large, connected masses of shadow – dark side of face merges with dark background; lit areas are isolated shapes of light.</li>
+        <li><strong>Rockwell:</strong> Every character's gesture designed so action reads in black – exaggerated poses create windows of negative space.</li>
+        <li><strong>Hokusai (The Great Wave):</strong> Repeating claw-like silhouettes (foam fingers); negative space is calm sky and distant simplified triangle of Mount Fuji.</li>
+    </ul>
+    <p>&nbsp;</p>
+    
+    <h3>SECTION 6: COMMON SILHOUETTE MISTAKES &amp; HOW TO FIX THEM</h3>
+    <table>
+        <thead><tr><th>Mistake</th><th>Why It Happens</th><th>The Fix</th></tr></thead>
+        <tbody>
+            <tr><td><strong>The "Potato" Character</strong></td><td>Standing straight, arms at sides, no props.</td><td>Push Line of Action. Add cape, weapon held out, asymmetrical armor.</td></tr>
+            <tr><td><strong>The "Octopus" Tangles</strong></td><td>Too many limbs, weapons, or hair strands crossing randomly.</td><td>Group details: hair is one large shape with medium spikes and small wispies – not 500 strands.</td></tr>
+            <tr><td><strong>The "Stiff Flag" Cape</strong></td><td>Cape flows in perfect symmetrical arch.</td><td>Cape affected by wind and gravity – irregular, jagged, asymmetrical wave.</td></tr>
+            <tr><td><strong>The "Missing Leg" Illusion</strong></td><td>One leg perfectly aligned behind the other.</td><td>Offset feet. Back leg steps out slightly to create a break in contour.</td></tr>
+            <tr><td><strong>The "Pancake" Composition</strong></td><td>Everything same value – flat grey rectangle.</td><td>Notan check: push foreground to Dark, midground to Mid, background to Light (or reverse).</td></tr>
+        </tbody>
+    </table>
+    <p>&nbsp;</p>
+    
+    <h3>SECTION 7: ASSIGNMENT / PRACTICE DRILL</h3>
+    <p><em>Instructions for the student:</em></p>
+    <p><strong>Drill 1: The Ink Blot Character</strong></p>
+    <ul>
+        <li>Drop ink or watered-down paint on paper, fold it, open it.</li>
+        <li>Turn the random shape into a character design by drawing internal details.</li>
+        <li><strong>Constraint:</strong> Cannot change outer contour. Work <em>with</em> the silhouette.</li>
+        <li><em>Goal: Force creative problem-solving and appreciate the power of an existing shape.</em></li>
+    </ul>
+    <p><strong>Drill 2: The Silhouette Lineup</strong></p>
+    <ul>
+        <li>Design three distinct fantasy characters (Warrior, Mage, Rogue).</li>
+        <li>Draw them only as filled black silhouettes.</li>
+        <li>Show to a friend – can they guess which is which from shape alone?</li>
+        <li><em>Goal: Test the communicative power of shape language.</em></li>
+    </ul>
+    <p><strong>Drill 3: The Negative Space Trace</strong></p>
+    <ul>
+        <li>Find a photo of a complex, dynamic pose (dancer, athlete mid-air).</li>
+        <li>Using tracing paper or digital layer, trace <strong>only the negative space shapes</strong> around the figure.</li>
+        <li>Do <strong>not</strong> draw the figure itself.</li>
+        <li><em>Goal: Train your eye to see the "windows" and "holes" that make a silhouette interesting.</em></li>
+    </ul>
+    <p><strong>Drill 4: The Master Painting Notan</strong></p>
+    <ul>
+        <li>Select a famous painting (Caravaggio, Rembrandt, Leyendecker).</li>
+        <li>Using only two values (Black and White), create a simplified thumbnail of the composition.</li>
+        <li>Focus on grouping lights into one shape and darks into one shape.</li>
+        <li><em>Goal: Understand how the masters structured value masses for maximum impact.</em></li>
+    </ul>
+    <p><strong>Drill 5: The "Cut Paper" Monster</strong></p>
+    <ul>
+        <li>Use scissors and black paper. <strong>No pencil.</strong></li>
+        <li>Cut out a monster or creature silhouette directly from the paper.</li>
+        <li>Paste it onto a white background.</li>
+        <li><em>Goal: Embrace permanence and boldness of silhouette-first design – no erasing, no second-guessing.</em></li>
+    </ul>
+    <hr>
+    <p style="text-align: center; font-size: 0.9rem;"><i class="fas fa-cut"></i> A strong silhouette is a promise to the viewer: this is what you need to know, and nothing else.</p>
+</div>
+<footer>
+    <p>© 2026 ArtHub — Silhouettes for Artists <i class="fas fa-heart" style="color: var(--accent-pink);"></i></p>
+</footer>
+<button class="theme-btn-lesson" id="themeToggleLesson"><i class="fas fa-moon" id="themeIconLesson"></i> Dark/Light</button>
+
+<script>
+    function initTheme() {
+        if (localStorage.getItem('darkMode') === 'true') {
+            document.body.classList.add('dark');
+        } else {
+            document.body.classList.remove('dark');
+        }
+        updateIcon();
+    }
+    function toggleTheme() {
+        document.body.classList.toggle('dark');
+        localStorage.setItem('darkMode', document.body.classList.contains('dark'));
+        updateIcon();
+    }
+    function updateIcon() {
+        const icon = document.getElementById('themeIconLesson');
+        if (document.body.classList.contains('dark')) {
+            icon.classList.remove('fa-moon');
+            icon.classList.add('fa-sun');
+        } else {
+            icon.classList.remove('fa-sun');
+            icon.classList.add('fa-moon');
+        }
+    }
+    document.getElementById('themeToggleLesson').addEventListener('click', toggleTheme);
+    initTheme();
+</script>
+</body>
+</html>

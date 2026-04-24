@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>ArtHub · Pricing & Commissions Guide</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: background-color 0.2s ease, color 0.2s, border-color 0.2s;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Inter', system-ui, -apple-system, 'Roboto', sans-serif;
+            line-height: 1.55;
+            position: relative;
+        }
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -2;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Cpath fill='%23b87c4f' fill-opacity='0.12' d='M60,15 L63,25 L73,25 L65,32 L68,42 L60,36 L52,42 L55,32 L47,25 L57,25 Z'/%3E%3Ccircle cx='30' cy='85' r='5' fill='%23e58a9e' fill-opacity='0.15'/%3E%3Ccircle cx='95' cy='40' r='6' fill='%236c9e4f' fill-opacity='0.12'/%3E%3Cpath fill='%235b8cbf' fill-opacity='0.1' d='M100,90 L103,96 L110,96 L105,101 L107,108 L100,103 L93,108 L95,101 L90,96 L97,96 Z'/%3E%3C/svg%3E");
+            background-repeat: repeat;
+            background-size: 80px 80px;
+        }
+        body.dark::before {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Cpath fill='%23d49c6c' fill-opacity='0.08' d='M60,15 L63,25 L73,25 L65,32 L68,42 L60,36 L52,42 L55,32 L47,25 L57,25 Z'/%3E%3Ccircle cx='30' cy='85' r='5' fill='%23f0a1b3' fill-opacity='0.1'/%3E%3Ccircle cx='95' cy='40' r='6' fill='%2380b35c' fill-opacity='0.08'/%3E%3Cpath fill='%236c9fd6' fill-opacity='0.08' d='M100,90 L103,96 L110,96 L105,101 L107,108 L100,103 L93,108 L95,101 L90,96 L97,96 Z'/%3E%3C/svg%3E");
+        }
+
+        :root {
+            --bg-body: #fef7e9;
+            --bg-card: #ffffff;
+            --text-primary: #2c2418;
+            --text-secondary: #5a4a34;
+            --border-light: #f0e2cf;
+            --accent-brown: #b87c4f;
+            --accent-green: #6c9e4f;
+            --accent-blue: #5b8cbf;
+            --accent-pink: #e58a9e;
+            --accent-brown-soft: #d9b48b;
+            --accent-green-soft: #b3d0a2;
+            --accent-blue-soft: #aac4e6;
+            --accent-pink-soft: #f4c4d0;
+            --shadow: 0 8px 20px rgba(0,0,0,0.05);
+        }
+        body.dark {
+            --bg-body: #1a1714;
+            --bg-card: #2a2622;
+            --text-primary: #f2ede4;
+            --text-secondary: #cdc2b2;
+            --border-light: #3f382f;
+            --accent-brown: #d49c6c;
+            --accent-green: #80b35c;
+            --accent-blue: #6c9fd6;
+            --accent-pink: #f0a1b3;
+            --accent-brown-soft: #9c6e48;
+            --accent-green-soft: #4f7039;
+            --accent-blue-soft: #4a6e96;
+            --accent-pink-soft: #b35f73;
+            --shadow: 0 8px 20px rgba(0,0,0,0.4);
+        }
+        body {
+            background: var(--bg-body);
+            color: var(--text-primary);
+        }
+
+        .lesson-container {
+            max-width: 1000px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: var(--bg-card);
+            border-radius: 2rem;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-light);
+            position: relative;
+            z-index: 1;
+        }
+
+        h1, h2, h3, h4 {
+            color: var(--accent-brown);
+            margin-top: 1.8rem;
+            margin-bottom: 0.8rem;
+            font-weight: 600;
+        }
+        h1 {
+            font-size: 2.4rem;
+            border-left: 6px solid var(--accent-pink);
+            padding-left: 1rem;
+            margin-top: 0.5rem;
+        }
+        h2 {
+            font-size: 1.8rem;
+            border-bottom: 2px solid var(--accent-green-soft);
+            display: inline-block;
+            padding-bottom: 0.3rem;
+        }
+        h3 {
+            font-size: 1.4rem;
+            color: var(--accent-blue);
+            margin-top: 1.2rem;
+        }
+        h4 {
+            font-size: 1.2rem;
+            color: var(--accent-pink);
+        }
+        p, li {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+        ul, ol {
+            margin: 0.8rem 0 1.2rem 2rem;
+        }
+        li {
+            margin: 0.4rem 0;
+        }
+        em, strong {
+            color: var(--accent-brown);
+        }
+        hr {
+            border: none;
+            height: 2px;
+            background: var(--border-light);
+            margin: 2rem 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            background: var(--bg-body);
+            border-radius: 1rem;
+            overflow: hidden;
+        }
+        th, td {
+            border: 1px solid var(--border-light);
+            padding: 10px 12px;
+            text-align: left;
+            vertical-align: top;
+            color: var(--text-secondary);
+        }
+        th {
+            background: var(--accent-blue-soft);
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 1.5rem;
+            background: var(--accent-blue-soft);
+            padding: 0.5rem 1.2rem;
+            border-radius: 40px;
+            text-decoration: none;
+            color: var(--text-primary);
+            font-weight: 500;
+            transition: 0.2s;
+        }
+        .back-link:hover {
+            background: var(--accent-pink-soft);
+            transform: translateX(-4px);
+        }
+        .theme-toggle {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-light);
+            border-radius: 60px;
+            padding: 10px 18px;
+            cursor: pointer;
+            font-weight: 500;
+            color: var(--text-primary);
+            box-shadow: var(--shadow);
+            z-index: 100;
+            backdrop-filter: blur(4px);
+        }
+        .theme-toggle:hover {
+            background: var(--accent-pink-soft);
+            transform: scale(0.96);
+        }
+        footer {
+            text-align: center;
+            padding: 1.5rem;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            border-top: 1px solid var(--border-light);
+            margin-top: 2rem;
+        }
+        @media (max-width: 680px) {
+            .lesson-container {
+                margin: 1rem;
+                padding: 1.2rem;
+            }
+            h1 { font-size: 1.8rem; }
+            h2 { font-size: 1.4rem; }
+            table, thead, tbody, th, td, tr { display: block; }
+            th, td { display: block; width: 100%; }
+        }
+    </style>
+</head>
+<body>
+<div class="lesson-container">
+    <a href="index.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to ArtHub Studio</a>
+    
+    <h2>PROFESSIONAL PRACTICE: PRICING &amp; COMMISSIONS GUIDE</h2>
+    <h3>How to Value Your Work, Run Professional Commissions, and Build a Sustainable Art Business</h3>
+    <p>&nbsp;</p>
+    
+    <h3>Introduction: The Art of Business</h3>
+    <p>You have developed your skills. You have curated a strong portfolio. You are ready to be paid for your work. But the transition from "artist who sometimes sells a piece" to "professional freelance artist" requires a new set of skills: <strong>business skills</strong>.</p>
+    <p>This lesson will not give you a magic formula that tells you exactly what to charge. No such formula exists. Pricing is a dynamic interplay of skill level, market demand, project complexity, and client budget. What this lesson <em>will</em> give you is a <strong>framework for making informed, confident pricing decisions</strong> and a <strong>step-by-step system for running commissions</strong> that protects both you and your client.</p>
+    <p>The goal is not just to make money. The goal is to build a <strong>sustainable practice</strong> where you are fairly compensated for your time, skill, and creative energy.</p>
+    <p>&nbsp;</p>
+    
+    <h3>SECTION 1: THE PRICING MINDSET – From Hobbyist to Professional</h3>
+    <p>Before you can set a price, you must address the internal narratives that undermine your ability to charge what you are worth.</p>
+    <h4>1.1 The Three Toxic Beliefs About Money and Art</h4>
+    <table>
+        <thead>
+            <tr><th>Toxic Belief</th><th>What It Sounds Like</th><th>Professional Reframe</th></tr>
+        </thead>
+        <tbody>
+            <tr><td><strong>"I'm just lucky to get paid for doing what I love."</strong></td><td>"I should be grateful for any amount."</strong></strong> </td><td><strong>"I provide a valuable, specialised service that solves a client's problem. My time and skill have market value."</strong> </td></tr>
+            <tr><td><strong>"There's always someone cheaper."</strong> </strong></td><td>"If I quote my real rate, the client will go to Fiverr."</strong> </td><td><strong>"I compete on quality, reliability and professionalism, not price."</strong> </td></tr>
+            <tr><td><strong>"I have no idea what to charge."</strong> </strong></td><td>"Um... $50? Is that too much?"</strong> </td><td><strong>"I have a method for calculating my prices. I state my rates with confidence."</strong> </td></tr>
+        </tbody>
+    </table>
+    <h4>1.2 The "Value, Not Time" Principle</h4>
+    <p>Clients do not buy hours. They buy solutions. A compelling character design that makes a game stand out, a cherished family portrait for a wall. Frame conversations around the value of the outcome, not the cost of labor.</p>
+    <p><strong>Instead of:</strong> "This will cost $300 because it will take me 10 hours."<br>
+    <strong>Say:</strong> "The total for this portrait, delivered as a high-resolution digital file ready for print, is $300."</p>
+    <h4>1.3 The "This Is a Business" Boundary</h4>
+    <p>Separate bank account, defined business hours, <strong>written agreements</strong>. Never start work without a written agreement.</p>
+    <p>&nbsp;</p>
+    
+    <h3>SECTION 2: HOW TO CALCULATE YOUR PRICES – Three Methods</h3>
+    <h4>2.1 Method 1: The Hourly Rate (The Foundation)</h4>
+    <p>Calculate minimum annual needs (monthly expenses × 12). Add business expenses and taxes (25-30%). Total Annual Target Income. Estimate billable hours (full-time creative: 20-25 billable hours/week × 48 weeks = 960-1200 hours). Hourly Rate = Annual Target / Billable Hours. Example: $40,000 / 1000 hours = <strong>$40/hour minimum</strong>. Professional rates typically $50-$150+/hour.</p>
+    <h4>2.2 Method 2: Per-Project / Flat Fee</h4>
+    <p>Project Fee = (Estimated Hours × Hourly Rate) × Complexity Buffer (1.2x to 1.5x). Example: 10 hours × $50 = $500 × 1.3 = <strong>$650 flat fee</strong>.</p>
+    <h4>2.3 Method 3: Value-Based Pricing (Commercial/Licensing)</h4>
+    <p>For clients who will use art to generate revenue. Consider usage rights, exclusivity, duration. Non-exclusive limited use: +20-50% of base fee. Exclusive full buyout: +300-500% of base fee. Example: $500 base + ($500 × 4) = <strong>$2,500 total</strong>.</p>
+    <p>&nbsp;</p>
+    
+    <h3>SECTION 3: THE COMMISSION PROCESS – A Step-by-Step Workflow</h3>
+    <h4>3.1 Step 1: The Initial Inquiry (The Filter)</h4>
+    <p>Use a professional response template asking for description, intended use, dimensions, timeline, and budget. This filters serious clients and gives you needed information.</p>
+    <h4>3.2 Step 2: The Quote and Agreement</h4>
+    <p>Formal quote document includes: project description, deliverables, timeline, number of revisions, total fee, payment schedule, usage rights summary, and TOS link.</p>
+    <h4>3.3 Step 3: The Contract / Terms of Service (TOS)</h4>
+    <p>Always have a written agreement. See Section 5 for a full TOS template.</p>
+    <h4>3.4 Step 4: Deposit and Scheduling</h4>
+    <p>Standard industry deposit: <strong>50% non-refundable upfront</strong>. Use professional invoicing (PayPal Invoicing, Stripe, Square). Never start without deposit.</p>
+    <h4>3.5 Step 5: Work-in-Progress (WIP) and Communication</h4>
+    <p>Checkpoints: sketch approval (most important), value/colour rough, final render with watermark, then final payment and unwatermarked delivery.</p>
+    <h4>3.6 Step 6: Final Delivery and Follow-Up</h4>
+    <p>Deliver via Google Drive/Dropbox. Send thank-you note. Ask for testimonial and permission to share the work.</p>
+    <p>&nbsp;</p>
+    
+    <h3>SECTION 4: SAMPLE PRICE LIST (Illustration / Character Art)</h3>
+    <table>
+        <thead><tr><th>Type</th><th>Description</th><th>Est. Hours</th><th>Price Range (USD)</th></tr></thead>
+        <tbody>
+            <tr><td>Sketch / Rough Portrait</strong></strong></td><td>Black and white, loose rendering</strong> </td><td>1-3 hrs</td><td>$50 - $150</td></tr>
+            <tr><td>Rendered Portrait (Bust)</strong></strong></td><td>Full colour, painted, head and shoulders</strong> </td><td>4-8 hrs</td><td>$150 - $400</td></tr>
+            <tr><td>Full Body Character</strong></strong></td><td>Full colour, simple/no background</strong> </td><td>8-20 hrs</td><td>$300 - $1,000+</td></tr>
+            <tr><td>Character Design Sheet</strong></strong></td><td>Front, back, 3/4, expression sheet</strong> </td><td>15-30 hrs</td><td>$600 - $2,500+</td></tr>
+            <tr><td>Illustrated Scene</strong></strong></td><td>Character(s) with detailed background</strong> </td><td>20-60+ hrs</td><td>$800 - $5,000+</td></tr>
+            <tr><td>Book Cover (Indie Author)</strong></strong></td><td>Commercial use license included</strong> </td><td>15-40 hrs</td><td>$500 - $2,500+</td></tr>
+            <tr><td>Book Cover (Publisher)</strong></strong></td><td>Higher commercial license value</strong> </td><td>20-60 hrs</td><td>$2,000 - $10,000+</td></tr>
+        </tbody>
+    </table>
+    <p>&nbsp;</p>
+    
+    <h3>SECTION 5: TERMS OF SERVICE (TOS) TEMPLATE</h3>
+    <p><strong>1. General:</strong> By commissioning me, you agree to these terms.<br>
+    <strong>2. Process and Timeline:</strong> Work begins upon 50% non-refundable deposit. Timeline estimated.<br>
+    <strong>3. Revisions:</strong> Includes [e.g., two] sketch rounds and one minor final round. Additional revisions billed hourly.<br>
+    <strong>4. Payment:</strong> 50% deposit, 50% upon completion before final file delivery.<br>
+    <strong>5. Cancellation and Refunds:</strong> Deposit non-refundable. If I cannot complete, full refund.<br>
+    <strong>6. Usage Rights and Copyright:</strong> Artist retains copyright. Client granted personal, non-commercial license. Commercial use requires separate license. No NFTs or AI training.<br>
+    <strong>7. Client Responsibility:</strong> Provide clear references and timely feedback.<br>
+    <strong>8. Limitation of Liability:</strong> Limited to total amount paid.</p>
+    <p>&nbsp;</p>
+    
+    <h3>SECTION 6: INVOICING AND TAXES</h3>
+    <p>Professional invoice must include: your name/contact, client name, invoice number, date, description, amount, due date, payment method. Use PayPal Invoicing, Stripe, Square, Wave. As a freelancer, set aside 25-30% of every payment for taxes. Keep receipts for business expenses (software, supplies, equipment, home office portion).</p>
+    <p>&nbsp;</p>
+    
+    <h3>SECTION 7: HANDLING DIFFICULT SITUATIONS</h3>
+    <p><strong>Scope Creep:</strong> "That's outside our original agreement; it would be an additional $X."<br>
+    <strong>Client won't pay final invoice:</strong> Never deliver unwatermarked file before final payment. Send polite reminders; if ghosted, move on.<br>
+    <strong>Client "doesn't like it" at final stage:</strong> Refer to revision policy. Address specific minor issues within agreed round.</p>
+    <p>&nbsp;</p>
+    
+    <h3>SECTION 8: COMMON PRICING MISTAKES &amp; HOW TO FIX THEM</h3>
+    <table>
+        <thead><tr><th>Mistake</th><th>Why It Happens</th><th>The Fix</th></tr></thead>
+        <tbody>
+            <tr><td>Charging too little "to build a portfolio"</strong></strong> </td><td>Feeling need to prove yourself</strong> </td><td>Portfolio built on personal work and studies. Paid work should be paid fairly. </strong> </td></tr>
+            <tr><td>Not charging for revisions</strong> </strong> </td><td>Wanting to be "nice"</strong> </td><td>Specify revision limit; bill for extras. Encourages clear, consolidated feedback.</strong> </td></tr>
+            <tr><td>Forgetting to factor in commercial use</strong> </strong> </td><td>Assuming all work is personal</strong> </td><td>Always ask intended use. If client makes money from your art, you should be compensated.</strong> </td></tr>
+            <tr><td>Comparing prices to Fiverr</strong> </strong> </td><td>Different market segment</strong> </td><td>Compete on quality and professional service, not price.</strong> </td></tr>
+            <tr><td>Apologising for your prices</strong> </strong> </td><td>Internalised money shame</strong> </td><td>State prices with neutral confidence. "The total is $X." </strong> </td></tr>
+        </tbody>
+    </table>
+    <p>&nbsp;</p>
+    
+    <h3>SECTION 9: ASSIGNMENT / PRACTICE DRILL</h3>
+    <p><strong>Drill 1: Calculate Your Minimum Hourly Rate</strong> – Use the formula in Section 2.1. Write it down. This is your baseline.<br>
+    <strong>Drill 2: Create Your TOS Document</strong> – Use the template in Section 5. Customise with your name, revision policy, usage rights. Publish on your portfolio site or save as PDF.<br>
+    <strong>Drill 3: Write Your Inquiry Response Template</strong> – Save a professional email template for initial inquiries.<br>
+    <strong>Drill 4: Price a Hypothetical Commission</strong> – Full-body character with detailed background for a book cover (commercial). Estimate hours, apply hourly rate, buffer, commercial licensing fee. Write down the total quote. Practice saying it with confidence.<br>
+    <strong>Drill 5: Audit a Recent Sale</strong> – Calculate effective hourly rate (total fee / actual hours). Compare to minimum rate. What would you do differently next time?</p>
+    <hr>
+    <p style="text-align: center; font-size: 0.9rem;"><i class="fas fa-chart-line"></i> Your art has value. Your time has value. Price with confidence and professionalism.</p>
+</div>
+<footer>
+    <p>© 2026 ArtHub — Professional Practice: Pricing & Commissions Guide <i class="fas fa-heart" style="color: var(--accent-pink);"></i></p>
+</footer>
+<div class="theme-toggle" id="themeToggle"><i class="fas fa-moon" id="themeIcon"></i> Dark/Light</div>
+
+<script>
+    function initTheme() {
+        if (localStorage.getItem('darkMode') === 'true') {
+            document.body.classList.add('dark');
+        } else {
+            document.body.classList.remove('dark');
+        }
+        updateIcon();
+    }
+    function toggleTheme() {
+        document.body.classList.toggle('dark');
+        localStorage.setItem('darkMode', document.body.classList.contains('dark'));
+        updateIcon();
+    }
+    function updateIcon() {
+        const icon = document.getElementById('themeIcon');
+        if (document.body.classList.contains('dark')) {
+            icon.classList.remove('fa-moon');
+            icon.classList.add('fa-sun');
+        } else {
+            icon.classList.remove('fa-sun');
+            icon.classList.add('fa-moon');
+        }
+    }
+    document.getElementById('themeToggle').addEventListener('click', toggleTheme);
+    initTheme();
+</script>
+</body>
+</html>

@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>ArtHub · Perspective for Artists</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: background-color 0.2s ease, color 0.2s, border-color 0.2s;
+        }
+
+        /* Floral background (same as main index) */
+        body {
+            font-family: 'Segoe UI', 'Inter', system-ui, -apple-system, 'Roboto', sans-serif;
+            line-height: 1.55;
+            position: relative;
+        }
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -2;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Cpath fill='%23b87c4f' fill-opacity='0.12' d='M60,15 L63,25 L73,25 L65,32 L68,42 L60,36 L52,42 L55,32 L47,25 L57,25 Z'/%3E%3Ccircle cx='30' cy='85' r='5' fill='%23e58a9e' fill-opacity='0.15'/%3E%3Ccircle cx='95' cy='40' r='6' fill='%236c9e4f' fill-opacity='0.12'/%3E%3Cpath fill='%235b8cbf' fill-opacity='0.1' d='M100,90 L103,96 L110,96 L105,101 L107,108 L100,103 L93,108 L95,101 L90,96 L97,96 Z'/%3E%3C/svg%3E");
+            background-repeat: repeat;
+            background-size: 80px 80px;
+        }
+        body.dark::before {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Cpath fill='%23d49c6c' fill-opacity='0.08' d='M60,15 L63,25 L73,25 L65,32 L68,42 L60,36 L52,42 L55,32 L47,25 L57,25 Z'/%3E%3Ccircle cx='30' cy='85' r='5' fill='%23f0a1b3' fill-opacity='0.1'/%3E%3Ccircle cx='95' cy='40' r='6' fill='%2380b35c' fill-opacity='0.08'/%3E%3Cpath fill='%236c9fd6' fill-opacity='0.08' d='M100,90 L103,96 L110,96 L105,101 L107,108 L100,103 L93,108 L95,101 L90,96 L97,96 Z'/%3E%3C/svg%3E");
+        }
+
+        /* Light & Dark theme variables */
+        :root {
+            --bg-body: #fef7e9;
+            --bg-card: #ffffff;
+            --text-primary: #2c2418;
+            --text-secondary: #5a4a34;
+            --border-light: #f0e2cf;
+            --accent-brown: #b87c4f;
+            --accent-green: #6c9e4f;
+            --accent-blue: #5b8cbf;
+            --accent-pink: #e58a9e;
+            --accent-brown-soft: #d9b48b;
+            --accent-green-soft: #b3d0a2;
+            --accent-blue-soft: #aac4e6;
+            --accent-pink-soft: #f4c4d0;
+            --shadow: 0 8px 20px rgba(0,0,0,0.05);
+        }
+        body.dark {
+            --bg-body: #1a1714;
+            --bg-card: #2a2622;
+            --text-primary: #f2ede4;
+            --text-secondary: #cdc2b2;
+            --border-light: #3f382f;
+            --accent-brown: #d49c6c;
+            --accent-green: #80b35c;
+            --accent-blue: #6c9fd6;
+            --accent-pink: #f0a1b3;
+            --accent-brown-soft: #9c6e48;
+            --accent-green-soft: #4f7039;
+            --accent-blue-soft: #4a6e96;
+            --accent-pink-soft: #b35f73;
+            --shadow: 0 8px 20px rgba(0,0,0,0.4);
+        }
+        body {
+            background: var(--bg-body);
+            color: var(--text-primary);
+        }
+
+        .lesson-container {
+            max-width: 1000px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: var(--bg-card);
+            border-radius: 2rem;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-light);
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Typography */
+        h1, h2, h3, h4 {
+            color: var(--accent-brown);
+            margin-top: 1.8rem;
+            margin-bottom: 0.8rem;
+            font-weight: 600;
+        }
+        h1 {
+            font-size: 2.4rem;
+            border-left: 6px solid var(--accent-pink);
+            padding-left: 1rem;
+            margin-top: 0.5rem;
+        }
+        h2 {
+            font-size: 1.8rem;
+            border-bottom: 2px solid var(--accent-green-soft);
+            display: inline-block;
+            padding-bottom: 0.3rem;
+        }
+        h3 {
+            font-size: 1.4rem;
+            color: var(--accent-blue);
+            margin-top: 1.2rem;
+        }
+        h4 {
+            font-size: 1.2rem;
+            color: var(--accent-pink);
+        }
+        p, li {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+        .caption {
+            font-style: italic;
+            color: var(--accent-pink);
+            font-size: 0.9rem;
+            text-align: center;
+            margin: 1rem 0;
+        }
+        ul, ol {
+            margin: 0.8rem 0 1.2rem 2rem;
+        }
+        li {
+            margin: 0.4rem 0;
+        }
+        em, strong {
+            color: var(--accent-brown);
+        }
+        hr {
+            border: none;
+            height: 2px;
+            background: var(--border-light);
+            margin: 2rem 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            background: var(--bg-body);
+            border-radius: 1rem;
+            overflow: hidden;
+        }
+        th, td {
+            border: 1px solid var(--border-light);
+            padding: 10px 12px;
+            text-align: left;
+            vertical-align: top;
+            color: var(--text-secondary);
+        }
+        th {
+            background: var(--accent-blue-soft);
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 1.5rem;
+            background: var(--accent-blue-soft);
+            padding: 0.5rem 1.2rem;
+            border-radius: 40px;
+            text-decoration: none;
+            color: var(--text-primary);
+            font-weight: 500;
+            transition: 0.2s;
+        }
+        .back-link:hover {
+            background: var(--accent-pink-soft);
+            transform: translateX(-4px);
+        }
+        .theme-btn-lesson {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-light);
+            border-radius: 60px;
+            padding: 10px 18px;
+            cursor: pointer;
+            font-weight: 500;
+            color: var(--text-primary);
+            box-shadow: var(--shadow);
+            z-index: 100;
+            backdrop-filter: blur(4px);
+        }
+        .theme-btn-lesson:hover {
+            background: var(--accent-pink-soft);
+            transform: scale(0.96);
+        }
+        footer {
+            text-align: center;
+            padding: 1.5rem;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            border-top: 1px solid var(--border-light);
+            margin-top: 2rem;
+        }
+        @media (max-width: 680px) {
+            .lesson-container {
+                margin: 1rem;
+                padding: 1.2rem;
+            }
+            h1 { font-size: 1.8rem; }
+            h2 { font-size: 1.4rem; }
+            table, thead, tbody, th, td, tr { 
+                display: block; 
+            }
+            th, td {
+                display: block;
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="lesson-container">
+    <a href="index.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to ArtHub Studio</a>
+    
+    <h2>LESSON 4: PERSPECTIVE</h2>
+    <h3>Linear and Atmospheric Perspective, Spatial Relationships, and Depth</h3>
+    <p>&nbsp;</p>
+    
+    <h2>Introduction: The Window to a Believable World</h2>
+    <p>Perspective is the mathematical and observational system artists use to translate a <strong>three-dimensional world</strong> onto a <strong>two-dimensional surface</strong>. Without it, buildings lean precariously, figures float in undefined space, and landscapes look like flat theatrical backdrops.</p>
+    <p>&nbsp;</p>
+    <p>This lesson breaks down perspective into two interconnected systems:</p>
+    <ol>
+        <li><p><strong>Linear Perspective:</strong> The geometric rules for converging parallel lines.</p></li>
+        <li><p><strong>Atmospheric Perspective:</strong> The optical rules for how the atmosphere changes colour and contrast over distance.</p></li>
+    </ol>
+    <p>Mastering both allows you to place any object, any character, in any environment with absolute spatial confidence.</p>
+    <p>&nbsp;</p>
+    
+    <h3>SECTION 1: THE FOUNDATIONS OF LINEAR PERSPECTIVE</h3>
+    <p><em>Before drawing a single box in perspective, you must understand the </em><strong><em>invisible architecture</em></strong><em> that governs the scene.</em></p>
+    <p>&nbsp;</p>
+    <h4>1.1 The Four Essential Components</h4>
+    <ol>
+        <li><p><strong>Horizon Line (Eye Level):</strong> The most important line in perspective drawing. It represents the <strong>height of the viewer's eyes</strong>. Everything in the scene is seen in relation to this line.</p>
+            <ul><li><strong>Above Eye Level:</strong> You see the <strong>underside</strong> of objects (the bottom of a table, the ceiling of a room).</li>
+            <li><strong>Below Eye Level:</strong> You see the <strong>top</strong> of objects (the top of a table, the floor).</li>
+            <li><strong>Key Principle:</strong> <strong>All vanishing points live on the Horizon Line.</strong></li></ul>
+        </li>
+        <li><p><strong>Vanishing Point (VP):</strong> The point on the Horizon Line where <strong>parallel lines appear to converge and disappear</strong>. Think of looking down a long, straight railway track—the rails meet at a single point in the distance.</p></li>
+        <li><p><strong>Station Point (SP):</strong> The exact location of the <strong>viewer's feet</strong> on the ground plane. This determines the <strong>field of view</strong> and the <strong>cone of vision</strong>.</p></li>
+        <li><p><strong>Picture Plane:</strong> The imaginary glass window between you and the scene. This is your paper or canvas.</p></li>
+    </ol>
+    <p>&nbsp;</p>
+    <h4>1.2 The One Rule of Foreshortening</h4>
+    <p><strong><em>"Objects of equal size appear smaller as their distance from the viewer increases."</em></strong></p>
+    <p><em>This is the single law that makes perspective work. A person 10 feet away is drawn half the height of a person 5 feet away. This applies to everything: windows, trees, spaces between telephone poles.</em></p>
+    <p>&nbsp;</p>
+    
+    <h3>SECTION 2: THE THREE LINEAR PERSPECTIVE SYSTEMS</h3>
+    <p><em>There are three distinct setups, each with a specific number of Vanishing Points. Choose the system based on the </em><strong><em>angle</em></strong><em> you are viewing the subject.</em></p>
+    <p>&nbsp;</p>
+    <h4>2.1 One-Point Perspective (Frontal View)</h4>
+    <p><strong><em>Use when:</em></strong><em> You are looking directly at the </em><strong><em>flat face</em></strong><em> of a cube or a room. The front plane is parallel to the picture plane.</em></p>
+    <ul>
+        <li><strong>Number of VPs:</strong> <strong>One</strong>.</li>
+        <li><strong>Converging Lines:</strong> Only lines that go <strong>back into depth</strong> (perpendicular to the picture plane) converge to the single VP.</li>
+        <li><strong>Parallel Lines:</strong> All <strong>horizontal</strong> lines (left/right) remain perfectly horizontal. All <strong>vertical</strong> lines remain perfectly vertical.</li>
+    </ul>
+    <p><strong>The Classic Example: The Room Interior</strong></p>
+    <ol>
+        <li>Draw the Horizon Line across the middle.</li>
+        <li>Place the <strong>VP</strong> in the center of that line.</li>
+        <li>Draw a rectangle. This is the <strong>Back Wall</strong>.</li>
+        <li>Draw lines from each corner of the rectangle <strong>to the VP</strong>. These are the <strong>orthogonal lines</strong> (the lines of depth).</li>
+        <li>Decide where the walls, floor, and ceiling end. Draw a larger rectangle around the back wall to cap the orthogonals. You now have a box room.</li>
+    </ol>
+    <p><strong><em>Common Mistake in 1-Point:</em></strong><em> Placing objects (like a table or a rug) with incorrect perspective. </em><strong><em>If the room is in 1-point, all objects inside it that are parallel to the walls are also in 1-point.</em></strong></p>
+    <p>&nbsp;</p>
+    
+    <h4>2.2 Two-Point Perspective (Corner View)</h4>
+    <p><strong><em>Use when:</em></strong><em> You are looking at the </em><strong><em>corner</em></strong><em> of a cube or building. No single face is parallel to the picture plane. This is the </em><strong><em>most common perspective for dynamic scenes and architecture</em></strong><em>.</em></p>
+    <ul>
+        <li><strong>Number of VPs:</strong> <strong>Two</strong> (Left VP and Right VP). Both sit on the Horizon Line.</li>
+        <li><strong>Converging Lines:</strong> <strong>Horizontal</strong> edges converge to the VPs. <strong>Vertical</strong> lines remain perfectly vertical.</li>
+    </ul>
+    <p><strong>The Setup Process:</strong></p>
+    <ol>
+        <li>Draw the Horizon Line.</li>
+        <li>Place <strong>VP Left</strong> and <strong>VP Right</strong> on the line. <strong>Distance Matters:</strong> If the VPs are too close together, the object looks distorted (like a fish-eye lens). Spread them out wide for a natural look.</li>
+        <li>Draw the <strong>Front Vertical Edge</strong> (the corner of the building closest to you).</li>
+        <li>Draw lines from the top and bottom of that edge to <strong>VP Left</strong> and <strong>VP Right</strong>.</li>
+        <li>Cut off the sides by drawing two more vertical lines. These define the visible width of the left and right faces.</li>
+        <li>From the tops of those new verticals, draw lines back to the <strong>opposite VPs</strong> to complete the top plane.</li>
+    </ol>
+    <p><strong><em>The "Box City" Method:</em></strong><em> To draw multiple buildings in a cityscape, </em><strong><em>they all share the SAME Horizon Line and the SAME Two Vanishing Points</em></strong><em>. Only the </em><strong><em>Front Vertical Edge</em></strong><em> position and height change.</em></p>
+    <p>&nbsp;</p>
+    
+    <h4>2.3 Three-Point Perspective (Worm's Eye / Bird's Eye)</h4>
+    <p><strong><em>Use when:</em></strong><em> The viewer is looking </em><strong><em>dramatically up</em></strong><em> (Worm's Eye) at a skyscraper, or </em><strong><em>dramatically down</em></strong><em> (Bird's Eye) from a cliff or tall building.</em></p>
+    <ul>
+        <li><strong>Number of VPs:</strong> <strong>Three</strong>.</li>
+        <li><strong>Converging Lines:</strong> <strong>Everything</strong> converges. <strong>No lines remain parallel.</strong> Vertical lines now converge to a <strong>Third Vanishing Point (VP3)</strong>.</li>
+    </ul>
+    <p><strong>Setup for Worm's Eye (Looking Up):</strong></p>
+    <ol>
+        <li>Horizon Line placed <strong>LOW</strong> on the page.</li>
+        <li>VP Left and VP Right on the Horizon Line.</li>
+        <li><strong>VP3</strong> placed <strong>HIGH ABOVE</strong> the Horizon Line, usually centered.</li>
+        <li>Vertical lines of the building now <strong>lean inward</strong> as they go up, converging toward VP3.</li>
+    </ol>
+    <p><strong>Setup for Bird's Eye (Looking Down):</strong></p>
+    <ol>
+        <li>Horizon Line placed <strong>HIGH</strong> on the page.</li>
+        <li>VP Left and VP Right on the Horizon Line.</li>
+        <li><strong>VP3</strong> placed <strong>LOW BELOW</strong> the Horizon Line.</li>
+        <li>Vertical lines of the building <strong>lean outward</strong> as they go down, converging toward the distant VP3.</li>
+    </ol>
+    <p>&nbsp;</p>
+    
+    <h3>SECTION 3: ADVANCED SPATIAL RELATIONSHIPS</h3>
+    <p><em>This is where perspective moves from drawing boxes to populating believable worlds with characters and objects.</em></p>
+    <p>&nbsp;</p>
+    <h4>3.1 The "Measuring Line" Method (Placing Figures in Depth)</h4>
+    <p><em>You have a character standing 5 feet from the camera. How tall do you draw a second character 10 feet away?</em></p>
+    <p><strong>The Fencepost Method:</strong></p>
+    <ol>
+        <li>Draw <strong>Post A</strong> (the first figure) from bottom to Horizon Line. The Horizon Line cuts through the figure at the <strong>eye level of the viewer</strong>.</li>
+        <li>Decide where the feet of <strong>Post B</strong> (second figure) will be on the ground plane.</li>
+        <li>Draw a <strong>horizontal guide line</strong> from the <strong>top</strong> of Post A to an arbitrary point on the Horizon Line (creates a temporary VP).</li>
+        <li>Draw a <strong>horizontal guide line</strong> from the <strong>bottom</strong> of Post A to the <strong>same VP</strong>.</li>
+        <li>Where these two guide lines intersect the vertical position of Post B, you have the <strong>exact top and bottom</strong> of the correctly scaled second figure.</li>
+    </ol>
+    <p><strong>Simpler Method (The Diagonal):</strong></p>
+    <ul>
+        <li>Draw a line from the <strong>feet</strong> of Figure A through the <strong>feet</strong> of Figure B to the Horizon Line. This is a vanishing point for the <strong>ground contact</strong>.</li>
+        <li>Draw a line from the <strong>head</strong> of Figure A through the <strong>head</strong> of Figure B. This is a <strong>vanishing trace</strong>.</li>
+        <li>Any figure whose feet touch that ground line and whose head touches that head trace will be the correct height for that distance.</li>
+    </ul>
+    <p>&nbsp;</p>
+    <h4>3.2 Ellipses in Perspective (Wheels, Cups, Cylinders)</h4>
+    <p><em>A circle in perspective is </em><strong><em>never</em></strong><em> a pointed almond shape. It is an </em><strong><em>Ellipse</em></strong><em>.</em></p>
+    <p><strong>The Four Rules of Ellipses:</strong></p>
+    <ol>
+        <li><strong>The Major Axis is Perpendicular:</strong> The long way across the ellipse is <strong>always</strong> perpendicular to the axle or center line. For a wheel on a car, the axle is horizontal, so the ellipse's long axis is <strong>vertical</strong>.</li>
+        <li><strong>Degree Opens with Distance:</strong> The further an ellipse is from the <strong>Horizon Line</strong> (Eye Level), the <strong>rounder</strong> it appears. An ellipse placed exactly on the Horizon Line becomes a <strong>flat horizontal line</strong>.</li>
+        <li><strong>No Points:</strong> The ends of the ellipse are <strong>smooth curves</strong>, never sharp corners.</li>
+        <li><strong>Mirror the Bottom:</strong> When drawing a cup, the bottom ellipse curve is <strong>slightly more open (rounder)</strong> than the top ellipse because it is further from the Horizon Line.</li>
+    </ol>
+    <p>&nbsp;</p>
+    <h4>3.3 Inclined Planes (Ramps, Stairs, Roofs)</h4>
+    <p><em>What if an object is not parallel to the ground? A roof is angled. A road goes up a hill. </em><strong><em>These do not vanish to the standard Horizon Line VPs.</em></strong></p>
+    <ul>
+        <li><strong>Auxiliary Vanishing Point (AVP):</strong> An inclined plane vanishes to a point <strong>directly above or below</strong> the standard VP on the Horizon Line.</li>
+        <li><strong>The Steeper the Slope:</strong> The further the AVP is from the Horizon Line.</li>
+    </ul>
+    <p><strong>Staircase Hack:</strong></p>
+    <ol>
+        <li>Draw the footprint of the stairs in 2-point perspective.</li>
+        <li>Determine the <strong>total rise</strong> (vertical height) and draw a box.</li>
+        <li>Draw a diagonal line from the bottom step corner to the top step corner.</li>
+        <li>That diagonal is your <strong>pitch line</strong>. It vanishes to an <strong>AVP</strong>.</li>
+    </ol>
+    <p>&nbsp;</p>
+    
+    <h3>SECTION 4: ATMOSPHERIC PERSPECTIVE (Aerial Perspective)</h3>
+    <p>Linear perspective uses lines. Atmospheric perspective uses <strong>values and colours</strong>. This is the system that makes a mountain look 50 miles away instead of 5 feet away.</p>
+    <p>&nbsp;</p>
+    <h4>4.1 The Three Pillars of Atmospheric Perspective</h4>
+    <p>As objects recede into the distance, the <strong>atmosphere</strong> (water vapor, dust, smog) acts as a veil. This causes three specific visual changes:</p>
+    <table>
+        <thead>
+            <tr><th>Feature</th><th><strong>Foreground</strong></th><th><strong>Midground</strong></th><th><strong>Background (Far)</strong></th></tr>
+        </thead>
+        <tbody>
+            <tr><td><strong>Value Contrast</strong></td><td><strong>High</strong> (Dark darks, bright whites)</td><td>Medium</td><td><strong>Low</strong> (Everything is a narrow range of mid-grey)</td></tr>
+            <tr><td><strong>Saturation (Intensity)</strong></td><td><strong>High</strong> (Vibrant colour)</td><td>Medium</td><td><strong>Low</strong> (Greyed out, washed out)</td></tr>
+            <tr><td><strong>Hue Shift</strong></td><td>True Local Colour</td><td>Slight blue shift</td><td><strong>Strong Blue/Purple Shift</strong> (Matches sky colour)</td></tr>
+            <tr><td><strong>Edge Quality</strong></td><td><strong>Sharp, hard edges</strong></td><td>Medium edges</td><td><strong>Soft, blurred edges</strong></td></tr>
+        </tbody>
+    </table>
+    <p>&nbsp;</p>
+    <h4>4.2 The "Sky Veil" Principle</h4>
+    <p>The atmosphere is not completely transparent. It has the colour of the sky.</p>
+    <ul>
+        <li><strong>At Noon:</strong> Sky is pale blue/cyan. Distant mountains become <strong>pale blue-grey</strong>.</li>
+        <li><strong>At Sunset:</strong> Sky is orange/pink. Distant mountains become <strong>warm purple/pink</strong>.</li>
+        <li><strong>At Night:</strong> Sky is dark blue/black. Distant mountains <strong>disappear</strong> or become a silhouette against the slightly lighter sky.</li>
+    </ul>
+    <p><strong>The Single Best Trick for Landscapes:</strong> When painting a distant mountain, <strong>match its value and colour almost exactly to the sky right next to it</strong>. Then, just slightly darken the mountain. This instantly pushes it back miles.</p>
+    <p>&nbsp;</p>
+    <h4>4.3 Reversing Atmospheric Perspective (The "Epic" Look)</h4>
+    <p>This is an advanced cinematic trick. In reality, things in the distance have <strong>lower contrast</strong>. But if you want something to look <strong>massive and looming</strong>, you break the rule.</p>
+    <ul>
+        <li><strong>Example (Lord of the Rings):</strong> The background mountains (Mordor) are painted <strong>darker and more contrasting</strong> than the midground. This makes them feel oppressive, heavy, and <strong>closer</strong> than they physically should be.</li>
+        <li><strong>Rule:</strong> To make something feel <strong>ominous and present</strong>, keep its contrast high even at a distance.</li>
+    </ul>
+    <p>&nbsp;</p>
+    
+    <h3>SECTION 5: SPATIAL DEPTH CUE CHECKLIST (Non-Perspective Tricks)</h3>
+    <p>Even without a ruler and vanishing points, you can create depth using <strong>overlap</strong> and <strong>scale</strong>. This is essential for drawing organic subjects like forests or crowds.</p>
+    <ol>
+        <li><strong>Overlap (The Number One Depth Cue):</strong> If Object A covers part of Object B, the brain reads A as closer. <strong>Always push your foreground elements to overlap the midground.</strong></li>
+        <li><strong>Scale Change:</strong> Big = Close. Small = Far. This is the most basic cue.</li>
+        <li><strong>Detail Density:</strong> Close objects have <strong>texture and detail</strong>. Far objects have <strong>none</strong>. A tree 10 feet away has individual leaves. A tree 500 feet away is a silhouette blob.</li>
+        <li><strong>Line Weight:</strong> (In drawing) <strong>Heavy, thick lines</strong> advance. <strong>Thin, light lines</strong> recede. Use your thickest pen for the foreground character, and your thinnest pen for the background city.</li>
+    </ol>
+    <p>&nbsp;</p>
+    
+    <h3>SECTION 6: COMMON PERSPECTIVE MISTAKES &amp; HOW TO FIX THEM</h3>
+    <table>
+        <thead>
+            <tr><th>Mistake</th><th>Why It Happens</th><th>The Fix</th></tr>
+        </thead>
+        <tbody>
+            <tr><td><strong>The "Falling Over" Box</strong></td><td>Vanishing points are too close together.</td><td>Move VPs further apart, outside the edges of the paper if necessary.</td></tr>
+            <tr><td><strong>The "Broken Neck" Horizon</strong></td><td>The horizon line for the figure is different than the horizon line for the background.</td><td><strong>One drawing, ONE Horizon Line.</strong> If the viewer is 5'6", the horizon cuts through the eyes of <strong>every</strong> standing figure in the scene.</td></tr>
+            <tr><td><strong>The "Pointy Wheel"</strong></td><td>Drawing a pointed oval instead of an ellipse.</td><td>Practice drawing <strong>smooth, symmetrical ellipses</strong> with your whole arm, not your wrist. Use ellipse guides if possible.</td></tr>
+            <tr><td><strong>The "Melting Building" (Curvilinear)</strong></td><td>Trying to cram a super wide-angle view into linear perspective.</td><td>For very wide angles (panorama), use <strong>5-Point Curvilinear Perspective</strong> (Fish-eye). Do not force standard 3-point to cover 180 degrees.</td></tr>
+            <tr><td><strong>The "Giant Ant" (Foreground Scale Error)</strong></td><td>Placing a tiny figure in the foreground with low detail.</td><td>Foreground figures should be <strong>huge</strong> and <strong>detailed</strong>. Crop them at the waist or knees to exaggerate scale.</td></tr>
+        </tbody>
+    </table>
+    <p>&nbsp;</p>
+    
+    <h3>SECTION 7: ASSIGNMENT / PRACTICE DRILL</h3>
+    <p><em>Instructions for the student:</em></p>
+    <p><strong>Drill 1: The 20-Box Challenge (Warm-Up)</strong></p>
+    <ul>
+        <li>Draw 20 cubes in <strong>different rotations</strong> on a single Horizon Line.</li>
+        <li>Use 1-point for 5 boxes, 2-point for 10 boxes, 3-point for 5 boxes.</li>
+        <li><em>Goal: Build muscle memory for drawing boxes from any angle.</em></li>
+    </ul>
+    <p><strong>Drill 2: The "Vanishing Trace" Figure Scale</strong></p>
+    <ul>
+        <li>Draw a Horizon Line.</li>
+        <li>Draw <strong>Figure A</strong> (8cm tall) standing on the ground plane.</li>
+        <li>Draw a diagonal line from the <strong>feet</strong> of Figure A to a VP on the Horizon Line. This is the <strong>Ground Trace</strong>.</li>
+        <li>Draw a line from the <strong>top of the head</strong> of Figure A to the <strong>same VP</strong>.</li>
+        <li>Now, draw 5 more vertical lines along that Ground Trace. Cap their tops at the Head Trace line.</li>
+        <li><em>Goal: Prove that all these figures are the exact same "real world" height but at different depths.</em></li>
+    </ul>
+    <p><strong>Drill 3: Atmospheric Value Strip</strong></p>
+    <ul>
+        <li>Draw 5 identical rectangles side by side.</li>
+        <li>Paint the <strong>first</strong> rectangle: High Contrast, High Saturation (Dark Green trees, Bright Sky).</li>
+        <li>Paint the <strong>fifth</strong> rectangle: Low Contrast, Low Saturation (Pale Blue-Grey trees, Pale Blue-Grey Sky).</li>
+        <li>Paint the <strong>middle three</strong> as a smooth gradient transition between the two.</li>
+        <li><em>Goal: Isolate and practice the "Atmospheric Veil" without worrying about drawing objects.</em></li>
+    </ul>
+    <p><strong>Drill 4: The Interior Corner (2-Point Room)</strong></p>
+    <ul>
+        <li>Draw a room corner using 2-point perspective (not 1-point).</li>
+        <li>Place the Horizon Line at the <strong>lower third</strong> of the page (looking slightly up).</li>
+        <li>Draw a window on the left wall and a doorway on the right wall.</li>
+        <li>Place a <strong>figure</strong> in the room. Ensure the figure's eyes line up with the <strong>Horizon Line</strong>.</li>
+        <li><em>Goal: Break the habit of only drawing interiors in symmetrical 1-point.</em></li>
+    </ul>
+    <p><strong>Drill 5: The Overlap Forest</strong></p>
+    <ul>
+        <li>Draw 10 trees <strong>using only silhouettes</strong>.</li>
+        <li>Do not use perspective lines.</li>
+        <li>Create depth <strong>exclusively</strong> through:
+            <ol><li>Overlap (Trees in front cover trees behind).</li>
+            <li>Scale (Front trees are huge, back trees are tiny).</li>
+            <li>Value (Front trees are black, back trees are light grey).</li></ol>
+        </li>
+        <li><em>Goal: Prove that depth exists without linear perspective.</em></li>
+    </ul>
+    <hr>
+    <p style="text-align: center; font-size: 0.9rem;"><i class="fas fa-cube"></i> Perspective is a skill, not a talent. Draw boxes every day, and depth will become instinctive.</p>
+</div>
+<footer>
+    <p>© 2026 ArtHub — Perspective for Artists <i class="fas fa-heart" style="color: var(--accent-pink);"></i></p>
+</footer>
+<button class="theme-btn-lesson" id="themeToggleLesson"><i class="fas fa-moon" id="themeIconLesson"></i> Dark/Light</button>
+
+<script>
+    function initTheme() {
+        if (localStorage.getItem('darkMode') === 'true') {
+            document.body.classList.add('dark');
+        } else {
+            document.body.classList.remove('dark');
+        }
+        updateIcon();
+    }
+    function toggleTheme() {
+        document.body.classList.toggle('dark');
+        localStorage.setItem('darkMode', document.body.classList.contains('dark'));
+        updateIcon();
+    }
+    function updateIcon() {
+        const icon = document.getElementById('themeIconLesson');
+        if (document.body.classList.contains('dark')) {
+            icon.classList.remove('fa-moon');
+            icon.classList.add('fa-sun');
+        } else {
+            icon.classList.remove('fa-sun');
+            icon.classList.add('fa-moon');
+        }
+    }
+    document.getElementById('themeToggleLesson').addEventListener('click', toggleTheme);
+    initTheme();
+</script>
+</body>
+</html>

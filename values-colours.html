@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>ArtHub · Values & Colours for Artists</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: background-color 0.2s ease, color 0.2s, border-color 0.2s;
+        }
+
+        /* Floral background (same as main index) */
+        body {
+            font-family: 'Segoe UI', 'Inter', system-ui, -apple-system, 'Roboto', sans-serif;
+            line-height: 1.55;
+            position: relative;
+        }
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -2;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Cpath fill='%23b87c4f' fill-opacity='0.12' d='M60,15 L63,25 L73,25 L65,32 L68,42 L60,36 L52,42 L55,32 L47,25 L57,25 Z'/%3E%3Ccircle cx='30' cy='85' r='5' fill='%23e58a9e' fill-opacity='0.15'/%3E%3Ccircle cx='95' cy='40' r='6' fill='%236c9e4f' fill-opacity='0.12'/%3E%3Cpath fill='%235b8cbf' fill-opacity='0.1' d='M100,90 L103,96 L110,96 L105,101 L107,108 L100,103 L93,108 L95,101 L90,96 L97,96 Z'/%3E%3C/svg%3E");
+            background-repeat: repeat;
+            background-size: 80px 80px;
+        }
+        body.dark::before {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Cpath fill='%23d49c6c' fill-opacity='0.08' d='M60,15 L63,25 L73,25 L65,32 L68,42 L60,36 L52,42 L55,32 L47,25 L57,25 Z'/%3E%3Ccircle cx='30' cy='85' r='5' fill='%23f0a1b3' fill-opacity='0.1'/%3E%3Ccircle cx='95' cy='40' r='6' fill='%2380b35c' fill-opacity='0.08'/%3E%3Cpath fill='%236c9fd6' fill-opacity='0.08' d='M100,90 L103,96 L110,96 L105,101 L107,108 L100,103 L93,108 L95,101 L90,96 L97,96 Z'/%3E%3C/svg%3E");
+        }
+
+        /* Light & Dark theme variables */
+        :root {
+            --bg-body: #fef7e9;
+            --bg-card: #ffffff;
+            --text-primary: #2c2418;
+            --text-secondary: #5a4a34;
+            --border-light: #f0e2cf;
+            --accent-brown: #b87c4f;
+            --accent-green: #6c9e4f;
+            --accent-blue: #5b8cbf;
+            --accent-pink: #e58a9e;
+            --accent-brown-soft: #d9b48b;
+            --accent-green-soft: #b3d0a2;
+            --accent-blue-soft: #aac4e6;
+            --accent-pink-soft: #f4c4d0;
+            --shadow: 0 8px 20px rgba(0,0,0,0.05);
+        }
+        body.dark {
+            --bg-body: #1a1714;
+            --bg-card: #2a2622;
+            --text-primary: #f2ede4;
+            --text-secondary: #cdc2b2;
+            --border-light: #3f382f;
+            --accent-brown: #d49c6c;
+            --accent-green: #80b35c;
+            --accent-blue: #6c9fd6;
+            --accent-pink: #f0a1b3;
+            --accent-brown-soft: #9c6e48;
+            --accent-green-soft: #4f7039;
+            --accent-blue-soft: #4a6e96;
+            --accent-pink-soft: #b35f73;
+            --shadow: 0 8px 20px rgba(0,0,0,0.4);
+        }
+        body {
+            background: var(--bg-body);
+            color: var(--text-primary);
+        }
+
+        .lesson-container {
+            max-width: 1000px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: var(--bg-card);
+            border-radius: 2rem;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-light);
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Typography */
+        h1, h2, h3, h4 {
+            color: var(--accent-brown);
+            margin-top: 1.8rem;
+            margin-bottom: 0.8rem;
+            font-weight: 600;
+        }
+        h1 {
+            font-size: 2.4rem;
+            border-left: 6px solid var(--accent-pink);
+            padding-left: 1rem;
+            margin-top: 0.5rem;
+        }
+        h2 {
+            font-size: 1.8rem;
+            border-bottom: 2px solid var(--accent-green-soft);
+            display: inline-block;
+            padding-bottom: 0.3rem;
+        }
+        h3 {
+            font-size: 1.4rem;
+            color: var(--accent-blue);
+            margin-top: 1.2rem;
+        }
+        h4 {
+            font-size: 1.2rem;
+            color: var(--accent-pink);
+        }
+        p, li {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+        .caption {
+            font-style: italic;
+            color: var(--accent-pink);
+            font-size: 0.9rem;
+            text-align: center;
+            margin: 1rem 0;
+        }
+        ul, ol {
+            margin: 0.8rem 0 1.2rem 2rem;
+        }
+        li {
+            margin: 0.4rem 0;
+        }
+        em, strong {
+            color: var(--accent-brown);
+        }
+        hr {
+            border: none;
+            height: 2px;
+            background: var(--border-light);
+            margin: 2rem 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            background: var(--bg-body);
+            border-radius: 1rem;
+            overflow: hidden;
+        }
+        th, td {
+            border: 1px solid var(--border-light);
+            padding: 10px 12px;
+            text-align: left;
+            vertical-align: top;
+            color: var(--text-secondary);
+        }
+        th {
+            background: var(--accent-blue-soft);
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 1.5rem;
+            background: var(--accent-blue-soft);
+            padding: 0.5rem 1.2rem;
+            border-radius: 40px;
+            text-decoration: none;
+            color: var(--text-primary);
+            font-weight: 500;
+            transition: 0.2s;
+        }
+        .back-link:hover {
+            background: var(--accent-pink-soft);
+            transform: translateX(-4px);
+        }
+        .theme-btn-lesson {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-light);
+            border-radius: 60px;
+            padding: 10px 18px;
+            cursor: pointer;
+            font-weight: 500;
+            color: var(--text-primary);
+            box-shadow: var(--shadow);
+            z-index: 100;
+            backdrop-filter: blur(4px);
+        }
+        .theme-btn-lesson:hover {
+            background: var(--accent-pink-soft);
+            transform: scale(0.96);
+        }
+        footer {
+            text-align: center;
+            padding: 1.5rem;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            border-top: 1px solid var(--border-light);
+            margin-top: 2rem;
+        }
+        @media (max-width: 680px) {
+            .lesson-container {
+                margin: 1rem;
+                padding: 1.2rem;
+            }
+            h1 { font-size: 1.8rem; }
+            h2 { font-size: 1.4rem; }
+            table, thead, tbody, th, td, tr { 
+                display: block; 
+            }
+            th, td {
+                display: block;
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="lesson-container">
+    <a href="index.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to ArtHub Studio</a>
+    
+    <h2>LESSON 3: VALUES AND COLORS</h2>
+    <h3>Color Theory, Value Structure, and Light Sources</h3>
+    <p>&nbsp;</p>
+    
+    <h3>Introduction: Value Does the Work, Color Gets the Credit</h3>
+    <p>There is a famous saying in painting: <strong>"Value does all the work, but color gets all the glory."</strong></p>
+    <p>You can paint a face with completely unrealistic colors—green skin, purple shadows, orange highlights—and if the <strong>values</strong> (the lights and dark) are correct, the face will still look three-dimensional and recognizable. Conversely, if you paint a face with perfect "flesh tone" colors but the <strong>values</strong> are wrong, it will look flat, muddy, or like a cardboard cutout.</p>
+    <p>This lesson will teach you to see the world in <strong>black and white first</strong>, and then apply colors as an emotional and atmospheric enhancement.</p>
+    <p>&nbsp;</p>
+    
+    <h3>SECTION 1: VALUE STRUCTURE – The Skeleton of Light</h3>
+    <p><strong><em>Value</em></strong><em> refers to how light or dark a color is, independent of its hue (red, blue, etc.). It is the gray scale version of an image.</em></p>
+    <p>&nbsp;</p>
+    <h4>1.1 The Value Scale</h4>
+    <p><em>Imagine a ladder with 10 steps.</em></p>
+    <table>
+        <thead>
+            <tr><th>Step</th><th>Name</th><th>Description</th></tr>
+        </thead>
+        <tbody>
+            <tr><td><strong>1</strong></td><td>White</td><td>The brightest highlight (specular reflection).</td></tr>
+            <tr><td><strong>2-3</strong></td><td>Light Lights</td><td>Areas directly facing the light source.</td></tr>
+            <tr><td><strong>4-5</strong></td><td>Mid tones</td><td>The "local color" of the object, untouched by bright light or deep shadow.</td></tr>
+            <tr><td><strong>6-7</strong></td><td>Dark Halftones</td><td>The transition zone where form turns away from light.</td></tr>
+            <tr><td><strong>8-9</strong></td><td>Core Shadow / Deep Shadow</td><td>The darkest part of the form shadow.</td></tr>
+            <tr><td><strong>10</strong></td><td>Black / Ambient Occlusion</td><td>The point where two surfaces touch and no light can enter.</td></tr>
+        </tbody>
+    </table>
+    <p><strong><em>The 80/20 Rule for Beginners:</em></strong><em> Most beginners put 80% of their painting in the </em><strong><em>mid tones (4-6)</em></strong><em> and the result looks grey and washed out. </em><strong><em>Push your darks darker and your lights lighter.</em></strong><em> A successful image usually has a clear </em><strong><em>Light Family (1-4)</em></strong><em> and a clear </em><strong><em>Shadow Family (7-10)</em></strong><em>.</em></p>
+    <p>&nbsp;</p>
+    
+    <h4>1.2 The Five Elements of Light on Form</h4>
+    <p><em>When light hits a sphere (or a cheek, or an apple), it creates </em><strong><em>five distinct zones</em></strong><em>. If you memorize these, you can render any object.</em></p>
+    <ol>
+        <li><p><strong>Center Light / Highlight:</strong> The spot facing <em>most directly</em> toward the light source. On a shiny surface, this is a sharp specular reflection. On a matte surface (skin, cloth), it's a soft glow.</p></li>
+        <li><p><strong>Halftone:</strong> The area where the form is beginning to turn away from the light. <strong>Crucial Note:</strong> The Halftone belongs to the <strong>Light Family</strong>. Do not let it get as dark as the shadow.</p></li>
+        <li><p><strong>Core Shadow:</strong> The <strong>darkest part of the form shadow</strong>. This is the zone that receives <em>neither</em> direct light from the source <em>nor</em> reflected light from the environment. It usually runs like a band along the edge where the light stops hitting the object. <strong>This is the single most important edge for creating volume.</strong></p></li>
+        <li><p><strong>Reflected Light:</strong> Light that has bounced off the floor, a wall, or a nearby object and is illuminating the <strong>shadow side</strong> of your object. This light is <strong>darker than the halftone</strong>. A common beginner mistake is to make the reflected light too bright, which "blows out" the shadow and destroys the form.</p></li>
+        <li><p><strong>Cast Shadow:</strong> The shadow the object throws onto the surface behind it. Hard edge near the object; soft edge farther away (penumbra).</p></li>
+    </ol>
+    <p>&nbsp;</p>
+    
+    <h4>1.3 Value Grouping: The Secret to Readability</h4>
+    <p><em>Do not try to render every tiny bump with its own value scale. </em><strong><em>Group similar values together.</em></strong></p>
+    <ul>
+        <li><p><strong>Example (Portrait):</strong> The entire shadow side of the face (Core Shadow + Reflected Light) should be one <strong>narrow value range</strong> (e.g., values 7-9).</p></li>
+        <li><p><strong>Example (Landscape):</strong> The sky is almost always the <strong>lightest value</strong> in the scene (except at night). The ground is the <strong>middle value</strong>. Trees/objects are the <strong>darkest value</strong>.</p></li>
+    </ul>
+    <p><strong><em>The Squint Test:</em></strong><em> Squint your eyes until the image blurs. You should see </em><strong><em>3 to 4 large, distinct shapes</em></strong><em> of value. If you see a chaotic mess of 20 different values, the piece will lack visual impact.</em></p>
+    <p>&nbsp;</p>
+    
+    <h3>SECTION 2: LIGHT SOURCES – The Mood Director</h3>
+    <p><em>The </em><strong><em>direction, size, and distance</em></strong><em> of the light source change the value structure entirely.</em></p>
+    <p>&nbsp;</p>
+    <h4>2.1 Hard Light vs. Soft Light</h4>
+    <table>
+        <thead>
+            <tr><th>Feature</th><th><strong>Hard Light (Small Source)</strong></th><th><strong>Soft Light (Large Source)</strong></th></tr>
+        </thead>
+        <tbody>
+            <tr><td><strong>Source Example</strong></td><td>Midday Sun, Bare Bulb, Spotlight</td><td>Overcast Sky, Window Light, Softbox</td></tr>
+            <tr><td><strong>Shadow Edge</strong></td><td><strong>Sharp, crisp edge</strong></td><td><strong>Gradient, soft edge</strong></td></tr>
+            <tr><td><strong>Cast Shadow</strong></td><td>Dark, distinct shape</td><td>Light, blurry, almost invisible</td></tr>
+            <tr><td><strong>Mood</strong></td><td>Dramatic, high contrast, graphic</td><td>Calm, ethereal, gentle</td></tr>
+        </tbody>
+    </table>
+    <p><strong><em>Physics Rule:</em></strong><em> The </em><strong><em>larger</em></strong><em> the light source relative to the subject, the </em><strong><em>softer</em></strong><em> the light.</em></p>
+    <p>&nbsp;</p>
+    
+    <h4>2.2 Common Lighting Directions (The Portrait Cheat Sheet)</h4>
+    <ul>
+        <li><p><strong>Top Light (Midday Sun / Stage Light):</strong> Creates dark, dramatic <strong>eye socket shadows</strong>. The nose casts a shadow over the upper lip. Mood: Intense, mysterious, or oppressive.</p></li>
+        <li><p><strong>Front Light (Camera Flash / Ring Light):</strong> <strong>Flattens</strong> the form. Shadows are hidden behind the object. Value range is narrow. Mood: Clinical, direct, or "deer in headlights."</p></li>
+        <li><p><strong>Rembrandt Light (45° Angle from Above):</strong> Creates a <strong>triangle of light</strong> on the shadowed cheek. This is the most "classical" portrait lighting. It separates the face from the background with a crisp dark edge on one side.</p></li>
+        <li><p><strong>Rim Light (Behind the Subject):</strong> The light source is <strong>behind</strong> the subject. The edges of the silhouette <strong>glow</strong> white/hot, but the front of the subject is in deep shadow. Mood: Heroic, epic, or moody silhouette.</p></li>
+        <li><p><strong>Under-Lighting (Firelight / Flashlight under chin):</strong> Reverses the normal shadow patterns. The underside of the nose is bright. The brow ridge is in shadow. Mood: Spooky, unnatural, or campfire intimate.</p></li>
+    </ul>
+    <p>&nbsp;</p>
+    
+    <h4>2.3 Ambient Occlusion (The Darkest Dark)</h4>
+    <p><em>Wherever two objects </em><strong><em>touch</em></strong><em> or come very close together, light cannot bounce in. This creates a </em><strong><em>very thin, very dark shadow line</em></strong><em>. This is called </em><strong><em>Ambient Occlusion (AO)</em></strong><em>.</em></p>
+    <p><strong>Where to put AO:</strong></p>
+    <ul>
+        <li><p>The crease where the nose meets the face.</p></li>
+        <li><p>The line where the lips meet.</p></li>
+        <li><p>The fold of the eyelid.</p></li>
+        <li><p>The armpit.</p></li>
+        <li><p>The point where the foot touches the floor.</p></li>
+    </ul>
+    <p><strong><em>Adding AO is the fastest way to "ground" a character in a scene.</em></strong><em> If a character looks like they are floating, check the contact shadow between the feet and the ground plane.</em></p>
+    <p>&nbsp;</p>
+    
+    <h3>SECTION 3: COLOR THEORY – The Emotion of Light</h3>
+    <p><em>Once you understand Value, you can layer </em><strong><em>Color</em></strong><em> on top.</em></p>
+    <p>&nbsp;</p>
+    <h4>3.1 The Three Dimensions of Color</h4>
+    <p><em>Every color you pick on a digital wheel or mix on a palette has </em><strong><em>three properties</em></strong><em>. You must control </em><strong><em>all three</em></strong><em> to paint well.</em></p>
+    <ol>
+        <li><p><strong>Hue:</strong> The name of the color family. (Red, Blue, Yellow-Green). <em>"What color is it?"</em></p></li>
+        <li><p><strong>Saturation (Chroma):</strong> The <strong>intensity</strong> or purity of the color. High saturation = Neon bright. Low saturation = Grey/Muddy. <em>"How colorful is it?"</em></p></li>
+        <li><p><strong>Value:</strong> How light or dark it is. <em>"How bright is it in gray scale?"</em></p></li>
+    </ol>
+    <p><strong><em>The Killer Mistake:</em></strong><em> Painting shadows by just </em><strong><em>picking a darker hue</em></strong><em> (e.g., adding Black). Black </em><strong><em>kills saturation</em></strong><em>. If you add black to yellow, you get a sickly, dead olive green.</em></p>
+    <p><strong><em>Better Approach:</em></strong><em> Shift the </em><strong><em>Hue</em></strong><em> and lower the </em><strong><em>Value</em></strong><em>. (e.g., Yellow light -&gt; Purple/Blue shadow).</em></p>
+    <p>&nbsp;</p>
+    
+    <h4>3.2 The Color Wheel and Color Schemes</h4>
+    <p><strong>Primary Colors (RYB Model for Artists):</strong> Red, Yellow, Blue.</p>
+    <p><strong>Secondary Colors:</strong> Orange, Green, Purple.</p>
+    <p><strong>Tertiary Colors:</strong> Red-Orange, Yellow-Green, etc.</p>
+    <p><strong>The 4 Main Color Schemes for Composition:</strong></p>
+    <ol>
+        <li><p><strong>Monochromatic:</strong> One Hue, varying Saturation and Value. <em>Use:</em> Elegant, calming, or moody pieces. Forces the viewer to focus on <strong>value structure</strong>.</p></li>
+        <li><p><strong>Complementary:</strong> Colors opposite on the wheel (Red/Green, Blue/Orange, Yellow/Purple). <em>Use:</em> <strong>Maximum contrast and vibration.</strong> When placed side-by-side, they make each other look <em>more</em> intense. <strong>Pro Tip:</strong> Do not use 50/50 ratio. Use 80% of one color (the Dominant) and 20% of the complement (the Accent). Also, gray down one of the colors slightly to avoid eye strain.</p></li>
+        <li><p><strong>Analogous:</strong> Colors next to each other on the wheel (Blue, Blue-Green, Green). <em>Use:</em> Harmony, nature scenes, calm atmospheres. Very little contrast.</p></li>
+        <li><p><strong>Triadic:</strong> Three colors evenly spaced on the wheel (Red, Yellow, Blue). <em>Use:</em> Playful, cartoonish, or highly graphic work. Hard to balance; usually requires one color to be the "King" and the other two to be "Pawns."</p></li>
+    </ol>
+    <p>&nbsp;</p>
+    
+    <h4>3.3 Color Temperature: Warm vs. Cool</h4>
+    <p><em>This is </em><strong><em>relative</em></strong><em>, not absolute. A "cool red" (crimson) is warm compared to a "warm blue."</em></p>
+    <ul>
+        <li><p><strong>Warm Colors (Red, Orange, Yellow):</strong> Advance toward the viewer. Associated with energy, sunlight, fire, danger.</p></li>
+        <li><p><strong>Cool Colors (Blue, Green, Purple):</strong> Recede into the distance. Associated with calm, shadow, water, sky.</p></li>
+    </ul>
+    <p><strong>The Golden Rule of Lighting:</strong></p>
+    <p><strong>Warm Light = Cool Shadows.</strong></p>
+    <p><strong>Cool Light = Warm Shadows.</strong></p>
+    <p><em>(This is true for naturalistic painting. If the sun is yellow/orange, the shadows will look blue/purple in comparison.)</em></p>
+    <p>&nbsp;</p>
+    
+    <h4>3.4 Atmospheric Perspective (Aerial Perspective)</h4>
+    <p><em>Color and Value change over </em><strong><em>distance</em></strong><em> due to particles in the air (moisture, dust).</em></p>
+    <p><strong>Objects Far Away:</strong></p>
+    <ul>
+        <li><p><strong>Value:</strong> Contrast decreases. Darks get lighter.</p></li>
+        <li><p><strong>Saturation:</strong> Decreases. Colors become <strong>grayer/bluer</strong>.</p></li>
+        <li><p><strong>Hue:</strong> Shifts toward the <strong>color of the sky</strong> (usually cool blue/violet).</p></li>
+    </ul>
+    <p><strong>Objects Close Up:</strong></p>
+    <ul>
+        <li><p><strong>Value:</strong> High contrast (dark darks, bright lights).</p></li>
+        <li><p><strong>Saturation:</strong> High (vibrant colors).</p></li>
+        <li><p><strong>Hue:</strong> True local color.</p></li>
+    </ul>
+    <p><strong>Landscape Hack:</strong> If you want a mountain range to look massive, paint the front mountain dark and saturated, and the back mountains pale blue-gray.</p>
+    <p>&nbsp;</p>
+    
+    <h3>SECTION 4: PRACTICAL APPLICATION – Palettes &amp; Mixing</h3>
+    <p>&nbsp;</p>
+    <h4>4.1 The "Zorn Palette" (Limited Palette Mastery)</h4>
+    <p><em>Anders Zorn, a master Swedish painter, used essentially </em><strong><em>four colors</em></strong><em> to paint realistic skin and landscapes:</em></p>
+    <ul>
+        <li><p><strong>White</strong> (Titanium)</p></li>
+        <li><p><strong>Yellow Ochre</strong> (Warm earth yellow)</p></li>
+        <li><p><strong>Cadmium Red</strong> (Warm red)</p></li>
+        <li><p><strong>Ivory Black</strong> (Cool blue-ish black)</p></li>
+    </ul>
+    <p><strong><em>Why this works:</em></strong><em> The limitation </em><strong><em>forces</em></strong><em> you to focus on </em><strong><em>Value and Temperature</em></strong><em>. You cannot rely on a crazy tube of purple to make a shadow. You have to mix the black with the red to make a cool, deep violet shadow. This palette teaches more about color than a 24-color set ever will.</em></p>
+    <p>&nbsp;</p>
+    
+    <h4>4.2 Digital Color Picking (Avoiding Mud)</h4>
+    <ul>
+        <li><p><strong>The Color Picker Trap:</strong> Sliding straight down the picker square (lowering brightness) to make a shadow.</p></li>
+        <li><p><strong>The Solution: Hue Shift.</strong> When picking a <strong>Shadow</strong>, slide the wheel slightly toward <strong>Blue/Purple</strong> AND lower the brightness. When picking a <strong>Highlight</strong>, slide the wheel slightly toward <strong>Yellow/Orange</strong> AND raise the brightness.</p></li>
+    </ul>
+    <p>&nbsp;</p>
+    
+    <h4>4.3 Local Colors vs. Perceived Color</h4>
+    <ul>
+        <li><p><strong>Local Color:</strong> The "true" color of an object in flat white light. (An apple is Red).</p></li>
+        <li><p><strong>Perceived Color:</strong> The color your eye sees based on the <strong>light source</strong> and <strong>reflections</strong>.</p></li>
+    </ul>
+    <p><em>Example:</em> That red apple under a blue sky. The <strong>shadow</strong> side of the apple will look <strong>Purple</strong> (Red + Blue light). The <strong>highlight</strong> might be pure White (the sun).</p>
+    <p><strong><em>Mantra:</em></strong><em> </em><strong><em>Paint the light, not the object.</em></strong></p>
+    <p>&nbsp;</p>
+    
+    <h3>SECTION 5: ASSIGNMENT / PRACTICE DRILL</h3>
+    <p><em>Instructions for the student:</em></p>
+    <p><strong>Drill 1: The 5-Value Sphere (Traditional or Digital)</strong></p>
+    <ul>
+        <li><p>Draw a circle.</p></li>
+        <li><p>Define a light source (Top Left).</p></li>
+        <li><p>Fill the circle using <strong>only 5 distinct values</strong> (White, Light Grey, Mid Grey, Dark Grey, Black).</p></li>
+        <li><p><strong>No blending.</strong> Keep the shapes hard-edged planes.</p></li>
+        <li><p>Include: Highlight, Halftone, Core Shadow, Reflected Light, Cast Shadow.</p></li>
+        <li><p><em>Goal: Understand planar value structure before blending.</em></p></li>
+    </ul>
+    <p><strong>Drill 2: The Color Isolation Study</strong></p>
+    <ul>
+        <li><p>Find a photo of a face with interesting lighting (Rembrandt or Golden Hour).</p></li>
+        <li><p>Create <strong>two</strong> studies side-by-side.</p>
+            <ol><li><strong>Left Study:</strong> Paint the face using <strong>only Grayscale</strong> (black and white). Focus on perfect value matching.</li>
+            <li><strong>Right Study:</strong> Paint the face in <strong>Color</strong>.</li></ol>
+        </li>
+        <li><p><strong>Compare them.</strong> Squint at the color version. Does the value structure match the grayscale version? If the color version looks "flat," the values are wrong.</p></li>
+    </ul>
+    <p><strong>Drill 3: The Complementary Speed Paint</strong></p>
+    <ul>
+        <li><p>Set a timer for <strong>20 minutes</strong>.</p></li>
+        <li><p>Choose a Complementary Pair (e.g., Blue and Orange).</p></li>
+        <li><p>Paint a simple scene (a figure in a room) using <strong>ONLY those two colors + White</strong>.</p></li>
+        <li><p><em>Goal: To learn how to mix a full value range from two opposing hues.</em></p></li>
+    </ul>
+    <p><strong>Drill 4: The Atmospheric Perspective Gradient</strong></p>
+    <ul>
+        <li><p>Draw three identical tree silhouettes overlapping.</p></li>
+        <li><p><strong>Front Tree:</strong> Dark Green/Black, High Saturation.</p></li>
+        <li><p><strong>Middle Tree:</strong> Mid Green, Medium Saturation.</p></li>
+        <li><p><strong>Back Tree:</strong> Pale Blue-Grey, Low Saturation.</p></li>
+        <li><p><em>Goal: See the immediate depth created by color and value alone.</em></p></li>
+    </ul>
+    <hr>
+    <p style="text-align: center; font-size: 0.9rem;"><i class="fas fa-palette"></i> Master value first, then color becomes intuitive. Squint, simplify, and paint with confidence.</p>
+</div>
+<footer>
+    <p>© 2026 ArtHub — Values & Colours for Artists <i class="fas fa-heart" style="color: var(--accent-pink);"></i></p>
+</footer>
+<button class="theme-btn-lesson" id="themeToggleLesson"><i class="fas fa-moon" id="themeIconLesson"></i> Dark/Light</button>
+
+<script>
+    function initTheme() {
+        if (localStorage.getItem('darkMode') === 'true') {
+            document.body.classList.add('dark');
+        } else {
+            document.body.classList.remove('dark');
+        }
+        updateIcon();
+    }
+    function toggleTheme() {
+        document.body.classList.toggle('dark');
+        localStorage.setItem('darkMode', document.body.classList.contains('dark'));
+        updateIcon();
+    }
+    function updateIcon() {
+        const icon = document.getElementById('themeIconLesson');
+        if (document.body.classList.contains('dark')) {
+            icon.classList.remove('fa-moon');
+            icon.classList.add('fa-sun');
+        } else {
+            icon.classList.remove('fa-sun');
+            icon.classList.add('fa-moon');
+        }
+    }
+    document.getElementById('themeToggleLesson').addEventListener('click', toggleTheme);
+    initTheme();
+</script>
+</body>
+</html>

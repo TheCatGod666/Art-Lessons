@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>ArtHub · Step-by-Step Creation Process</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: background-color 0.2s ease, color 0.2s, border-color 0.2s;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Inter', system-ui, -apple-system, 'Roboto', sans-serif;
+            line-height: 1.55;
+            position: relative;
+        }
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -2;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Cpath fill='%23b87c4f' fill-opacity='0.12' d='M60,15 L63,25 L73,25 L65,32 L68,42 L60,36 L52,42 L55,32 L47,25 L57,25 Z'/%3E%3Ccircle cx='30' cy='85' r='5' fill='%23e58a9e' fill-opacity='0.15'/%3E%3Ccircle cx='95' cy='40' r='6' fill='%236c9e4f' fill-opacity='0.12'/%3E%3Cpath fill='%235b8cbf' fill-opacity='0.1' d='M100,90 L103,96 L110,96 L105,101 L107,108 L100,103 L93,108 L95,101 L90,96 L97,96 Z'/%3E%3C/svg%3E");
+            background-repeat: repeat;
+            background-size: 80px 80px;
+        }
+        body.dark::before {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Cpath fill='%23d49c6c' fill-opacity='0.08' d='M60,15 L63,25 L73,25 L65,32 L68,42 L60,36 L52,42 L55,32 L47,25 L57,25 Z'/%3E%3Ccircle cx='30' cy='85' r='5' fill='%23f0a1b3' fill-opacity='0.1'/%3E%3Ccircle cx='95' cy='40' r='6' fill='%2380b35c' fill-opacity='0.08'/%3E%3Cpath fill='%236c9fd6' fill-opacity='0.08' d='M100,90 L103,96 L110,96 L105,101 L107,108 L100,103 L93,108 L95,101 L90,96 L97,96 Z'/%3E%3C/svg%3E");
+        }
+
+        :root {
+            --bg-body: #fef7e9;
+            --bg-card: #ffffff;
+            --text-primary: #2c2418;
+            --text-secondary: #5a4a34;
+            --border-light: #f0e2cf;
+            --accent-brown: #b87c4f;
+            --accent-green: #6c9e4f;
+            --accent-blue: #5b8cbf;
+            --accent-pink: #e58a9e;
+            --accent-brown-soft: #d9b48b;
+            --accent-green-soft: #b3d0a2;
+            --accent-blue-soft: #aac4e6;
+            --accent-pink-soft: #f4c4d0;
+            --shadow: 0 8px 20px rgba(0,0,0,0.05);
+        }
+        body.dark {
+            --bg-body: #1a1714;
+            --bg-card: #2a2622;
+            --text-primary: #f2ede4;
+            --text-secondary: #cdc2b2;
+            --border-light: #3f382f;
+            --accent-brown: #d49c6c;
+            --accent-green: #80b35c;
+            --accent-blue: #6c9fd6;
+            --accent-pink: #f0a1b3;
+            --accent-brown-soft: #9c6e48;
+            --accent-green-soft: #4f7039;
+            --accent-blue-soft: #4a6e96;
+            --accent-pink-soft: #b35f73;
+            --shadow: 0 8px 20px rgba(0,0,0,0.4);
+        }
+        body {
+            background: var(--bg-body);
+            color: var(--text-primary);
+        }
+
+        .lesson-container {
+            max-width: 1000px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: var(--bg-card);
+            border-radius: 2rem;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-light);
+            position: relative;
+            z-index: 1;
+        }
+
+        h1, h2, h3, h4 {
+            color: var(--accent-brown);
+            margin-top: 1.8rem;
+            margin-bottom: 0.8rem;
+            font-weight: 600;
+        }
+        h1 {
+            font-size: 2.4rem;
+            border-left: 6px solid var(--accent-pink);
+            padding-left: 1rem;
+            margin-top: 0.5rem;
+        }
+        h2 {
+            font-size: 1.8rem;
+            border-bottom: 2px solid var(--accent-green-soft);
+            display: inline-block;
+            padding-bottom: 0.3rem;
+        }
+        h3 {
+            font-size: 1.4rem;
+            color: var(--accent-blue);
+            margin-top: 1.2rem;
+        }
+        h4 {
+            font-size: 1.2rem;
+            color: var(--accent-pink);
+        }
+        p, li {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+        ul, ol {
+            margin: 0.8rem 0 1.2rem 2rem;
+        }
+        li {
+            margin: 0.4rem 0;
+        }
+        em, strong {
+            color: var(--accent-brown);
+        }
+        hr {
+            border: none;
+            height: 2px;
+            background: var(--border-light);
+            margin: 2rem 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            background: var(--bg-body);
+            border-radius: 1rem;
+            overflow: hidden;
+        }
+        th, td {
+            border: 1px solid var(--border-light);
+            padding: 10px 12px;
+            text-align: left;
+            vertical-align: top;
+            color: var(--text-secondary);
+        }
+        th {
+            background: var(--accent-blue-soft);
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 1.5rem;
+            background: var(--accent-blue-soft);
+            padding: 0.5rem 1.2rem;
+            border-radius: 40px;
+            text-decoration: none;
+            color: var(--text-primary);
+            font-weight: 500;
+            transition: 0.2s;
+        }
+        .back-link:hover {
+            background: var(--accent-pink-soft);
+            transform: translateX(-4px);
+        }
+        .theme-btn-lesson {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-light);
+            border-radius: 60px;
+            padding: 10px 18px;
+            cursor: pointer;
+            font-weight: 500;
+            color: var(--text-primary);
+            box-shadow: var(--shadow);
+            z-index: 100;
+            backdrop-filter: blur(4px);
+        }
+        .theme-btn-lesson:hover {
+            background: var(--accent-pink-soft);
+            transform: scale(0.96);
+        }
+        footer {
+            text-align: center;
+            padding: 1.5rem;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            border-top: 1px solid var(--border-light);
+            margin-top: 2rem;
+        }
+        @media (max-width: 680px) {
+            .lesson-container {
+                margin: 1rem;
+                padding: 1.2rem;
+            }
+            h1 { font-size: 1.8rem; }
+            h2 { font-size: 1.4rem; }
+            table, thead, tbody, th, td, tr { display: block; }
+            th, td { display: block; width: 100%; }
+        }
+    </style>
+</head>
+<body>
+<div class="lesson-container">
+    <a href="index.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to ArtHub Studio</a>
+    
+    <h2>PROFESSIONAL PRACTICE: STEP-BY-STEP CREATION PROCESS</h2>
+    <h3>From Blank Canvas to Finished Artwork – A Literal Walkthrough</h3>
+    <p>&nbsp;</p>
+    
+    <h3>Introduction: The Map Through the Forest</h3>
+    <p>Every artist has experienced it: the excitement of a new idea, followed by the paralysis of not knowing <em>what to do next</em>. You have studied anatomy, perspective, colour theory, and composition. But how do you <strong>assemble</strong> all that knowledge into a single, coherent image?</p>
+    <p>This lesson is the <strong>assembly manual</strong>. It is a step-by-step, phase-by-phase walkthrough of the entire creation process. It is not a rigid formula, but a <strong>reliable framework</strong> that you can adapt to your own style and medium.</p>
+    <p>By following this process, you will never again sit staring at a blank canvas wondering, <em>"What now?"</em> You will always know <strong>the next step</strong>.</p>
+    <p>&nbsp;</p>
+    
+    <h3>SECTION 1: THE COMPLETE WORKFLOW OVERVIEW</h3>
+    <p>Here is the entire journey, from idea to finished piece, distilled into distinct, manageable phases.</p>
+    <table>
+        <thead>
+            <tr><th>Phase</th><th>Name</th><th>Primary Goal</th><th>Time (Typical)</th><th>Mindset</th></tr>
+        </thead>
+        <tbody>
+            <tr><td><strong>1</strong></strong></td><td><strong>Ideation</strong></strong></td><td>Define the <em>story</em> and <em>mood</em>.</td><td>15-30 mins</td><td>Dreaming, unrestricted</td></tr>
+            <tr><td><strong>2</strong></strong></td><td><strong>Thumbnailing</strong></strong></td><td>Find the <em>composition</em> and <em>value structure</em>.</td><td>30-60 mins</td><td>Exploratory, rapid</td></tr>
+            <tr><td><strong>3</strong></strong></td><td><strong>Sketch / Rough</strong></strong></td><td>Establish <em>proportions, anatomy, and perspective</em>.</td><td>1-3 hours</td><td>Analytical, constructive</td></tr>
+            <tr><td><strong>4</strong></strong></td><td><strong>Line Art (Optional)</strong></strong></td><td>Create a <em>clean, precise foundation</em>.</td><td>1-4 hours</td><td>Patient, meticulous</td></tr>
+            <tr><td><strong>5</strong></strong></td><td><strong>Value Foundation</strong></strong></td><td>Lock in the <em>lighting and form</em> in grayscale.</td><td>1-2 hours</td><td>Decisive, bold</td></tr>
+            <tr><td><strong>6</strong></strong></td><td><strong>Color Palette &amp; Local Color</strong></strong></td><td>Apply <em>base colours</em> that support the mood.</td><td>1-2 hours</td><td>Harmonious, intentional</td></tr>
+            <tr><td><strong>7</strong></strong></td><td><strong>Lighting &amp; Rendering</strong></strong></td><td>Bring the piece to life with <em>light, shadow, and texture</em>.</td><td>4-20+ hours</td><td>Focused, iterative</td></tr>
+            <tr><td><strong>8</strong></strong></td><td><strong>Final Polish &amp; Export</strong></strong></td><td>Add the <em>finishing touches</em> and prepare for presentation.</td><td>30-60 mins</td><td>Critical, detail-oriented</td></tr>
+        </tbody>
+    </table>
+    <p><strong>The Golden Rule of Process:</strong> <em>"Each phase builds upon the phase before it. Do not skip a phase. Do not jump ahead to rendering before the sketch is solid. Trust the sequence."</em></p>
+    <p>&nbsp;</p>
+    
+    <h3>SECTION 2: PHASE 1 – IDEATION (The Spark)</h3>
+    <p>Before you touch a pencil or stylus, you must know <strong>what</strong> you are creating and <strong>why</strong>.</p>
+    <h4>2.1 The Three-Word Brief</h4>
+    <p>Distil the essence of your idea into <strong>three words</strong>. This is your creative compass for the entire project. <em>Example:</em> <strong>Weary, Honorable, Rainy.</strong> (A tired knight, standing with dignity, in a wet, moody environment).</p>
+    <h4>2.2 The Idea Dump (Word Cloud)</h4>
+    <p>Spend 5-10 minutes writing down every word and phrase related to your idea. Do not edit. <em>Example:</em> Old armor, dented pauldron, mud, wet cloak, grey sky, puddle, reflection, tired eyes, straight back, broken sword, moss on stone, cold breath.</p>
+    <h4>2.3 Reference Gathering (Mood Board)</h4>
+    <p>Collect visual reference that aligns with your words. Search for mood/lighting, anatomy/pose, costume/props, materials/textures. You now have a clear, specific, documented intention. You have a target.</p>
+    <p>&nbsp;</p>
+    
+    <h3>SECTION 3: PHASE 2 – THUMBNAILING (The Blueprint)</h3>
+    <p>This is the most important phase for long-term success. Do not skip it.</p>
+    <p><strong>The "Postage Stamp" Rule:</strong> Create a very small canvas (2-3 inches wide). This forces you to think in shapes and values, not details.</p>
+    <p><strong>The Thumbnail Process:</strong> Draw a small rectangle. Fill it with 3 values only (White, Mid-Grey, Black). Do not draw details – only abstract shapes. Create 5-10 of these, varying horizon lines, figure placements, and value patterns. Squint to select the "Hero Thumbnail" – the one with the clearest focal point, most interesting negative space, and best communication of the brief. This tiny messy sketch is now the architectural blueprint for the entire piece.</p>
+    <p>&nbsp;</p>
+    
+    <h3>SECTION 4: PHASE 3 – SKETCH / ROUGH (The Foundation)</h3>
+    <p>Now, and only now, move to the full-size canvas. Set up the canvas with your Hero Thumbnail as reference. The rough sketch should be light, loose, and messy – full of searching lines. Block in the gesture, head oval, ribcage bucket, pelvis bowl (Lessons 1 &amp; 5). Indicate rough features, costume, background elements. Squint test: does the value grouping match your Hero Thumbnail? Adjust now – this is the moment to fix big problems cheaply.</p>
+    <p>&nbsp;</p>
+    
+    <h3>SECTION 5: PHASE 4 – LINE ART (Optional, But Powerful)</h3>
+    <p>Line Art is a clean, precise drawing serving as the final foundation for colouring. Use for comic/manga/graphic styles; skip for painterly styles. Digital workflow: lower sketch opacity, create new layer, use crisp pressure-sensitive brush, trace with decisions about line weight (thicken silhouette and shadow side, thin interior details). Traditional: use light table or window, transfer with light blue pencil, ink with dip pen/brush pen, erase pencil after ink dries.</p>
+    <p>&nbsp;</p>
+    
+    <h3>SECTION 6: PHASE 5 – VALUE FOUNDATION (The Sculpting Phase)</h3>
+    <p>Use the Grayscale Method: fill entire canvas with mid-tone grey (50%). Block in Shadow Family with dark grey/black brush, focusing on core shadows and cast shadows. Block in Light Family with white/light grey, focusing on highlights and halftones. Do not blend yet – separate light from shadow with clear graphic shapes. Then soften edges where appropriate and add reflected light. Squint test: it should read as a powerful three-dimensional form.</p>
+    <p>&nbsp;</p>
+    
+    <h3>SECTION 7: PHASE 6 – COLOR PALETTE &amp; LOCAL COLOR</h3>
+    <p>Limit your initial palette to 5 colours: Dominant (background), Secondary (main character), Accent (focal point), Shadow Colour, Highlight Colour. To apply colour over grayscale: create new layer, set Blending Mode to "Color" (or Overlay/Soft Light), paint flat local colours. The value structure of the grayscale perfectly shades the colours. Alternatively, paint flat colours directly (ensuring no gaps) using Lock Transparent Pixels or Clipping Masks.</p>
+    <p>&nbsp;</p>
+    
+    <h3>SECTION 8: PHASE 7 – LIGHTING &amp; RENDERING (The Long Haul)</h3>
+    <p>Work in rendering passes:</p>
+    <ol>
+        <li><strong>Ambient Occlusion:</strong> Deep dark shadows where surfaces meet (armpit, under chin) – Multiply/Linear Burn.</li>
+        <li><strong>Core Shadows:</strong> Reinforce dark band along terminator – Multiply.</li>
+        <li><strong>Reflected Light:</strong> Subtle coloured light in shadow side – Normal/Overlay.</li>
+        <li><strong>Halftones:</strong> Refine transition between light and shadow – Normal.</li>
+        <li><strong>Highlights &amp; Speculars:</strong> Brightest sharpest lights – Screen/Color Dodge.</li>
+        <li><strong>Subsurface Scattering:</strong> Warm saturated glow in thin areas (ears, fingers) – Normal/Soft Light.</li>
+        <li><strong>Texture Detailing:</strong> Surface texture using textured brushes – Normal/Overlay.</li>
+        <li><strong>Atmospheric Lighting:</strong> Soft coloured wash of overall light source – Soft Light/Overlay.</li>
+    </ol>
+    <p><strong>Focus Area Principle:</strong> Focal point (face) = 100% detail; secondary areas = 70% detail; background/periphery = 30-40% detail. This variation creates depth.</p>
+    <p>&nbsp;</p>
+    
+    <h3>SECTION 9: PHASE 8 – FINAL POLISH &amp; EXPORT</h3>
+    <p><strong>Fresh Eyes Checklist (after a break):</strong> Flip canvas, squint test, grayscale check (add B&amp;W adjustment layer), edge check (focal point edges sharper than background), tangent check. <strong>Final Adjustments:</strong> Colour grading (Curves/Color Balance), sharpening (Smart Sharpen/Unsharp Mask), gentle vignette to darken edges and corners. <strong>Export:</strong> Save master file with all layers intact (.PSD/.CLIP/.PROCREATE). Export high-quality JPEG/PNG for web (e.g., 2000px long edge). Export high-resolution TIFF/JPEG at 300 DPI for print.</p>
+    <p>&nbsp;</p>
+    
+    <h3>SECTION 10: TRADITIONAL MEDIA ADAPTATIONS</h3>
+    <table>
+        <thead><tr><th>Phase</th><th>Traditional Equivalent</th></tr></thead>
+        <tbody>
+            <tr><td>Thumbnail</strong></td><td>Small sketch in sketchbook</td></tr>
+            <tr><td>Sketch</strong></td><td>Light pencil drawing on final paper; use kneaded eraser to keep surface clean</td></tr>
+            <tr><td>Line Art</strong></td><td>Inking over pencil with light table or tracing paper transfer</td></tr>
+            <tr><td>Value Foundation</strong></td><td>Underpainting – thin wash of burnt umber/grey or light charcoal block-in</td></tr>
+            <tr><td>Colour Palette</strong></td><td>Limited palette mixing; pre-mix colours on palette before touching canvas</td></tr>
+            <tr><td>Rendering</strong></td><td>Work lean to fat (oils) or light to dark (watercolour)</td></tr>
+            <tr><td>Final Polish</strong></td><td>Varnishing (oils/acrylics) to unify sheen and protect surface</td></tr>
+        </tbody>
+    </table>
+    <p>&nbsp;</p>
+    
+    <h3>SECTION 11: COMMON WORKFLOW MISTAKES &amp; HOW TO FIX THEM</h3>
+    <table>
+        <thead>
+            <tr><th>Mistake</th><th>Why It Happens</th><th>The Fix</th></tr>
+        </thead>
+        <tbody>
+            <tr><td>Skipping Thumbnails</strong></td><td>"I know what I want to draw."</td><td>You know the subject, not the composition. Do 5 thumbnails – saves 10 hours of frustration.</td></tr>
+            <tr><td>Jumping to Rendering</strong></td><td>Want to see the "good part" immediately.</td><td>Lock yourself out of detailed brushes until the sketch is solid. A weak sketch leads to a weak render.</td></tr>
+            <tr><td>Ignoring the Hero Thumbnail</strong></td><td>Mid-project "improvements"</td><td>Trust the blueprint. Mid-project changes often ruin value structure and introduce tangents.</td></tr>
+            <tr><td>Flat Grayscale</strong></td><td>Skipping value pass, trying to create form with colour alone.</td><td>Do the grayscale pass – it is the fastest way to improve final render quality.</td></tr>
+            <tr><td>Over-Blending</strong></td><td>Using soft airbrush for everything.</td><td>Use hard-edged brushes for 80% of painting; only soft brush for atmospheric effects and final 20% of edge softening.</td></tr>
+            <tr><td>Not Taking Breaks</strong></td><td>"In the zone."</td><td>Set a timer. Your perception degrades after 2 hours. A 15-minute break restores critical eye.</td></tr>
+        </tbody>
+    </table>
+    <p>&nbsp;</p>
+    
+    <h3>SECTION 12: ASSIGNMENT / PRACTICE DRILL</h3>
+    <p><strong>Drill 1: The Full Process Run (Small Scale)</strong></p>
+    <ul>
+        <li>Choose a very simple subject (e.g., a single apple on a wooden table).</li>
+        <li>Follow all 8 Phases exactly. Spend at least 10 minutes on each phase. Document each phase with a screenshot or photo.</li>
+        <li><em>Goal: Internalise the sequence and build the habit of structured creation.</em></li>
+    </ul>
+    <p><strong>Drill 2: The 5-Thumbnail Mandate</strong></p>
+    <ul>
+        <li>For your next 5 personal pieces, you must create at least 5 distinct thumbnails before starting the sketch. Keep them in a folder or sketchbook.</li>
+        <li><em>Goal: Prove to yourself the value of compositional exploration.</em></li>
+    </ul>
+    <p><strong>Drill 3: The Grayscale-Only Challenge</strong></p>
+    <ul>
+        <li>Take a complex reference photo (portrait with dramatic lighting). Paint it entirely in grayscale using the Pass System. No colour.</li>
+        <li><em>Goal: Master the foundational skill of value before adding the complexity of colour.</em></li>
+    </ul>
+    <p><strong>Drill 4: The "Old Piece" Reboot</strong></p>
+    <ul>
+        <li>Find an old, unfinished, or abandoned piece of art. Identify which Phase you likely skipped or rushed. Restart the piece from that phase – do not try to "fix" the old render.</li>
+        <li><em>Goal: Diagnose workflow failures and practice the discipline of restarting from a solid foundation.</em></li>
+    </ul>
+    <p><strong>Drill 5: The Process Journal</strong></p>
+    <ul>
+        <li>For one week, keep a simple log of your art sessions. Record: what Phase, how long you worked, one sentence about how you felt.</li>
+        <li><em>Goal: Develop self-awareness of your creative process and identify your personal "sticking points."</em></li>
+    </ul>
+    <hr>
+    <p style="text-align: center; font-size: 0.9rem;"><i class="fas fa-diagram-project"></i> A reliable process transforms overwhelming ambition into achievable steps. Trust the sequence.</p>
+</div>
+<footer>
+    <p>© 2026 ArtHub — Professional Practice: Step-by-Step Creation Process <i class="fas fa-heart" style="color: var(--accent-pink);"></i></p>
+</footer>
+<button class="theme-btn-lesson" id="themeToggleLesson"><i class="fas fa-moon" id="themeIconLesson"></i> Dark/Light</button>
+
+<script>
+    function initTheme() {
+        if (localStorage.getItem('darkMode') === 'true') {
+            document.body.classList.add('dark');
+        } else {
+            document.body.classList.remove('dark');
+        }
+        updateIcon();
+    }
+    function toggleTheme() {
+        document.body.classList.toggle('dark');
+        localStorage.setItem('darkMode', document.body.classList.contains('dark'));
+        updateIcon();
+    }
+    function updateIcon() {
+        const icon = document.getElementById('themeIconLesson');
+        if (document.body.classList.contains('dark')) {
+            icon.classList.remove('fa-moon');
+            icon.classList.add('fa-sun');
+        } else {
+            icon.classList.remove('fa-sun');
+            icon.classList.add('fa-moon');
+        }
+    }
+    document.getElementById('themeToggleLesson').addEventListener('click', toggleTheme);
+    initTheme();
+</script>
+</body>
+</html>

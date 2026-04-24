@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>ArtHub · Character & Environment Design</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: background-color 0.2s ease, color 0.2s, border-color 0.2s;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Inter', system-ui, -apple-system, 'Roboto', sans-serif;
+            line-height: 1.55;
+            position: relative;
+        }
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -2;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Cpath fill='%23b87c4f' fill-opacity='0.12' d='M60,15 L63,25 L73,25 L65,32 L68,42 L60,36 L52,42 L55,32 L47,25 L57,25 Z'/%3E%3Ccircle cx='30' cy='85' r='5' fill='%23e58a9e' fill-opacity='0.15'/%3E%3Ccircle cx='95' cy='40' r='6' fill='%236c9e4f' fill-opacity='0.12'/%3E%3Cpath fill='%235b8cbf' fill-opacity='0.1' d='M100,90 L103,96 L110,96 L105,101 L107,108 L100,103 L93,108 L95,101 L90,96 L97,96 Z'/%3E%3C/svg%3E");
+            background-repeat: repeat;
+            background-size: 80px 80px;
+        }
+        body.dark::before {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Cpath fill='%23d49c6c' fill-opacity='0.08' d='M60,15 L63,25 L73,25 L65,32 L68,42 L60,36 L52,42 L55,32 L47,25 L57,25 Z'/%3E%3Ccircle cx='30' cy='85' r='5' fill='%23f0a1b3' fill-opacity='0.1'/%3E%3Ccircle cx='95' cy='40' r='6' fill='%2380b35c' fill-opacity='0.08'/%3E%3Cpath fill='%236c9fd6' fill-opacity='0.08' d='M100,90 L103,96 L110,96 L105,101 L107,108 L100,103 L93,108 L95,101 L90,96 L97,96 Z'/%3E%3C/svg%3E");
+        }
+
+        :root {
+            --bg-body: #fef7e9;
+            --bg-card: #ffffff;
+            --text-primary: #2c2418;
+            --text-secondary: #5a4a34;
+            --border-light: #f0e2cf;
+            --accent-brown: #b87c4f;
+            --accent-green: #6c9e4f;
+            --accent-blue: #5b8cbf;
+            --accent-pink: #e58a9e;
+            --accent-brown-soft: #d9b48b;
+            --accent-green-soft: #b3d0a2;
+            --accent-blue-soft: #aac4e6;
+            --accent-pink-soft: #f4c4d0;
+            --shadow: 0 8px 20px rgba(0,0,0,0.05);
+        }
+        body.dark {
+            --bg-body: #1a1714;
+            --bg-card: #2a2622;
+            --text-primary: #f2ede4;
+            --text-secondary: #cdc2b2;
+            --border-light: #3f382f;
+            --accent-brown: #d49c6c;
+            --accent-green: #80b35c;
+            --accent-blue: #6c9fd6;
+            --accent-pink: #f0a1b3;
+            --accent-brown-soft: #9c6e48;
+            --accent-green-soft: #4f7039;
+            --accent-blue-soft: #4a6e96;
+            --accent-pink-soft: #b35f73;
+            --shadow: 0 8px 20px rgba(0,0,0,0.4);
+        }
+        body {
+            background: var(--bg-body);
+            color: var(--text-primary);
+        }
+
+        .lesson-container {
+            max-width: 1000px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: var(--bg-card);
+            border-radius: 2rem;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-light);
+            position: relative;
+            z-index: 1;
+        }
+
+        h1, h2, h3, h4 {
+            color: var(--accent-brown);
+            margin-top: 1.8rem;
+            margin-bottom: 0.8rem;
+            font-weight: 600;
+        }
+        h1 {
+            font-size: 2.4rem;
+            border-left: 6px solid var(--accent-pink);
+            padding-left: 1rem;
+            margin-top: 0.5rem;
+        }
+        h2 {
+            font-size: 1.8rem;
+            border-bottom: 2px solid var(--accent-green-soft);
+            display: inline-block;
+            padding-bottom: 0.3rem;
+        }
+        h3 {
+            font-size: 1.4rem;
+            color: var(--accent-blue);
+            margin-top: 1.2rem;
+        }
+        h4 {
+            font-size: 1.2rem;
+            color: var(--accent-pink);
+        }
+        p, li {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+        ul, ol {
+            margin: 0.8rem 0 1.2rem 2rem;
+        }
+        li {
+            margin: 0.4rem 0;
+        }
+        em, strong {
+            color: var(--accent-brown);
+        }
+        hr {
+            border: none;
+            height: 2px;
+            background: var(--border-light);
+            margin: 2rem 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            background: var(--bg-body);
+            border-radius: 1rem;
+            overflow: hidden;
+        }
+        th, td {
+            border: 1px solid var(--border-light);
+            padding: 10px 12px;
+            text-align: left;
+            vertical-align: top;
+            color: var(--text-secondary);
+        }
+        th {
+            background: var(--accent-blue-soft);
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 1.5rem;
+            background: var(--accent-blue-soft);
+            padding: 0.5rem 1.2rem;
+            border-radius: 40px;
+            text-decoration: none;
+            color: var(--text-primary);
+            font-weight: 500;
+            transition: 0.2s;
+        }
+        .back-link:hover {
+            background: var(--accent-pink-soft);
+            transform: translateX(-4px);
+        }
+        .theme-btn-lesson {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-light);
+            border-radius: 60px;
+            padding: 10px 18px;
+            cursor: pointer;
+            font-weight: 500;
+            color: var(--text-primary);
+            box-shadow: var(--shadow);
+            z-index: 100;
+            backdrop-filter: blur(4px);
+        }
+        .theme-btn-lesson:hover {
+            background: var(--accent-pink-soft);
+            transform: scale(0.96);
+        }
+        footer {
+            text-align: center;
+            padding: 1.5rem;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            border-top: 1px solid var(--border-light);
+            margin-top: 2rem;
+        }
+        @media (max-width: 680px) {
+            .lesson-container {
+                margin: 1rem;
+                padding: 1.2rem;
+            }
+            h1 { font-size: 1.8rem; }
+            h2 { font-size: 1.4rem; }
+            table, thead, tbody, th, td, tr { display: block; }
+            th, td { display: block; width: 100%; }
+        }
+    </style>
+</head>
+<body>
+<div class="lesson-container">
+    <a href="index.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to ArtHub Studio</a>
+    
+    <h2>LESSON 13: CHARACTER AND ENVIRONMENT DESIGN</h2>
+    <h3>Concept Development, World-Building, and Prop Design</h3>
+    <p>&nbsp;</p>
+    
+    <h3>Introduction: The Architect of Imagined Worlds</h3>
+    <p>Character and environment design is the art of visual problem-solving. It is not merely drawing a cool-looking warrior or a pretty landscape. It is the deliberate creation of <strong>visual identities</strong> that communicate story, function, culture, and emotion before a single word is spoken.</p>
+    <p>A character designer asks: <em>Who is this person? What do they want? What have they been through? How does their clothing and body reflect that history?</em></p>
+    <p>An environment designer asks: <em>What happened here? Who lives here? What is the mood of this place? How does the space guide the viewer's eye and the character's journey?</em></p>
+    <p>This lesson will teach you to think like a <strong>concept artist</strong>—to design with intention, to build worlds with internal logic, and to create props that feel lived-in and essential.</p>
+    <p>&nbsp;</p>
+    
+    <h3>SECTION 1: THE FOUNDATIONS OF VISUAL STORYTELLING</h3>
+    <p>Before designing any specific character or place, you must establish the <strong>rules of the world</strong>.</p>
+    <h4>1.1 The World-Building Document (The Bible)</h4>
+    <p>Professional concept art begins with words. A world-building document answers the fundamental questions that will dictate every visual decision.</p>
+    <p><strong>The Essential Questions:</strong></p>
+    <table>
+        <thead><tr><th>Category</th><th>Questions to Answer</th><th>Visual Implication</th></tr></thead>
+        <tbody>
+            <tr><td><strong>Genre &amp; Tone</strong></strong></td><td>Is this Fantasy, Sci-Fi, Historical, Post-Apocalyptic, or Slice-of-Life? Is the tone dark and gritty, or bright and hopeful?</strong>?</td><td>Color palette, level of wear and tear, lighting style.</td></tr>
+            <tr><td><strong>Technology Level</strong></strong></td><td>What is the primary power source? (Magic, Steam, Electricity, Nuclear, Solar). What materials are common? (Wood, Stone, Steel, Plasteel, Nanites).</td><td>Shapes: Organic curves (low tech/magic) vs. Hard angles and panels (high tech).</td></tr>
+            <tr><td><strong>Culture &amp; Society</strong></strong></td><td>What are the dominant factions? What do they value? (Honor, Wealth, Knowledge, Survival). What is their architecture like?</td><td>Clothing silhouettes, color symbolism, ornamentation, building materials.</td></tr>
+            <tr><td><strong>Environment &amp; Climate</strong></strong></td><td>Is the world lush, barren, frozen, aquatic, or urban? How do people survive?</td><td>Character gear (furs for cold, rebreathers for toxic air), building shapes (steep roofs for snow, flat roofs for desert).</td></tr>
+            <tr><td><strong>History &amp; Conflict</strong></strong></td><td>What is the central conflict? Has there been a recent war, a plague, a golden age?</td><td>Ruins, scars, repurposed technology, monuments, propaganda.</td></tr>
+        </tbody>
+    </table>
+    <p><strong>The "Three-Word" Pitch:</strong> Distil the essence of your character or world into three words. This becomes your creative compass.<br>
+    - <em>Example Character:</em> <strong>Weary, Honorable, Haunted.</strong> (A knight who has seen too much).<br>
+    - <em>Example Environment:</em> <strong>Overgrown, Sacred, Decaying.</strong> (An ancient temple reclaimed by the jungle).</p>
+    <h4>1.2 The Hierarchy of Design Decisions</h4>
+    <p>When designing, prioritise in this order:</p>
+    <ol>
+        <li><strong>Silhouette / Read:</strong> Can you understand the character's role and the environment's layout from <strong>shape alone</strong>? (See Lesson 6: Silhouettes).</li>
+        <li><strong>Color Palette:</strong> Does the colour scheme support the mood and story? (See Lesson 3: Values and Colours).</li>
+        <li><strong>Details &amp; Texture:</strong> What materials are present? What is the level of wear? (See Lesson 7: Textures).</li>
+    </ol>
+    <p>&nbsp;</p>
+    
+    <h3>SECTION 2: CHARACTER DESIGN – The Visual Biography</h3>
+    <p>A character design is a <strong>visual biography</strong>. Every element—from the scar on their cheek to the scuff on their boot—should tell a story.</p>
+    <h4>2.1 Shape Language and Archetypes (The First Read)</h4>
+    <p>As established in Lesson 6, shape communicates personality instantly.</p>
+    <table>
+        <thead><tr><th>Shape</th><th>Archetype</th><th>Design Language</th></tr></thead>
+        <tbody>
+            <tr><td><strong>Circle / Sphere</strong></strong></td><td>The Innocent, The Caregiver, The Everyman</td><td>Soft shoulders, round belly, friendly posture, large head-to-body ratio.</td></tr>
+            <tr><td><strong>Square / Rectangle</strong></strong></td><td>The Hero, The Guardian, The Ruler</td><td>Broad, flat shoulders. Solid, grounded stance. Blocky, reliable shapes.</td></tr>
+            <tr><td><strong>Triangle / Wedge</strong></strong></td><td>The Rebel, The Villain, The Trickster</td><td><strong>Wide at top, narrow at bottom.</strong> Large shoulders/collar/cape tapering to tiny feet. Creates a "looming" and "unstable" silhouette.</td></tr>
+            <tr><td><strong>Inverted Triangle</strong></strong></td><td>The Brute, The Monster</td><td>Narrow head, massive shoulders and chest, tapering to powerful legs. Reads as physically imposing but potentially slow.</td></tr>
+        </tbody>
+    </table>
+    <p><strong>The Contrast Principle:</strong> Interesting characters often <strong>subvert</strong> or <strong>mix</strong> archetypes. <em>Example:</em> A <strong>Square</strong> character (reliable) with <strong>Triangle</strong> elements (dangerous past).</p>
+    <h4>2.2 The Costume as Narrative (The "What, Why, and Wear")</h4>
+    <p><strong>The Three Layers of Costume:</strong></p>
+    <ol>
+        <li><strong>Base Layer (Survival):</strong> What does the climate demand? (Fur for cold, loose linen for heat).</li>
+        <li><strong>Functional Layer (Vocation):</strong> What does their job require? (Apron with pockets, holsters, ammo pouches).</li>
+        <li><strong>Expressive Layer (Personality):</strong> What do they want the world to see? (A defiant colour, a family heirloom, a ragged cloak to hide identity).</li>
+    </ol>
+    <p><strong>The "Lived-In" Rule (Wear and Tear):</strong> Cleanliness communicates class and experience. High class = pristine fabrics. Veteran = mended tears, faded fabric, scuffed boots.</p>
+    <h4>2.3 Color Theory for Character</h4>
+    <p><strong>The 60-30-10 Rule:</strong> 60% Dominant Colour, 30% Secondary Colour, 10% Accent Colour (often a complementary pop that draws the eye).<br>
+    <strong>Colour Symbolism (Cultural Context Matters):</strong> Red=Power/Passion, Blue=Calm/Loyalty, Green=Nature/Envy, Purple=Royalty/Mysticism, Yellow=Optimism/Sickness, Black/Grey/Brown=Neutrality/Practicality.<br>
+    <strong>The "Color Script" for Character Arc:</strong> A character's colour palette can shift over a story: naive hero in bright white/gold → after tragedy in muted grey/blue → after redemption in deep rich red.</p>
+    <h4>2.4 The Professional Character Sheet (What to Deliver)</h4>
+    <ol>
+        <li><strong>The Key Pose / Hero Illustration:</strong> The single most iconic image showing personality and silhouette.</li>
+        <li><strong>The Turnaround (Model Sheet):</strong> Front, 3/4, Side, Back – consistent proportions.</li>
+        <li><strong>Expression Sheet:</strong> 4-6 key emotions (Neutral, Happy, Sad, Angry, Surprised, Scared).</li>
+        <li><strong>Prop Call-Outs:</strong> Close-ups of key props with notes on materials and function.</li>
+        <li><strong>Pose Tests / Action Poses:</strong> Loose sketches showing the character in motion.</li>
+    </ol>
+    <p>&nbsp;</p>
+    
+    <h3>SECTION 3: ENVIRONMENT DESIGN – The Stage for the Story</h3>
+    <p>An environment is more than a backdrop. It is a <strong>character</strong> in its own right. It sets the mood, guides the viewer, and reveals the history of the world.</p>
+    <h4>3.1 The Purpose of an Environment</h4>
+    <ul>
+        <li><strong>Establish Mood:</strong> What emotion should the viewer feel? → Lighting and Colour Palette.</li>
+        <li><strong>Guide the Eye / Player:</strong> Where should they look first and next? → Leading Lines, Framing, Value Contrast.</li>
+        <li><strong>Tell a Story:</strong> What happened here before the viewer arrived? → Set Dressing and Weathering.</li>
+        <li><strong>Provide Scale:</strong> How big is this world compared to the character? → Human-Scale Reference.</li>
+    </ul>
+    <h4>3.2 The Environment Design Workflow (The "Blockout" Method)</h4>
+    <ol>
+        <li><strong>Thumbnail Sketches (10-20):</strong> Focus purely on composition and value grouping. Use a thick marker or large digital brush.</li>
+        <li><strong>The "Hero" Thumbnail:</strong> Select the most promising 2-3 thumbnails and refine slightly.</li>
+        <li><strong>The 3D Blockout (Optional but Powerful):</strong> Use simple geometry in Blender or SketchUp to solve perspective instantly.</li>
+        <li><strong>Perspective Grid (2D Approach):</strong> Establish a 2-point or 3-point perspective grid.</li>
+        <li><strong>Value and Lighting Pass:</strong> Paint the scene in grayscale to establish lighting scheme and atmospheric perspective.</li>
+        <li><strong>Color and Texture Pass:</strong> Apply colour using Overlay or Color blending modes. Add photo textures for detail.</li>
+        <li><strong>Set Dressing and Detail Pass:</strong> Add storytelling elements: a discarded toy, vines creeping through a window, a faded propaganda poster.</li>
+    </ol>
+    <h4>3.3 Lighting for Environment Mood (The Director's Cut)</h4>
+    <table>
+        <thead><tr><th>Lighting Scenario</th><th>Mood</th><th>Visual Characteristics</th></tr></thead>
+        <tbody>
+            <tr><td><strong>Golden Hour (Sunset/Sunrise)</strong></strong></td><td>Hope, nostalgia, beauty, peace</td><td>Warm golden light from a low angle. Long, dramatic cast shadows. High contrast.</td></tr>
+            <tr><td><strong>Midday Sun (Harsh)</strong></strong></td><td>Oppression, heat, desolation</td><td>Cool blue sky, harsh white/yellow light. Short sharp shadows. Bleached, desaturated colours.</td></tr>
+            <tr><td><strong>Overcast / Foggy</strong></strong></td><td>Mystery, melancholy, quiet</td><td>Soft diffused light, no hard shadows. Desaturated and cool colours. Extreme atmospheric perspective.</td></tr>
+            <tr><td><strong>Night / Moonlight</strong></strong></td><td>Danger, secrecy, romance</td><td>Cool blue/cyan light. Deep mysterious shadows. Rim light essential.</td></tr>
+            <tr><td><strong>Artificial / Neon (Cyberpunk)</strong></strong></td><td>Energy, decay, chaos</td><td>Multiple coloured light sources (pink, cyan, orange). Deep dark shadows. Glow and bloom effects.</td></tr>
+            <tr><td><strong>Firelight / Candlelight</strong></strong></td><td>Intimacy, warmth, danger</td><td>Warm orange/red light. Rapid light falloff. Subsurface scattering on hands and faces.</td></tr>
+        </tbody>
+    </table>
+    <h4>3.4 The "Set Dressing" Rule (The Story in the Details)</h4>
+    <p>The difference between a generic "fantasy tavern" and a memorable one is set dressing. Add specific, lived-in details: a hunting trophy above the mantle, a wanted poster with a torn edge, a chipped mug, a sleeping cat. <strong>The 80/20 Rule for Set Dressing:</strong> 80% believable and grounded, 20% specifically strange and unique to this world.</p>
+    <p>&nbsp;</p>
+    
+    <h3>SECTION 4: PROP DESIGN – The Objects That Define the World</h3>
+    <p>A prop is any object a character interacts with. Prop design is industrial design for a fictional world.</p>
+    <h4>4.1 The Three Pillars of Prop Design</h4>
+    <ol>
+        <li><strong>Function:</strong> What does it do? How is it held? Always sketch the hand interacting with the prop.</li>
+        <li><strong>Silhouette:</strong> Can you identify the prop from its shadow alone? (See Lesson 6: Silhouettes).</li>
+        <li><strong>Material and Construction:</strong> What is it made of? Are there rivets, welds, wrappings, or seams?</li>
+    </ol>
+    <h4>4.2 The "Iteration" Method for Props</h4>
+    <ol>
+        <li><strong>The Silhouette Sheet:</strong> Draw 10-20 small solid black silhouettes. Vary the shape wildly.</li>
+        <li><strong>Select 2-3</strong> of the most promising silhouettes.</li>
+        <li><strong>Add Internal Line Work:</strong> Draw construction lines (seams, wrappings, blade bevels).</li>
+        <li><strong>Add Material Indication:</strong> Use hatching or colour to show wood grain, metal reflections, leather texture.</li>
+        <li><strong>The Call-Out Sheet:</strong> Draw the final prop from multiple angles (Side, Top, Perspective). Add notes pointing to specific features.</li>
+    </ol>
+    <h4>4.3 Prop Language Consistency (The "Kitbash" Rule)</h4>
+    <p>All props in a single world should feel like they belong to the same culture and technology level. <strong>Kitbash mindset:</strong> Imagine all props are made from the same kit of parts – same rivets, same steel thickness, same ornamentation style.</p>
+    <p>&nbsp;</p>
+    
+    <h3>SECTION 5: WORLD-BUILDING – Creating a Cohesive Visual Language</h3>
+    <p>The ultimate goal of concept art is to create a world that feels internally consistent. This is achieved through the deliberate repetition of <strong>visual motifs</strong>.</p>
+    <h4>5.1 The Visual Motif (The World's Signature)</h4>
+    <p>A visual motif is a recurring shape or pattern across characters, environments, and props.<br>
+    <em>Example (The Empire in Star Wars):</em> The motif is the hard-edged triangle and the circle (TIE Fighters, Star Destroyers, Darth Vader's helmet).<br>
+    <em>Example (The Na'vi in Avatar):</em> The motif is the flowing, bioluminescent S-curve (floating mountains, banshee wings, Na'vi jewelry).</p>
+    <p><strong>How to Develop a Motif:</strong> Choose 2-3 core shapes (e.g., Hexagon + Thin Rectangle). Apply these shapes everywhere: architecture, props, costume.</p>
+    <h4>5.2 The Cultural Style Guide (A Sample Page)</h4>
+    <p>A professional world-building document includes a <strong>Style Guide</strong> page. Example:<br>
+    <strong>WORLD: AETHERA (Floating Sky Islands)</strong><br>
+    - Core Motif: Vertical lines and kite shapes (ascending, air, flight).<br>
+    - Primary Materials: Lightweight bleached wood, canvas sailcloth, copper/bronze fittings, crystals.<br>
+    - Color Palette: Pale Cyan to Deep Indigo (sky), Weathered White Wood + Pale Gold Trim (structures), Vibrant Teal (accent).<br>
+    - Silhouette Rule (Characters): Tall and narrow. Long coats trailing like banners.<br>
+    - Silhouette Rule (Architecture): Tall spires and sweeping curves designed to catch the wind.</p>
+    <p>&nbsp;</p>
+    
+    <h3>SECTION 6: THE PROFESSIONAL DESIGN BRIEF AND WORKFLOW</h3>
+    <h4>6.1 Anatomy of a Design Brief</h4>
+    <p>Example:<br>
+    - <strong>Project:</strong> "Chrono-Forge" (a sci-fi blacksmith game)<br>
+    - <strong>Task:</strong> Design a "Scrap-Hound" enemy<br>
+    - <strong>Description:</strong> Low-level scavenger enemy, not evil, just desperate and territorial.<br>
+    - <strong>Visual Direction:</strong> Cobbled-together armor from scrap starship parts. Asymmetrical, looks like it could fall apart but is agile.<br>
+    - <strong>Deliverables:</strong> 1 Key Pose, 1 Turnaround Sheet, 1 Prop Call-Out (Salvage Claw).</p>
+    <h4>6.2 The Professional Workflow (Step-by-Step)</h4>
+    <ol>
+        <li><strong>Read the Brief.</strong> Underline key words: cobbled-together, asymmetrical, desperate, agile.</li>
+        <li><strong>Gather Reference (Mood Board).</strong> Find images of junkyards, rusted metal, industrial welders, animal skulls.</li>
+        <li><strong>Ideation (Thumbnails / Silhouettes).</strong> Draw 15-20 small, loose sketches. Explore different body types and arrangements.</li>
+        <li><strong>Internal Review (Self-Critique).</strong> Which 3 designs best fit the brief? Is the silhouette clear?</li>
+        <li><strong>Refinement.</strong> Take the best design and draw it larger. Solve functional issues.</li>
+        <li><strong>Final Presentation.</strong> Create the Turnaround and Prop Call-Out. Clean lines, clear notes.</li>
+        <li><strong>Polish.</strong> Ensure all lines are closed. Label all materials.</li>
+    </ol>
+    <p>&nbsp;</p>
+    
+    <h3>SECTION 7: COMMON CHARACTER &amp; ENVIRONMENT DESIGN MISTAKES &amp; HOW TO FIX THEM</h3>
+    <table>
+        <thead><tr><th>Mistake</th><th>Why It Happens</th><th>The Fix</th></tr></thead>
+        <tbody>
+            <tr><td><strong>The "Generic" Hero</strong></strong></td><td>No distinct features – handsome face, brown jacket, jeans.</td><td>Add one memorable, strange detail. Specificity creates memorability.</td></tr>
+            <tr><td><strong>The "Over-Designed" Character</strong></strong></td><td>Too many belts, pouches, zippers, glowing bits. Silhouette is a mess.</td><td>Apply the "Rule of Three." Focus on three main design elements; let the rest be secondary.</td></tr>
+            <tr><td><strong>The "Empty" Environment</strong></strong></td><td>Grand cathedral with no pews, candles, or tapestries.</td><td>Set dressing is not optional. Add clutter that tells a story. Add wear and tear.</td></tr>
+            <tr><td><strong>The "Mismatched" Prop</strong></strong></td><td>A futuristic laser rifle in a medieval fantasy setting.</td><td>Refer to the World-Building Bible. Redesign with period-appropriate materials.</td></tr>
+            <tr><td><strong>The "Tangent" City</strong></strong></td><td>Buildings in background line up perfectly with character's shoulder and head, creating visual "glue."</td><td>Offset the background. Surround the character's silhouette with contrasting value.</td></tr>
+            <tr><td><strong>The "Flat" Turnaround</strong></strong></td><td>Side view is just a straight line; no depth to chest or backpack.</td><td>Draw through the form. Sketch ribcage and pelvis as 3D volumes first.</td></tr>
+        </tbody>
+    </table>
+    <p>&nbsp;</p>
+    
+    <h3>SECTION 8: ASSIGNMENT / PRACTICE DRILL</h3>
+    <p><strong>Drill 1: The 20-Silhouette Sprint (Character)</strong></p>
+    <ul>
+        <li>Choose a simple archetype: <strong>"Forest Ranger."</strong></li>
+        <li>Using only solid black fill, draw <strong>20 distinct silhouettes</strong> of this character. Vary pose, gear, cloak shape, body type.</li>
+        <li><strong>Do not draw any internal details.</strong> This is a shape design exercise.</li>
+        <li><em>Goal: To exhaust obvious choices and discover a unique, memorable shape.</em></li>
+    </ul>
+    <p><strong>Drill 2: The "What Happened Here?" Environment Thumbnail</strong></p>
+    <ul>
+        <li>Draw a 2-inch thumbnail of a simple room: a table, a chair, a window.</li>
+        <li><strong>Add 5 details</strong> that tell a specific story: Scholar studying for 50 years (piles of books, candle stubs, dusty globe, cold tea).</li>
+        <li>Repeat for a different story: violent struggle (overturned chair, scattered papers, broken vase, a drop of blood).</li>
+        <li><em>Goal: Practice visual storytelling through set dressing.</em></li>
+    </ul>
+    <p><strong>Drill 3: The Prop Design Evolution (The "Ancient Relic")</strong></p>
+    <ul>
+        <li>Design a magical staff.</li>
+        <li>Version 1: Generic fantasy staff (wooden stick, blue crystal).</li>
+        <li>Version 2: Add cultural specificity – desert nomad tribe (sun-bleached bone, faded red cloth, topped with a small desert fox skull).</li>
+        <li>Version 3: Add history – broken and repaired (visible crack sealed with bronze bands, patched cloth, chipped crystal).</li>
+        <li><em>Goal: See how specificity and history elevate a generic prop.</em></li>
+    </ul>
+    <p><strong>Drill 4: The Turnaround Challenge (Consistency)</strong></p>
+    <ul>
+        <li>Design a simple character (e.g., a knight with a distinct helmet and a cape).</li>
+        <li>Draw the <strong>Turnaround</strong>: Front, 3/4, Side, Back.</li>
+        <li><strong>Constraint:</strong> You may not use the Liquify tool or Transform to cheat proportions. Redraw the character for each view.</li>
+        <li>Use horizontal guide lines to keep eyes, shoulders, and hips at the same height across all four drawings.</li>
+        <li><em>Goal: Develop discipline of consistent 3D visualization.</em></li>
+    </ul>
+    <p><strong>Drill 5: The "World Bible" Page</strong></p>
+    <ul>
+        <li>Create a single page that defines the visual language of an imaginary world.</li>
+        <li>Include: Three-Word Pitch, Core Motif Shapes (3-5 abstract shapes), Color Palette (5 colour swatches), Material Call-Out (a small sketch of a wall or prop), One Hero Environment Thumbnail, One Hero Character Silhouette.</li>
+        <li><em>Goal: Synthesize all lessons into a cohesive, professional-style concept document.</em></li>
+    </ul>
+    <p><strong>Drill 6: The "Brief Response"</strong></p>
+    <ul>
+        <li>Ask a friend to give you a simple design brief for a character or environment (e.g., "A friendly robot who works in a flower shop.")</li>
+        <li>Follow the Professional Workflow (Section 6.2).</li>
+        <li>Deliver a single polished illustration within a <strong>2-hour time limit</strong>.</li>
+        <li><em>Goal: Simulate the time pressure and creative constraint of real-world concept art.</em></li>
+    </ul>
+    <hr>
+    <p style="text-align: center; font-size: 0.9rem;"><i class="fas fa-drafting-compass"></i> Design is storytelling with shapes. Every line should serve the story.</p>
+</div>
+<footer>
+    <p>© 2026 ArtHub — Character and Environment Design for Artists <i class="fas fa-heart" style="color: var(--accent-pink);"></i></p>
+</footer>
+<button class="theme-btn-lesson" id="themeToggleLesson"><i class="fas fa-moon" id="themeIconLesson"></i> Dark/Light</button>
+
+<script>
+    function initTheme() {
+        if (localStorage.getItem('darkMode') === 'true') {
+            document.body.classList.add('dark');
+        } else {
+            document.body.classList.remove('dark');
+        }
+        updateIcon();
+    }
+    function toggleTheme() {
+        document.body.classList.toggle('dark');
+        localStorage.setItem('darkMode', document.body.classList.contains('dark'));
+        updateIcon();
+    }
+    function updateIcon() {
+        const icon = document.getElementById('themeIconLesson');
+        if (document.body.classList.contains('dark')) {
+            icon.classList.remove('fa-moon');
+            icon.classList.add('fa-sun');
+        } else {
+            icon.classList.remove('fa-sun');
+            icon.classList.add('fa-moon');
+        }
+    }
+    document.getElementById('themeToggleLesson').addEventListener('click', toggleTheme);
+    initTheme();
+</script>
+</body>
+</html>

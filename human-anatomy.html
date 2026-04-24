@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>ArtHub · Human Anatomy for Artists</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: background-color 0.2s ease, color 0.2s, border-color 0.2s;
+        }
+
+        /* Floral background (same as main index) */
+        body {
+            font-family: 'Segoe UI', 'Inter', system-ui, -apple-system, 'Roboto', sans-serif;
+            line-height: 1.55;
+            position: relative;
+        }
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -2;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Cpath fill='%23b87c4f' fill-opacity='0.12' d='M60,15 L63,25 L73,25 L65,32 L68,42 L60,36 L52,42 L55,32 L47,25 L57,25 Z'/%3E%3Ccircle cx='30' cy='85' r='5' fill='%23e58a9e' fill-opacity='0.15'/%3E%3Ccircle cx='95' cy='40' r='6' fill='%236c9e4f' fill-opacity='0.12'/%3E%3Cpath fill='%235b8cbf' fill-opacity='0.1' d='M100,90 L103,96 L110,96 L105,101 L107,108 L100,103 L93,108 L95,101 L90,96 L97,96 Z'/%3E%3C/svg%3E");
+            background-repeat: repeat;
+            background-size: 80px 80px;
+        }
+        body.dark::before {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Cpath fill='%23d49c6c' fill-opacity='0.08' d='M60,15 L63,25 L73,25 L65,32 L68,42 L60,36 L52,42 L55,32 L47,25 L57,25 Z'/%3E%3Ccircle cx='30' cy='85' r='5' fill='%23f0a1b3' fill-opacity='0.1'/%3E%3Ccircle cx='95' cy='40' r='6' fill='%2380b35c' fill-opacity='0.08'/%3E%3Cpath fill='%236c9fd6' fill-opacity='0.08' d='M100,90 L103,96 L110,96 L105,101 L107,108 L100,103 L93,108 L95,101 L90,96 L97,96 Z'/%3E%3C/svg%3E");
+        }
+
+        /* Light & Dark theme variables */
+        :root {
+            --bg-body: #fef7e9;
+            --bg-card: #ffffff;
+            --text-primary: #2c2418;
+            --text-secondary: #5a4a34;
+            --border-light: #f0e2cf;
+            --accent-brown: #b87c4f;
+            --accent-green: #6c9e4f;
+            --accent-blue: #5b8cbf;
+            --accent-pink: #e58a9e;
+            --accent-brown-soft: #d9b48b;
+            --accent-green-soft: #b3d0a2;
+            --accent-blue-soft: #aac4e6;
+            --accent-pink-soft: #f4c4d0;
+            --shadow: 0 8px 20px rgba(0,0,0,0.05);
+        }
+        body.dark {
+            --bg-body: #1a1714;
+            --bg-card: #2a2622;
+            --text-primary: #f2ede4;
+            --text-secondary: #cdc2b2;
+            --border-light: #3f382f;
+            --accent-brown: #d49c6c;
+            --accent-green: #80b35c;
+            --accent-blue: #6c9fd6;
+            --accent-pink: #f0a1b3;
+            --accent-brown-soft: #9c6e48;
+            --accent-green-soft: #4f7039;
+            --accent-blue-soft: #4a6e96;
+            --accent-pink-soft: #b35f73;
+            --shadow: 0 8px 20px rgba(0,0,0,0.4);
+        }
+        body {
+            background: var(--bg-body);
+            color: var(--text-primary);
+        }
+
+        .lesson-container {
+            max-width: 1000px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: var(--bg-card);
+            border-radius: 2rem;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-light);
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Typography */
+        h1, h2, h3, h4 {
+            color: var(--accent-brown);
+            margin-top: 1.8rem;
+            margin-bottom: 0.8rem;
+            font-weight: 600;
+        }
+        h1 {
+            font-size: 2.4rem;
+            border-left: 6px solid var(--accent-pink);
+            padding-left: 1rem;
+            margin-top: 0.5rem;
+        }
+        h2 {
+            font-size: 1.8rem;
+            border-bottom: 2px solid var(--accent-green-soft);
+            display: inline-block;
+            padding-bottom: 0.3rem;
+        }
+        h3 {
+            font-size: 1.4rem;
+            color: var(--accent-blue);
+        }
+        p, li {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+        .caption {
+            font-style: italic;
+            color: var(--accent-pink);
+            font-size: 0.9rem;
+            text-align: center;
+            margin: 1rem 0;
+        }
+        ul, ol {
+            margin: 0.8rem 0 1.2rem 2rem;
+        }
+        li {
+            margin: 0.4rem 0;
+        }
+        em, strong {
+            color: var(--accent-brown);
+        }
+        hr {
+            border: none;
+            height: 2px;
+            background: var(--border-light);
+            margin: 2rem 0;
+        }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 1.5rem;
+            background: var(--accent-blue-soft);
+            padding: 0.5rem 1.2rem;
+            border-radius: 40px;
+            text-decoration: none;
+            color: var(--text-primary);
+            font-weight: 500;
+            transition: 0.2s;
+        }
+        .back-link:hover {
+            background: var(--accent-pink-soft);
+            transform: translateX(-4px);
+        }
+        .theme-btn-lesson {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-light);
+            border-radius: 60px;
+            padding: 10px 18px;
+            cursor: pointer;
+            font-weight: 500;
+            color: var(--text-primary);
+            box-shadow: var(--shadow);
+            z-index: 100;
+            backdrop-filter: blur(4px);
+        }
+        .theme-btn-lesson:hover {
+            background: var(--accent-pink-soft);
+            transform: scale(0.96);
+        }
+        footer {
+            text-align: center;
+            padding: 1.5rem;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            border-top: 1px solid var(--border-light);
+            margin-top: 2rem;
+        }
+        @media (max-width: 680px) {
+            .lesson-container {
+                margin: 1rem;
+                padding: 1.2rem;
+            }
+            h1 { font-size: 1.8rem; }
+            h2 { font-size: 1.4rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="lesson-container">
+    <a href="index.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to ArtHub Studio</a>
+    
+    <p class="caption">LESSON 1: HUMAN ANATOMY FOR ARTISTS</p>
+    <p class="caption">&nbsp;</p>
+    <h1>Introduction: Why Artists Study Anatomy Differently Than Doctors</h1>
+    <p>Medical anatomy memorizes every bone and tendon name. Artistic anatomy memorizes only what affects the surface form—the bumps, rhythms, and landmarks visible on the skin. Your goal is not to pass a biology exam; your goal is to understand why that shadow curves that way on the model's back.</p>
+    <p>&nbsp;</p>
+    
+    <h1>SECTION 1: THE TORSO (Core Mass)</h1>
+    <p><em>The torso is the anchor of the figure. If the torso is wrong, the limbs will never look attached correctly.</em></p>
+    <p>&nbsp;</p>
+    
+    <h2>1.1 The Front Torso (Chest &amp; Abs)</h2>
+    <p>&nbsp;</p>
+    <h3>Key Landmarks (What You Actually Draw):</h3>
+    <ul>
+        <li><p><strong>Clavicles (Collarbones):</strong> These are the only horizontal bones in the upper front body. They create the "coat hanger" shape of the shoulders. In almost every pose except extreme hunching, these angle slightly up and back like a smile.</p></li>
+        <li><p><strong>Sternum (Breastplate):</strong> A flat vertical plane between the pecs. Remember: The sternum is not a deep crevice; it's a flat road between two hills (the pectoral muscles).</p></li>
+        <li><p><strong>Ribcage Arch:</strong> The lower front ribs create an oval "egg" shape that tilts back as it goes down. The bottom of the ribcage points inward toward the belly button.</p></li>
+        <li><p><strong>The 10th Rib:</strong> On a lean figure, you will see a small bump on the side of the torso just above the waist. This is the end of the ribcage—it is the pivot point for bending sideways.</p></li>
+        <li><p><strong>Linea Alba:</strong> The vertical line dividing the "six-pack." It runs from the sternum down to the pubic bone.</p></li>
+    </ul>
+    <p>&nbsp;</p>
+    <h3>The Gesture of the Torso Front:</h3>
+    <p><em>Instead of drawing a straight box, draw a bean shape. The upper oval (ribcage) and lower oval (pelvis) pinch together at the waist on the front view.</em></p>
+    <p>&nbsp;</p>
+    <h3>Common Mistakes:</h3>
+    <ul>
+        <li><p>The "Brick" Torso: Forgetting that the ribcage is narrower at the top (where it meets the neck) and wider at the bottom (where the diaphragm is).</p></li>
+        <li><p>Vertical Pecs: Pec muscles do not attach to the collarbone vertically. They twist under the armpit. The pec line flows up and out toward the shoulder, not straight up to the neck.</p></li>
+    </ul>
+    <p>&nbsp;</p>
+    
+    <h2>1.2 The Back Torso (The Sculpted Landscape)</h2>
+    <p><em>The back is where most beginners get lost. It looks like a confusing mess of lumps, but it follows simple, overlapping rhythms.</em></p>
+    <p>&nbsp;</p>
+    <h3>The 3 Major "Layers" of the Back (Draw in this order):</h3>
+    <ol>
+        <li><p><strong>The Spine Groove:</strong> In the very center, you have the spinal erectors. These are two long "cables" or "sausages" running vertically on either side of the bony spine. They create the trench down the middle of a muscular back. On a heavy figure, this trench disappears; on a lean figure, it's deep shadow.</p></li>
+        <li><p><strong>The Scapula (Shoulder Blades):</strong> These are floating plates of armor. They do not sit flat on the ribcage; they glide and tilt.</p>
+            <ul>
+                <li>Landmark: The Spine of the Scapula. This is a horizontal ridge about 1/3 of the way down the back. It catches light.</li>
+                <li>Movement: When the arm raises above the head, the entire scapula rotates outward and up. If you draw the raised arm without moving the scapula, the shoulder will look dislocated.</li>
+            </ul>
+        </li>
+        <li><p><strong>The Latissimus Dorsi ("Lats"):</strong> The wings of the back. They attach from under the armpit, wrap around the side of the ribcage, and plunge down into the small of the back. This muscle creates the V-Taper shape of a fit torso.</p></li>
+    </ol>
+    <p>&nbsp;</p>
+    <h3>The Gesture of the Back:</h3>
+    <p><em>Look for the "Diamond of Michelangelo." When the figure is at rest, the inner edges of the shoulder blades, the spine groove, and the top of the pelvis create a diamond shape of negative space or light shadow in the lower middle back.</em></p>
+    <p>&nbsp;</p>
+    
+    <h2>SECTION 2: THE ARMS (The Levers of Expression)</h2>
+    <p><em>Arms are the most difficult to simplify because they twist (pronation/supination). Think of the arm in three distinct segments, not one long noodle.</em></p>
+    <p>&nbsp;</p>
+    <h3>2.1 Upper Arm (Humerus to Elbow)</h3>
+    <ul>
+        <li><p><strong>Deltoid (Shoulder Cap):</strong> The "teardrop" that wraps the top of the arm. It is the only muscle that gives the shoulder its rounded silhouette.</p></li>
+        <li><p><strong>Triceps (Back of Arm):</strong> The "horseshoe" shape. It occupies 2/3 of the arm's mass. People draw tiny arms because they think the bicep is the whole arm. The tricep is the real mass. Look for the long head of the tricep attaching all the way up into the armpit.</p></li>
+        <li><p><strong>The Elbow Joint (The Wrench):</strong> The elbow is not a ball. It's a hinge.</p>
+            <ul><li>Landmarks: The Olecranon (pointy tip of elbow) is the highest point when the arm is bent.</li>
+            <li>Anatomy Hack: The two "knobs" of the elbow (medial and lateral epicondyles) and the tip of the elbow form an equilateral triangle when the arm is straight. When the arm is bent, they form a straight horizontal line.</li></ul>
+        </li>
+    </ul>
+    <p>&nbsp;</p>
+    <h3>2.2 Forearm (Radius and Ulna)</h3>
+    <ul>
+        <li><p>The Twist: The Ulna (pinky side) is fixed at the elbow. The Radius (thumb side) crosses over it when you turn your palm down.</p></li>
+        <li><p>The Ridge: The Ulna creates a sharp, bony ridge visible from elbow to wrist on the pinky side. You can always find the pinky side bone, even on a heavy arm.</p></li>
+    </ul>
+    <p>&nbsp;</p>
+    <h3>2.3 The Hand and Wrist</h3>
+    <ul>
+        <li><p>The "Carpal Bridge": The wrist is not a straight line. It's an arch. When you draw a bracelet, draw a curve, not a straight line.</p></li>
+        <li><p>Thumb Placement: The thumb's metacarpal (the meaty triangle inside the palm) is the center of movement. If you don't draw this triangle, the hand looks like a flat pancake with sausages stuck on.</p></li>
+        <li><p>Knuckle Rhythm: The knuckles of the hand descend in an arc. The middle finger knuckle is the highest point.</p></li>
+    </ul>
+    <p>&nbsp;</p>
+    
+    <h2>SECTION 3: THE LEGS (The Pillars)</h2>
+    <p><em>Legs are columns with specific angles.</em></p>
+    <p>&nbsp;</p>
+    <h3>3.1 The Hip and Glutes</h3>
+    <ul>
+        <li><p><strong>Greater Trochanter:</strong> The hard bump you feel on the outside of your upper thigh. This is not the hip bone (Iliac Crest). The Iliac Crest is the "shelf" at the waistline. The Trochanter is the pivot point for the whole leg.</p></li>
+        <li><p><strong>Gluteus Medius:</strong> The "upper butt" muscle. On the side view, this is the teardrop shape that sits above the main gluteus maximus mass. It creates the hip dip.</p></li>
+    </ul>
+    <p>&nbsp;</p>
+    <h3>3.2 Upper Leg (Thigh)</h3>
+    <ul>
+        <li><p><strong>The Quadriceps (Front):</strong> Three vastus muscles and the Rectus Femoris in the center. The Rectus Femoris is the only quad muscle that crosses the hip joint and the knee. It stands out as a distinct, teardrop-shaped ridge on a lean leg.</p></li>
+        <li><p><strong>The Hamstrings (Back):</strong> Two distinct tendons create two parallel ropes behind the knee when the leg is bent. You must draw these tendons to make the back of the knee look realistic.</p></li>
+        <li><p><strong>Sartorius: The Longest Muscle in the Body.</strong> It's the "seatbelt." It originates at the front hip bone, wraps across the thigh diagonally, and inserts on the inside of the knee. It separates the front thigh mass from the inner thigh mass.</p></li>
+    </ul>
+    <p>&nbsp;</p>
+    <h3>3.3 Lower Leg (Calf to Ankle)</h3>
+    <ul>
+        <li><p><strong>The Shin Bone (Tibia):</strong> The only vertical straight line in the entire body. It is a flat, sharp edge just under the skin. You can trace it from just below the kneecap all the way to the ankle. Draw this line first.</p></li>
+        <li><p><strong>The Calf (Gastrocnemius):</strong> The "diamond" or "heart" shape on the back of the leg. It sits high. The lower half of the lower leg is mostly the Achilles Tendon and bone.</p></li>
+        <li><p><strong>The Ankles (The Wrench Part 2):</strong></p>
+            <ul>
+                <li>Inside Ankle (Tibia): Higher and more forward.</li>
+                <li>Outside Ankle (Fibula): Lower and further back.</li>
+                <li>Mnemonic: The inside ankle is a "tall, proud cliff." The outside ankle is a "low, receding hill."</li>
+            </ul>
+        </li>
+    </ul>
+    <p>&nbsp;</p>
+    
+    <h2>SECTION 4: PROPORTIONS &amp; CHECKPOINTS (The Checklist)</h2>
+    <p><em>Before you render any drawing, run this checklist.</em></p>
+    <ul>
+        <li><p>Head Height: Average figure is 7.5 to 8 heads tall. Heroic figures are 8.5.</p></li>
+        <li><p>Nipple Line: 2 heads down from the top of the skull.</p></li>
+        <li><p>Navel (Belly Button): 3 heads down.</p></li>
+        <li><p>Crotch/Pubic Bone: The exact midpoint of the body (4 heads down). Most beginners put the legs too short and the crotch too high.</p></li>
+        <li><p>Wrist Drop: When standing straight, the wrist crease lines up exactly with the crotch/pubic bone.</p></li>
+        <li><p>Fingertip Drop: The tip of the middle finger reaches mid-thigh. (About 1/3 down from the crotch to the knee).</p></li>
+        <li><p>Knees: Just below the 6-head mark.</p></li>
+    </ul>
+    <p>&nbsp;</p>
+    
+    <h2>SECTION 5: THE HEAD &amp; FACE (The Focal Point)</h2>
+    <p><em>The head is where viewers look first. A figure drawing with a slightly off torso might go unnoticed, but a face that is even 2 millimeters wrong in proportion reads immediately as "uncanny." This section breaks down the head into manageable, repeatable construction steps.</em></p>
+    <p>&nbsp;</p>
+    <h3>5.1 The Skull: The Armature Beneath the Face</h3>
+    <p><em>Before drawing eyes, lips, or noses, you must understand the bony structure that pushes against the skin.</em></p>
+    <h4>The Three Masses of the Skull</h4>
+    <ol>
+        <li><p><strong>The Cranium (Brain Case):</strong> A smooth, egg-like dome. It is larger than you think. The eyes sit exactly at the midpoint of the head vertically. The cranium occupies the entire top half. Hair adds volume on top of this dome.</p></li>
+        <li><p><strong>The Cheekbones (Zygomatic Arch):</strong> These are the "shelf" of the face. They catch light from above and cast a shadow on the hollow of the cheek below. On a 3/4 view, the far cheekbone is a critical landmark that defines the edge of the face.</p></li>
+        <li><p><strong>The Jaw (Mandible):</strong> The only moving bone of the skull. It hinges just in front of the ear hole. The Angle of the Jaw (the back corner) determines masculinity/femininity. A sharp, low angle reads masculine; a softer, higher angle reads feminine.</p></li>
+    </ol>
+    <h4>The Key Landmarks (Feel Your Own Face Now)</h4>
+    <ul>
+        <li><p><strong>Glabella:</strong> The bony bump between the eyebrows. This is the deepest set point of the face in profile.</p></li>
+        <li><p><strong>Superciliary Arch (Brow Ridge):</strong> The shelf of bone the eyebrows sit on. It casts a shadow down over the eye socket.</p></li>
+        <li><p><strong>Nasal Bone:</strong> The hard bridge of the nose. It ends halfway down the nose. The lower half of the nose is cartilage (softer, rounder).</p></li>
+        <li><p><strong>Mental Protuberance (Chin Boss):</strong> The forward-most point of the chin. It has two subtle bumps (the "cleft chin" base) and flattens out toward the jawline.</p></li>
+    </ul>
+    <p>&nbsp;</p>
+    <h3>5.2 The Planes of the Head (Asaro Head Method)</h3>
+    <p><em>The single most important concept for rendering a 3D head with light and shadow: Think in planes, not curves. Instead of drawing a round ball for the cheek, draw a flat front plane and a side plane.</em></p>
+    <h4>The Major Plane Breaks</h4>
+    <ol>
+        <li><p>Front Plane (The Mask): From the hairline down to the chin, and ear to ear. This plane faces forward.</p></li>
+        <li><p>Side Planes (The Temples): The sides of the forehead and the hollow of the cheek (below the cheekbone). These planes face sideways and often fall into shadow.</p></li>
+        <li><p>Under Planes: The bottom of the chin, the bottom of the nose, the bottom of the brow ridge. These planes face downward and are almost always in shadow (except with strong under-lighting).</p></li>
+    </ol>
+    <p><em>Value Grouping Exercise: When shading a portrait, assign one value to the Light Family (Front Planes) and one value to the Shadow Family (Side and Under Planes). Keep these separate. Do not let the shadow values become as light as the light values. This creates the "graphic" read of a strong painting.</em></p>
+    <p>&nbsp;</p>
+    <h3>5.3 Proportions: The Universal Map</h3>
+    <p><em>These measurements are the average ideal. Individual faces vary, but these ratios serve as your "home base" before you start drawing the specific person.</em></p>
+    <h4>Front View Proportions</h4>
+    <ul>
+        <li><p>Eye Line: Exactly halfway between the top of the skull and the bottom of the chin.</p></li>
+        <li><p>Hairline to Chin divided into Thirds: Top Third: Hairline to Glabella (Brow). Middle Third: Glabella to Bottom of Nose. Bottom Third: Bottom of Nose to Bottom of Chin.</p></li>
+        <li><p>Eye Spacing: The space between the two eyes is exactly one eye-width. (A five-eye-wide face).</p></li>
+        <li><p>Mouth Width: The corners of the mouth line up vertically with the pupils/irises of the eyes when looking straight ahead.</p></li>
+        <li><p>Ear Placement: The top of the ear lines up with the brow line. The bottom of the earlobe lines up with the bottom of the nose.</p></li>
+    </ul>
+    <h4>Profile View Proportions</h4>
+    <ul>
+        <li><p>The Ear Hole: This is the pivot point of the head. The jaw swings open from here. The neck attaches behind the ear hole, not directly under the chin.</p></li>
+        <li><p>The "Wedding Ring" Test: If you look at a face in pure profile, you should be able to fit a finger (or a ring) in the space between the eye and the bridge of the nose. The eye is set back from the brow.</p></li>
+        <li><p>Neck Angle: The neck does not come straight down from the chin. It angles backward diagonally. From the Adam's apple area, the line slopes forward to the pit of the neck.</p></li>
+    </ul>
+    <p>&nbsp;</p>
+    <h3>5.4 The Individual Features (Construction Formulas)</h3>
+    <h4>The Eye (Not an Almond)</h4>
+    <p><em>Stop drawing "football" shapes. The eye is a sphere (the eyeball) wrapped in skin folds (the eyelids).</em></p>
+    <h4>Construction Steps:</h4>
+    <ol>
+        <li><p>Draw the Sphere of the Eyeball lightly.</p></li>
+        <li><p>Draw the Upper Eyelid Crease. This wraps over the sphere.</p></li>
+        <li><p>Draw the Upper Lash Line. It curves sharply down at the inner corner and gently down at the outer corner.</p></li>
+        <li><p>Draw the Lower Lash Line. It is not a mirror of the upper line. It is flatter, usually resting slightly lower, revealing the white of the eye below the iris.</p></li>
+        <li><p>The Iris: It is a perfect circle. When the eye looks to the side, the iris remains a circle but is partially covered by the eyelids. You never see the whole circle unless the person is terrified.</p></li>
+        <li><p>The Tear Duct: The pink triangle in the inner corner. Essential. Without it, the eye looks alien.</p></li>
+    </ol>
+    <p>&nbsp;</p>
+    <h4>The Nose (The Wedge)</h4>
+    <p><em>The nose is best drawn by drawing everything except the nose. Focus on the shadow shapes next to it.</em></p>
+    <h4>Construction:</h4>
+    <ol>
+        <li><p>The Bridge: A flat plane between the eyes (the Glabella). It descends and narrows.</p></li>
+        <li><p>The Ball of the Nose: A sphere or wedge at the tip.</p></li>
+        <li><p>The Wings (Alae): Two smaller spheres attached to the sides of the ball.</p></li>
+        <li><p>The Underside (Septum): The flat plane connecting the ball to the upper lip. In most lighting, this entire underside is a dark triangle shape.</p></li>
+        <li><p>Rendering Tip: Draw the cast shadow of the nose falling onto the upper lip. This shadow is the nose structure. Do not outline the entire bridge with a hard line.</p></li>
+    </ol>
+    <p>&nbsp;</p>
+    <h4>The Lips (The Cylinders)</h4>
+    <p><em>The mouth sits on the curved cylinder of the teeth. It is not flat.</em></p>
+    <h4>The 5 Shapes of the Mouth:</h4>
+    <ol>
+        <li><p>The Dip (Cupid's Bow): The V-shape at the top center of the upper lip.</p></li>
+        <li><p>Upper Lip Body: Two elongated pillows leaning inward.</p></li>
+        <li><p>The Line (Oral Commissure): The slit where they meet. It curves down in the middle and up at the corners (usually).</p></li>
+        <li><p>Lower Lip Body: One full pillow or two soft lobes.</p></li>
+        <li><p>The Chin Crease: The shadow indentation between the bottom lip and the chin boss.</p></li>
+    </ol>
+    <p><em>Critical Lighting Note: The upper lip almost always faces downward. Therefore, in top lighting, the upper lip is in shadow. The lower lip faces upward. Therefore, it catches light. If you draw the upper lip as dark and the lower lip as light, the mouth will instantly look three-dimensional.</em></p>
+    <p>&nbsp;</p>
+    <h4>The Ear (The Seashell)</h4>
+    <p>The ear is a confusing spiral. Memorize these three distinct shapes inside the outer rim (Helix):</p>
+    <ol>
+        <li><p>The Y-Shape (Antihelix): The raised inner ridge. It looks like a thick letter Y.</p></li>
+        <li><p>The Bowl (Concha): The deepest, darkest hole of the ear. This is where you put the darkest dark of the entire head.</p></li>
+        <li><p>The Flap (Tragus): The little nub that protects the ear hole. It points backward.</p></li>
+    </ol>
+    <p>&nbsp;</p>
+    <h3>5.5 Aging, Gender, and Expression Variations</h3>
+    <h4>Ageing the Face</h4>
+    <ul>
+        <li><p>Youth: Large cranium, eyes lower on the head (midpoint shifts down slightly as skull grows), smooth fat pads, no nasolabial folds.</p></li>
+        <li><p>Age: The ear and nose keep growing (cartilage never stops). The eyes appear smaller because the brow droops and the skin around the eyes thickens. The jawline softens due to loss of bone density and skin elasticity. Nasolabial folds (smile lines) deepen.</p></li>
+    </ul>
+    <h4>Gender Markers</h4>
+    <ul>
+        <li><p>Male Indicators: Stronger brow ridge (Glabella projects forward), larger jaw angle, more prominent Adam's Apple, thinner lips, straighter forehead angle.</p></li>
+        <li><p>Female Indicators: Smoother brow transition (forehead curves gently into nose), smaller chin, fuller lips, higher cheek fat pads, softer jaw angle.</p></li>
+    </ul>
+    <h4>The Six Core Expressions (Quick Notes)</h4>
+    <ol>
+        <li><p>Happiness: Cheeks push up, eyes squint (crow's feet), mouth widens.</p></li>
+        <li><p>Sadness: Inner eyebrows pull up and together, mouth corners pull down.</p></li>
+        <li><p>Anger: Eyebrows pull down and together (vertical crease between brows), eyes glare, lips tighten or teeth bare.</p></li>
+        <li><p>Fear: Eyebrows raise high and straight, eyes widen (upper lid raised), mouth opens horizontally.</p></li>
+        <li><p>Disgust: Nose wrinkles (the levator labii superioris muscle pulls the upper lip and nose wing up), squinting.</p></li>
+        <li><p>Surprise: Eyebrows raise high and curved, jaw drops, eyes wide.</p></li>
+    </ol>
+    <p>&nbsp;</p>
+    <h3>5.6 Assignment: The Head Checklist</h3>
+    <p><strong><em>Instructions for the student:</em></strong></p>
+    <h4>Drill 1: The Egg and Cross</h4>
+    <ul>
+        <li><p>Draw 20 identical egg shapes (cranium + jaw silhouette).</p></li>
+        <li><p>On each egg, draw a vertical center line (curving around the form).</p></li>
+        <li><p>Draw a horizontal eye line exactly at the midpoint.</p></li>
+        <li><p>Draw a horizontal brow line slightly above.</p></li>
+        <li><p>Draw a horizontal nose line exactly halfway between brow and chin.</p></li>
+        <li><p>Draw a horizontal mouth line 1/3 up from chin to nose.</p></li>
+    </ul>
+    <p><em>Goal: To be able to draw a correctly proportioned head block-in from any angle in under 30 seconds.</em></p>
+    <h4>Drill 2: The 5-Value Asaro Study</h4>
+    <ul>
+        <li><p>Find a reference of the Asaro Head (Planes of the Head model) lit from above.</p></li>
+        <li><p>Using only 5 values (White, Light Grey, Mid Grey, Dark Grey, Black), block in the planes.</p></li>
+        <li><p>Rule: Do not blend. Keep the edges hard.</p></li>
+    </ul>
+    <p><em>Goal: To understand that the head is a faceted object, not a smooth balloon.</em></p>
+    <h4>Drill 3: Feature Isolation</h4>
+    <ul>
+        <li><p>Fill one page with only eyes.</p></li>
+        <li><p>Fill one page with only noses from different angles.</p></li>
+        <li><p>Fill one page with only ears.</p></li>
+    </ul>
+    <p><em>Goal: To eliminate the "symbol" drawing of features (the almond eye, the L-shaped nose) and replace it with structural construction.</em></p>
+    <p>&nbsp;</p>
+    
+    <h2>SECTION 6: ASSIGNMENT / PRACTICE DRILL</h2>
+    <p><em>Instructions for the student:</em></p>
+    <ol>
+        <li><p><strong>The Bone Trace:</strong> Find a photo of a lean figure (or use a skeleton reference). Using a red digital pen or red pencil, trace only the Clavicle, Spine of Scapula, Elbow Olecranon, Ulna Ridge, Iliac Crest, Greater Trochanter, Patella (Kneecap), and Tibia Ridge. Do not draw muscles yet. Just the landmarks.</p></li>
+        <li><p><strong>The 1-Minute Rhythm:</strong> Set a timer for 60 seconds. Draw the figure using only 3 lines: One for the spine/head rhythm, one for the shoulder angle, one for the hip angle. Stop at 60 seconds. This trains you to see gesture before anatomy.</p></li>
+    </ol>
+    <hr>
+    <p style="text-align: center; font-size: 0.9rem;"><i class="fas fa-palette"></i> Practice daily, and remember: anatomy is a language — the more you draw it, the more fluent you become.</p>
+</div>
+<footer>
+    <p>© 2026 ArtHub — Human Anatomy for Artists <i class="fas fa-heart" style="color: var(--accent-pink);"></i></p>
+</footer>
+<button class="theme-btn-lesson" id="themeToggleLesson"><i class="fas fa-moon" id="themeIconLesson"></i> Dark/Light</button>
+
+<script>
+    function initTheme() {
+        if (localStorage.getItem('darkMode') === 'true') {
+            document.body.classList.add('dark');
+        } else {
+            document.body.classList.remove('dark');
+        }
+        updateIcon();
+    }
+    function toggleTheme() {
+        document.body.classList.toggle('dark');
+        localStorage.setItem('darkMode', document.body.classList.contains('dark'));
+        updateIcon();
+    }
+    function updateIcon() {
+        const icon = document.getElementById('themeIconLesson');
+        if (document.body.classList.contains('dark')) {
+            icon.classList.remove('fa-moon');
+            icon.classList.add('fa-sun');
+        } else {
+            icon.classList.remove('fa-sun');
+            icon.classList.add('fa-moon');
+        }
+    }
+    document.getElementById('themeToggleLesson').addEventListener('click', toggleTheme);
+    initTheme();
+</script>
+</body>
+</html>

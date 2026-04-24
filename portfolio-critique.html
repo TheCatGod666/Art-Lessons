@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>ArtHub · Portfolio and Critique</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: background-color 0.2s ease, color 0.2s, border-color 0.2s;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Inter', system-ui, -apple-system, 'Roboto', sans-serif;
+            line-height: 1.55;
+            position: relative;
+        }
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -2;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Cpath fill='%23b87c4f' fill-opacity='0.12' d='M60,15 L63,25 L73,25 L65,32 L68,42 L60,36 L52,42 L55,32 L47,25 L57,25 Z'/%3E%3Ccircle cx='30' cy='85' r='5' fill='%23e58a9e' fill-opacity='0.15'/%3E%3Ccircle cx='95' cy='40' r='6' fill='%236c9e4f' fill-opacity='0.12'/%3E%3Cpath fill='%235b8cbf' fill-opacity='0.1' d='M100,90 L103,96 L110,96 L105,101 L107,108 L100,103 L93,108 L95,101 L90,96 L97,96 Z'/%3E%3C/svg%3E");
+            background-repeat: repeat;
+            background-size: 80px 80px;
+        }
+        body.dark::before {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Cpath fill='%23d49c6c' fill-opacity='0.08' d='M60,15 L63,25 L73,25 L65,32 L68,42 L60,36 L52,42 L55,32 L47,25 L57,25 Z'/%3E%3Ccircle cx='30' cy='85' r='5' fill='%23f0a1b3' fill-opacity='0.1'/%3E%3Ccircle cx='95' cy='40' r='6' fill='%2380b35c' fill-opacity='0.08'/%3E%3Cpath fill='%236c9fd6' fill-opacity='0.08' d='M100,90 L103,96 L110,96 L105,101 L107,108 L100,103 L93,108 L95,101 L90,96 L97,96 Z'/%3E%3C/svg%3E");
+        }
+
+        :root {
+            --bg-body: #fef7e9;
+            --bg-card: #ffffff;
+            --text-primary: #2c2418;
+            --text-secondary: #5a4a34;
+            --border-light: #f0e2cf;
+            --accent-brown: #b87c4f;
+            --accent-green: #6c9e4f;
+            --accent-blue: #5b8cbf;
+            --accent-pink: #e58a9e;
+            --accent-brown-soft: #d9b48b;
+            --accent-green-soft: #b3d0a2;
+            --accent-blue-soft: #aac4e6;
+            --accent-pink-soft: #f4c4d0;
+            --shadow: 0 8px 20px rgba(0,0,0,0.05);
+        }
+        body.dark {
+            --bg-body: #1a1714;
+            --bg-card: #2a2622;
+            --text-primary: #f2ede4;
+            --text-secondary: #cdc2b2;
+            --border-light: #3f382f;
+            --accent-brown: #d49c6c;
+            --accent-green: #80b35c;
+            --accent-blue: #6c9fd6;
+            --accent-pink: #f0a1b3;
+            --accent-brown-soft: #9c6e48;
+            --accent-green-soft: #4f7039;
+            --accent-blue-soft: #4a6e96;
+            --accent-pink-soft: #b35f73;
+            --shadow: 0 8px 20px rgba(0,0,0,0.4);
+        }
+        body {
+            background: var(--bg-body);
+            color: var(--text-primary);
+        }
+
+        .lesson-container {
+            max-width: 1000px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: var(--bg-card);
+            border-radius: 2rem;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-light);
+            position: relative;
+            z-index: 1;
+        }
+
+        h1, h2, h3, h4 {
+            color: var(--accent-brown);
+            margin-top: 1.8rem;
+            margin-bottom: 0.8rem;
+            font-weight: 600;
+        }
+        h1 {
+            font-size: 2.4rem;
+            border-left: 6px solid var(--accent-pink);
+            padding-left: 1rem;
+            margin-top: 0.5rem;
+        }
+        h2 {
+            font-size: 1.8rem;
+            border-bottom: 2px solid var(--accent-green-soft);
+            display: inline-block;
+            padding-bottom: 0.3rem;
+        }
+        h3 {
+            font-size: 1.4rem;
+            color: var(--accent-blue);
+            margin-top: 1.2rem;
+        }
+        h4 {
+            font-size: 1.2rem;
+            color: var(--accent-pink);
+        }
+        p, li {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+        ul, ol {
+            margin: 0.8rem 0 1.2rem 2rem;
+        }
+        li {
+            margin: 0.4rem 0;
+        }
+        em, strong {
+            color: var(--accent-brown);
+        }
+        hr {
+            border: none;
+            height: 2px;
+            background: var(--border-light);
+            margin: 2rem 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            background: var(--bg-body);
+            border-radius: 1rem;
+            overflow: hidden;
+        }
+        th, td {
+            border: 1px solid var(--border-light);
+            padding: 10px 12px;
+            text-align: left;
+            vertical-align: top;
+            color: var(--text-secondary);
+        }
+        th {
+            background: var(--accent-blue-soft);
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 1.5rem;
+            background: var(--accent-blue-soft);
+            padding: 0.5rem 1.2rem;
+            border-radius: 40px;
+            text-decoration: none;
+            color: var(--text-primary);
+            font-weight: 500;
+            transition: 0.2s;
+        }
+        .back-link:hover {
+            background: var(--accent-pink-soft);
+            transform: translateX(-4px);
+        }
+        .theme-toggle {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-light);
+            border-radius: 60px;
+            padding: 10px 18px;
+            cursor: pointer;
+            font-weight: 500;
+            color: var(--text-primary);
+            box-shadow: var(--shadow);
+            z-index: 100;
+            backdrop-filter: blur(4px);
+        }
+        .theme-toggle:hover {
+            background: var(--accent-pink-soft);
+            transform: scale(0.96);
+        }
+        footer {
+            text-align: center;
+            padding: 1.5rem;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            border-top: 1px solid var(--border-light);
+            margin-top: 2rem;
+        }
+        @media (max-width: 680px) {
+            .lesson-container {
+                margin: 1rem;
+                padding: 1.2rem;
+            }
+            h1 { font-size: 1.8rem; }
+            h2 { font-size: 1.4rem; }
+            table, thead, tbody, th, td, tr { display: block; }
+            th, td { display: block; width: 100%; }
+        }
+    </style>
+</head>
+<body>
+<div class="lesson-container">
+    <a href="index.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to ArtHub Studio</a>
+    
+    <h2>PROFESSIONAL PRACTICE: PORTFOLIO AND CRITIQUE</h2>
+    <h3>Mindset, Curation, and Growth – Seeing Your Work Clearly</h3>
+    <p>&nbsp;</p>
+    
+    <h3>Introduction: The Mirror and the Window</h3>
+    <p>Your portfolio is a <strong>mirror</strong>. It reflects back to you—and to the world—who you are as an artist at this moment in time. A poorly curated portfolio is a dirty, cracked mirror. It distorts the image and confuses the viewer. A well-curated portfolio is a clean, clear mirror. It shows <strong>intention, taste, and self-awareness</strong>.</p>
+    <p>Critique is a <strong>window</strong>. It allows light and air from the outside world to enter your studio. Without it, you work in a sealed room, breathing your own recycled air. With it, you gain perspective, identify blind spots, and accelerate your growth exponentially.</p>
+    <p>Both portfolio curation and critique engagement require a <strong>specific mindset</strong>: one of <strong>detached assessment, ruthless honesty, and resilient openness</strong>. This lesson is about cultivating that mindset.</p>
+    <p>&nbsp;</p>
+    
+    <h3>SECTION 1: THE PORTFOLIO MINDSET – From Hoarder to Curator</h3>
+    <p>Most artists approach their portfolio like a <strong>hoarder</strong>. "I made this, so I must include it." This is the wrong mindset.</p>
+    <h4>1.1 The Fundamental Shift: You Are a Curator, Not a Creator</h4>
+    <p>When you are in the studio, you are a <strong>Creator</strong>. Your job is to explore, experiment, and produce. Judgment is suspended.<br>
+    When you are building your portfolio, you are a <strong>Curator</strong>. Your job is to <strong>select, reject, and arrange</strong>. Judgment is essential. <strong>You must become a ruthless editor of your own work.</strong></p>
+    <p><strong>The Curator's Questions:</strong> Does this represent the work I want to be hired for? Is this among my top 10-15 strongest pieces? If I saw it in someone else's portfolio, would I be impressed? Does it communicate a clear, specific skill?</p>
+    <p><strong>The Brutal Truth:</strong> Your portfolio is only as strong as the weakest piece you include. <em>"When in doubt, take it out."</em></p>
+    <h4>1.2 The "Kill Your Darlings" Mindset</h4>
+    <p>Separate <strong>Personal Value</strong> from <strong>Professional Value</strong>. The piece you are emotionally attached to may not belong in your professional portfolio. Ask: "If I saw this on ArtStation by a stranger, would I hire them based on this?" If no, it stays out.</p>
+    <h4>1.3 The "Less Is More" Principle (The 10-15 Rule)</h4>
+    <p>A professional portfolio should contain <strong>10 to 15 pieces</strong>. Art directors spend 30-60 seconds scanning. Include only your <strong>peak performance</strong>. Structure: Hero Piece (first), Core (8-12 consistent high-quality works), Strong Finish (last).</p>
+    <h4>1.4 The "Specialist vs. Generalist" Mindset</h4>
+    <p>Clients hire <strong>specialists</strong>. Choose a lane. You can have multiple portfolios but keep them separate. The portfolio you send to a game studio should be laser-focused on the role.</p>
+    <p>&nbsp;</p>
+    
+    <h3>SECTION 2: THE CRITIQUE MINDSET – From Defense to Growth</h3>
+    <p>Receiving critique is a <strong>skill</strong>. The default human response is defensiveness; the professional response is curiosity.</p>
+    <h4>2.1 The Three Levels of Critique Response</h4>
+    <table>
+        <thead><tr><th>Level</th><th>Name</th><th>Internal Narrative</th><th>Outcome</th></tr></thead>
+        <tbody>
+            <tr><td><strong>Level 1</strong></td><td><strong>Defensive/Reactive</strong></td><td>"They're wrong. They don't understand."</strong> </td><td>Zero growth, damaged relationships</strong> </td></tr>
+            <tr><td><strong>Level 2</strong> </td><td><strong>Passive/Acquiescent</strong> </td><td>"They're probably right. I'll just change it."</strong> </td><td>Superficial change, loss of voice</strong> </td></tr>
+            <tr><td><strong>Level 3</strong> </td><td><strong>Curious/Analytical</strong> </td><td>"Why do they see it that way? What problem are they pointing to?"</strong> </td><td>Accelerated growth, deeper understanding</strong> </td></tr>
+        </tbody>
+    </table>
+    <h4>2.2 The "Separate the Signal from the Noise" Mindset</h4>
+    <p><strong>Filtering framework:</strong> Trusted mentor/experienced professional → high signal. Peer at similar level → medium-high. Client/art director → directive signal. Random social media commenter → low signal (ignore unless specific). Family/friends → low signal, thank them for support.</p>
+    <h4>2.3 The "Critique Sandwich" Fallacy (And the Better Alternative)</h4>
+    <p>Focus on <strong>specific, observable problems</strong>, not personal taste. When receiving, hear the problem, not the tone. The mantra: <em>"Thank you for taking the time to look at my work. I'm going to sit with this feedback."</em></p>
+    <h4>2.4 The "Not About You" Mindset (The Ego Detachment)</h4>
+    <p>The critique is about the <strong>work</strong>, not the <strong>self</strong>. A flaw in the painting is not a flaw in your soul. Practice saying: <em>"This is useful information about the work."</em></p>
+    <p>&nbsp;</p>
+    
+    <h3>SECTION 3: SELF-CRITIQUE – The Internal Dialogue</h3>
+    <h4>3.1 The "Fresh Eyes" Protocol (The 24-Hour Rule)</h4>
+    <p>Never judge a piece in the same session. Walk away for 24 hours, then flip horizontally. Ask: first focal point? weakest area? value structure? what can be removed?</p>
+    <h4>3.2 The "Three Wins and a Grow" Practice</h4>
+    <p>Write down three specific things that went well, and one area to focus on improving next. Trains the brain to see strengths and weaknesses without self-judgment.</p>
+    <h4>3.3 The "Compare to Yourself" Rule</h4>
+    <p>Never compare your work-in-progress to someone else's finished masterpiece. Compare your current piece to your own work from six months ago to see measurable growth.</p>
+    <p>&nbsp;</p>
+    
+    <h3>SECTION 4: THE PUBLIC PORTFOLIO – Mindset for Sharing Work</h3>
+    <h4>4.1 The "Document, Don't Perform" Mindset</h4>
+    <p>Share a record of your process and current skill level – a snapshot, not a final judgment. Your online portfolio is a living document. Older work being less skilled is proof of growth.</p>
+    <h4>4.2 The "Post and Ghost" Technique</h4>
+    <p>Post your work, close the app, do not check back for 3-4 hours. Breaks the addictive dopamine loop and protects creative focus.</p>
+    <h4>4.3 Handling Unsolicited, Negative Feedback</h4>
+    <p>Use the Curious Filter (is there signal?), Block and Bless (silently block), and the No-Engagement Rule – never argue with a commenter. Your art is the argument.</p>
+    <p>&nbsp;</p>
+    
+    <h3>SECTION 5: THE PROFESSIONAL PORTFOLIO REVIEW – What to Expect</h3>
+    <p>The art director's 30-second scan: first image (strong?), scroll for consistency, stop at weak pieces, check finish. Your portfolio is judged against hundreds of others. Only your absolute best work belongs there.</p>
+    <p>&nbsp;</p>
+    
+    <h3>SECTION 6: COMMON MINDSET TRAPS &amp; HOW TO ESCAPE THEM</h3>
+    <table>
+        <thead><tr><th>Mindset Trap</th><th>Escape Route</th></tr></thead>
+        <tbody>
+            <tr><td><strong>The "Not Ready" Trap</strong> ("I'll build my portfolio when I'm good enough.")
+</strong> </td><td>Your portfolio is a snapshot of <em>now</em>. Update as you grow. Curation clarifies what to work on next.</strong> </td></tr>
+            <tr><td><strong>The "Imposter" Trap</strong> ("Who am I to call myself an artist?")
+</strong> </td><td>Everyone feels this. Focus on the work, not the label. The skills are demonstrable.</strong> </td></tr>
+            <tr><td><strong>The "Comparison Spiral"</strong> (Scrolling ArtStation and feeling like a fraud)
+</strong> </td><td>Close the tab. Make any mark. Compare to your past self, not others' curated highlights.</strong> </td></tr>
+            <tr><td><strong>The "One Piece" Trap</strong> ("If I can just make this one piece perfect...")
+</strong> </td><td>Success is a body of work, not a single image. Release the pressure. This is just <em>another</em> piece.</strong> </td></tr>
+            <tr><td><strong>The "Critique as Attack" Trap</strong> (Feeling wounded by a suggestion)
+</strong> </td><td>Reframe: They cared enough to look closely. That is a gift.</strong> </td></tr>
+        </tbody>
+    </table>
+    <p>&nbsp;</p>
+    
+    <h3>SECTION 7: ASSIGNMENT / PRACTICE DRILL</h3>
+    <p><strong>Drill 1: The Ruthless Portfolio Cull</strong> – Gather 20-30 recent pieces. First pass: remove any that make you wince or require excuses. Second pass: rank strongest to weakest. Keep only the top 10-12.<br>
+    <strong>Drill 2: The "Three Wins and a Grow" Journal</strong> – For one week, after each art session, write three wins and one grow. Review at week's end for patterns.<br>
+    <strong>Drill 3: The 24-Hour Flip Test</strong> – Finish a piece. Do not post. Wait 24 hours, flip horizontally, write down three specific observations.<br>
+    <strong>Drill 4: The "Curious" Critique Response (Role Play)</strong> – Find a piece you admire online. Write one specific, actionable, kind critique. Then imagine you received that critique on your own work; write a Level 3 (curious/analytical) response.<br>
+    <strong>Drill 5: The Portfolio "Lane" Declaration</strong> – Write one sentence defining your desired professional specialty. Review your current portfolio and remove any piece that does not clearly support that sentence.</p>
+    <hr>
+    <p style="text-align: center; font-size: 0.9rem;"><i class="fas fa-folder-open"></i> Your portfolio is never finished – it is a living document of your growth. Curate ruthlessly, seek critique curiously, and let the work speak.</p>
+</div>
+<footer>
+    <p>© 2026 ArtHub — Professional Practice: Portfolio and Critique <i class="fas fa-heart" style="color: var(--accent-pink);"></i></p>
+</footer>
+<div class="theme-toggle" id="themeToggle"><i class="fas fa-moon" id="themeIcon"></i> Dark/Light</div>
+
+<script>
+    function initTheme() {
+        if (localStorage.getItem('darkMode') === 'true') {
+            document.body.classList.add('dark');
+        } else {
+            document.body.classList.remove('dark');
+        }
+        updateIcon();
+    }
+    function toggleTheme() {
+        document.body.classList.toggle('dark');
+        localStorage.setItem('darkMode', document.body.classList.contains('dark'));
+        updateIcon();
+    }
+    function updateIcon() {
+        const icon = document.getElementById('themeIcon');
+        if (document.body.classList.contains('dark')) {
+            icon.classList.remove('fa-moon');
+            icon.classList.add('fa-sun');
+        } else {
+            icon.classList.remove('fa-sun');
+            icon.classList.add('fa-moon');
+        }
+    }
+    document.getElementById('themeToggle').addEventListener('click', toggleTheme);
+    initTheme();
+</script>
+</body>
+</html>
